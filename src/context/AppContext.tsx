@@ -10,9 +10,9 @@ interface AppContextType {
   companyProfile: CompanyProfile;
   jobs: Job[];
   applications: Application[];
-  login: (username: string, role?: Role) => boolean;
+  login: (username: string, passwordOrRole: string | Role) => boolean;
   logout: () => void;
-  register: (name: string, username: string, email: string, role: Role) => void;
+  register: (username: string, password: string, role: Role) => boolean;
   updateStudentProfile: (profile: Partial<StudentProfile>) => void;
   updateCompanyProfile: (profile: Partial<CompanyProfile>) => void;
   addJob: (newJob: Omit<Job, 'id' | 'createdAt'>) => void;
@@ -20,9 +20,34 @@ interface AppContextType {
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
+const DEMO_PASSWORD = '123456';
+const ACCOUNTS_STORAGE_KEY = 'internmatch_accounts';
+
+interface StoredAccount {
+  user: User;
+  password: string;
+}
+
+function getStoredAccounts(): StoredAccount[] {
+  try {
+    const savedAccounts = localStorage.getItem(ACCOUNTS_STORAGE_KEY);
+    return savedAccounts ? JSON.parse(savedAccounts) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveStoredAccounts(accounts: StoredAccount[]) {
+  localStorage.setItem(ACCOUNTS_STORAGE_KEY, JSON.stringify(accounts));
+}
+
+function getAllAccounts(): StoredAccount[] {
+  const demoAccounts = initialUsers.map((user) => ({ user, password: DEMO_PASSWORD }));
+  return [...demoAccounts, ...getStoredAccounts()];
+}
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [currentUser, setCurrentUser] = useState<User | null>(initialUsers[0]); // Default to student 'nhitran' for instant demo
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [studentProfile, setStudentProfile] = useState<StudentProfile>(initialStudentProfile);
   const [companyProfile, setCompanyProfile] = useState<CompanyProfile>(initialCompanyProfile);
   const [jobs, setJobs] = useState<Job[]>(initialJobs);
@@ -52,25 +77,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const login = (username: string, targetRole?: Role): boolean => {
+  const login = (username: string, passwordOrRole: string | Role): boolean => {
     const trimmed = username.trim().toLowerCase();
-    const found = initialUsers.find((u) => u.username.toLowerCase() === trimmed);
-    if (found) {
-      setCurrentUser(found);
-      localStorage.setItem('internmatch_user', JSON.stringify(found));
-      return true;
-    }
+    const legacyDemoLogin = passwordOrRole === 'STUDENT' || passwordOrRole === 'COMPANY';
+    const password = legacyDemoLogin ? DEMO_PASSWORD : passwordOrRole;
+    const found = getAllAccounts().find(
+      (account) => account.user.username.toLowerCase() === trimmed && account.password === password,
+    );
 
-    // Dynamic mock user for demo
-    const dynamicUser: User = {
-      id: `user-${Date.now()}`,
-      username: username.trim(),
-      email: `${username.trim()}@internmatch.vn`,
-      role: targetRole || 'STUDENT',
-      name: targetRole === 'COMPANY' ? username : `Thực tập sinh ${username}`,
-    };
-    setCurrentUser(dynamicUser);
-    localStorage.setItem('internmatch_user', JSON.stringify(dynamicUser));
+    if (!found) return false;
+
+    setCurrentUser(found.user);
+    localStorage.setItem('internmatch_user', JSON.stringify(found.user));
     return true;
   };
 
@@ -79,14 +97,23 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem('internmatch_user');
   };
 
-  const register = (name: string, username: string, email: string, role: Role) => {
+  const register = (username: string, password: string, role: Role): boolean => {
+    const trimmedUsername = username.trim();
+    const normalizedUsername = trimmedUsername.toLowerCase();
+    if (!trimmedUsername || password.length < 6 || getAllAccounts().some(
+      (account) => account.user.username.toLowerCase() === normalizedUsername,
+    )) {
+      return false;
+    }
+
     const newUser: User = {
       id: `user-${Date.now()}`,
-      username,
-      email,
-      name,
+      username: trimmedUsername,
+      email: `${normalizedUsername}@internmatch.local`,
+      name: trimmedUsername,
       role,
     };
+    saveStoredAccounts([...getStoredAccounts(), { user: newUser, password }]);
     setCurrentUser(newUser);
     localStorage.setItem('internmatch_user', JSON.stringify(newUser));
 
@@ -94,7 +121,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const newProfile: StudentProfile = {
         ...initialStudentProfile,
         userId: newUser.id,
-        fullName: name,
+        fullName: trimmedUsername,
       };
       setStudentProfile(newProfile);
       localStorage.setItem('internmatch_student', JSON.stringify(newProfile));
@@ -102,12 +129,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const newCompany: CompanyProfile = {
         ...initialCompanyProfile,
         userId: newUser.id,
-        companyName: name,
-        email,
+        companyName: trimmedUsername,
+        email: newUser.email,
       };
       setCompanyProfile(newCompany);
       localStorage.setItem('internmatch_company', JSON.stringify(newCompany));
     }
+    return true;
   };
 
   const updateStudentProfile = (updated: Partial<StudentProfile>) => {
