@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# InternMatch
 
-## Getting Started
+Nền tảng kết nối sinh viên/thực tập sinh với doanh nghiệp tuyển dụng.
 
-First, run the development server:
+InternMatch hỗ trợ sinh viên tìm kiếm cơ hội thực tập, xây dựng hồ sơ và ứng tuyển; đồng thời giúp doanh nghiệp đăng tin tuyển dụng và quản lý ứng viên.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Phạm vi sản phẩm
+
+Sản phẩm được xây dựng theo phạm vi trong [Contract](./docs/Contract.md) và giao diện trong [docs/mockups](./docs/mockups).
+
+### Sinh viên / Thực tập sinh
+
+- Đăng ký, đăng nhập và đăng xuất
+- Cập nhật hồ sơ cá nhân
+- Upload ảnh đại diện và CV
+- Nhập trường, chuyên ngành, GPA, năm tốt nghiệp và kỹ năng
+- Xem dashboard cá nhân
+- Xem lịch sử ứng tuyển
+- Nhận gợi ý việc làm dựa trên kỹ năng
+- Xem chi tiết và ứng tuyển vào vị trí thực tập
+
+### Doanh nghiệp
+
+- Đăng ký, đăng nhập và đăng xuất
+- Cập nhật hồ sơ doanh nghiệp
+- Quản lý thông tin công ty và logo
+- Đăng tin tuyển dụng
+- Chỉnh sửa và quản lý tin đã đăng
+- Xem danh sách ứng viên
+- Xem hồ sơ ứng viên và xử lý đơn ứng tuyển
+
+### Việc làm
+
+- Danh sách việc làm
+- Tìm kiếm theo vị trí và kỹ năng
+- Lọc theo địa điểm
+- Lọc theo hình thức làm việc
+- Hiển thị ngành nghề, kỹ năng, trợ cấp và địa điểm
+- Trang chi tiết việc làm
+- Ứng tuyển dành cho sinh viên
+
+## Route chính
+
+| Route | Mô tả |
+| --- | --- |
+| `/` | Trang chủ |
+| `/login` | Đăng nhập |
+| `/register` | Tạo tài khoản |
+| `/jobs` | Danh sách việc làm |
+| `/jobs/[id]` | Chi tiết việc làm |
+| `/student/profile` | Hồ sơ thực tập sinh |
+| `/student/dashboard` | Dashboard thực tập sinh |
+| `/company/profile` | Hồ sơ doanh nghiệp |
+| `/company/dashboard` | Dashboard doanh nghiệp |
+| `/company/jobs/create` | Đăng tin tuyển dụng |
+
+## Tech stack
+
+- Next.js App Router
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Lucide React
+- Supabase Auth
+- Supabase PostgreSQL
+- Supabase Storage
+- Zod
+- React Hook Form
+- Vercel
+
+## Kiến trúc
+
+InternMatch sử dụng kiến trúc **Modular Monolith**:
+
+```text
+Next.js App Router
+├── Auth
+├── Student
+├── Company
+├── Jobs
+├── Applications
+└── Matching
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Chi tiết xem tại [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Bắt đầu phát triển
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Yêu cầu
 
-## Learn More
+- Node.js 20+
+- pnpm 11+
 
-To learn more about Next.js, take a look at the following resources:
+### Cài đặt
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Chạy môi trường development
 
-## Deploy on Vercel
+```bash
+pnpm dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Mở [http://localhost:3000](http://localhost:3000).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Kiểm tra code
+
+```bash
+pnpm lint
+```
+
+### Build production
+
+```bash
+pnpm build
+pnpm start
+```
+
+## Tài liệu
+
+- [Đặc tả yêu cầu](./docs/SPECIFICATIONS.md)
+- [Hợp đồng và phạm vi sản phẩm](./docs/Contract.md)
+- [Kiến trúc và tech stack](./docs/ARCHITECTURE.md)
+- [Mockups giao diện](./docs/mockups)
+
+## Ngoài phạm vi
+
+Các chức năng sau không thuộc phiên bản này:
+
+- Chat trực tiếp
+- Thanh toán online
+- Admin dashboard riêng
+- AI Matching nâng cao
+- Email campaign
+- Tính năng mới ngoài Contract
+
+## Trạng thái
+
+Dự án đang ở giai đoạn thiết kế kiến trúc và chuẩn bị triển khai theo Contract cùng bộ mockup đã thống nhất.
