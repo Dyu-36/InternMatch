@@ -4,7 +4,6 @@ import React, { createContext, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { User, StudentProfile, CompanyProfile, Job, Application, Role, ApplicationStatus } from '@/types';
 import * as actions from '@/app/actions';
-import { authEmail } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/client';
 
 export type ProfileFiles = { avatarFile?: File; cvFile?: File; logoFile?: File };
@@ -51,20 +50,7 @@ export function AppProvider({ children, initialState }: { children: React.ReactN
   const refresh = async () => { setState(unwrap(await actions.getAppState())); router.refresh(); };
   const login = async (username: string, password: string) => { unwrap(await actions.signIn({ username, password })); await refresh(); return true; };
   const register = async (username: string, password: string, role: Role) => {
-    const client = createClient();
-    const { error } = await client.auth.signUp({
-      email: authEmail(username),
-      password,
-      options: { data: { username, role } },
-    });
-    if (error) {
-      const messages: Record<string, string> = {
-        user_already_exists: 'Tên đăng nhập đã tồn tại.',
-        over_request_rate_limit: 'Hệ thống đang giới hạn số lần đăng ký. Vui lòng chờ vài phút rồi thử lại.',
-        over_email_send_rate_limit: 'Hệ thống đang giới hạn số lần đăng ký. Vui lòng chờ vài phút rồi thử lại.',
-      };
-      throw new Error(messages[error.code ?? ''] ?? error.message);
-    }
+    unwrap(await actions.signUp({ username, password }, role));
     await refresh();
     return true;
   };

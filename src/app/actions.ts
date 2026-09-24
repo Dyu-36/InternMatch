@@ -6,6 +6,7 @@ import { requireAccount, readAppState } from '@/lib/repository';
 import { credentialsSchema, roleSchema, studentSchema, companySchema, jobSchema } from '@/lib/validation';
 import { jobPayload } from '@/lib/mappers';
 import { authEmail } from '@/lib/auth';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 async function result<T>(operation: () => Promise<T>) {
   try { return { data: await operation(), error: null }; }
@@ -15,6 +16,7 @@ async function result<T>(operation: () => Promise<T>) {
     const messages: Record<string, string> = {
       invalid_credentials: 'Tên đăng nhập hoặc mật khẩu không đúng.',
       user_already_exists: 'Tên đăng nhập đã tồn tại.',
+      email_exists: 'Tên đăng nhập đã tồn tại.',
       '23505': 'Thông tin này đã tồn tại hoặc bạn đã ứng tuyển vào vị trí này.',
       '42501': 'Bạn không có quyền thực hiện thao tác này.',
       over_request_rate_limit: 'Bạn thao tác quá nhanh. Vui lòng thử lại sau.',
@@ -40,8 +42,21 @@ export async function signUp(input: unknown, roleInput: unknown) {
   return result(async () => {
     const { username, password } = credentialsSchema.parse(input);
     const role = roleSchema.parse(roleInput);
+    const email = authEmail(username);
+    const admin = createAdminClient();
+    if (admin) {
+      const { data, error } = await admin.auth.admin.createUser({
+        email,
+        password,
+        email_confirm: true,
+        user_metadata: { username, role },
+      });
+      if (error) throw error;
+      if (!data.user) throw new Error('Không thể hoàn tất đăng ký. Vui lòng thử lại.');
+      return true;
+    }
     const client = await createClient();
-    const { data, error } = await client.auth.signUp({ email: authEmail(username), password,
+    const { data, error } = await client.auth.signUp({ email, password,
       options: { data: { username, role } } });
     if (error) throw error;
     if (!data.session) throw new Error('Không thể hoàn tất đăng ký. Vui lòng liên hệ hỗ trợ.');
