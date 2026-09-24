@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { User, StudentProfile, CompanyProfile, Job, Application, Role, ApplicationStatus } from '@/types';
 import * as actions from '@/app/actions';
+import { authEmail } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/client';
 
 export type ProfileFiles = { avatarFile?: File; cvFile?: File; logoFile?: File };
@@ -51,6 +52,9 @@ export function AppProvider({ children, initialState }: { children: React.ReactN
   const login = async (username: string, password: string) => { unwrap(await actions.signIn({ username, password })); await refresh(); return true; };
   const register = async (username: string, password: string, role: Role) => {
     unwrap(await actions.signUp({ username, password }, role));
+    const client = createClient();
+    const { error } = await client.auth.signInWithPassword({ email: authEmail(username), password });
+    if (error) throw new Error('Tài khoản đã tạo nhưng chưa đăng nhập được. Vui lòng thử đăng nhập lại.');
     await refresh();
     return true;
   };
