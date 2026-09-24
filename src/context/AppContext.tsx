@@ -32,18 +32,24 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const savedUser = localStorage.getItem('internmatch_user');
+      // Hydrate persisted demo state once on the client after the initial render.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (savedUser) setCurrentUser(JSON.parse(savedUser));
 
       const savedStudent = localStorage.getItem('internmatch_student');
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (savedStudent) setStudentProfile(JSON.parse(savedStudent));
 
       const savedCompany = localStorage.getItem('internmatch_company');
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (savedCompany) setCompanyProfile(JSON.parse(savedCompany));
 
       const savedJobs = localStorage.getItem('internmatch_jobs');
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (savedJobs) setJobs(JSON.parse(savedJobs));
 
       const savedApps = localStorage.getItem('internmatch_apps');
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (savedApps) setApplications(JSON.parse(savedApps));
     } catch {
       // Ignore JSON error
