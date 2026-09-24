@@ -1,0 +1,5 @@
+--- add src/lib/repository.ts ---
+exit=0
+--- commit -mfix-auth: preserve-session-state ---
+error: pathspec 'preserve-session-state' did not match any file(s) known to git
+exit=1
