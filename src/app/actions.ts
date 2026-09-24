@@ -6,6 +6,12 @@ import { requireAccount, readAppState } from '@/lib/repository';
 import { credentialsSchema, roleSchema, studentSchema, companySchema, jobSchema } from '@/lib/validation';
 import { jobPayload } from '@/lib/mappers';
 
+const AUTH_EMAIL_DOMAIN = process.env.AUTH_EMAIL_DOMAIN ?? 'internmatch.vercel.app';
+
+function authEmail(username: string) {
+  return `${username}@${AUTH_EMAIL_DOMAIN}`;
+}
+
 async function result<T>(operation: () => Promise<T>) {
   try { return { data: await operation(), error: null }; }
   catch (error) {
@@ -29,7 +35,7 @@ export async function signIn(input: unknown) {
   return result(async () => {
     const { username, password } = credentialsSchema.parse(input);
     const client = await createClient();
-    const { error } = await client.auth.signInWithPassword({ email: `${username}@internmatch.local`, password });
+    const { error } = await client.auth.signInWithPassword({ email: authEmail(username), password });
     if (error) throw error;
     return true;
   });
@@ -40,7 +46,7 @@ export async function signUp(input: unknown, roleInput: unknown) {
     const { username, password } = credentialsSchema.parse(input);
     const role = roleSchema.parse(roleInput);
     const client = await createClient();
-    const { data, error } = await client.auth.signUp({ email: `${username}@internmatch.local`, password,
+    const { data, error } = await client.auth.signUp({ email: authEmail(username), password,
       options: { data: { username, role } } });
     if (error) throw error;
     if (!data.session) throw new Error('Không thể hoàn tất đăng ký. Vui lòng liên hệ hỗ trợ.');
