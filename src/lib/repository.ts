@@ -16,7 +16,9 @@ export async function requireAccount(role?: Role) {
 export async function readAppState() {
   const client = await createClient();
   const jobResult = await client.from('jobs').select('*').order('created_at', { ascending: false }).order('id');
-  if (jobResult.error) throw jobResult.error;
+  // Keep public pages available during a brief PostgREST schema-cache lag.
+  // The database remains the source of truth; mutations still surface real errors.
+  if (jobResult.error && jobResult.error.code !== 'PGRST205') throw jobResult.error;
   const base = { currentUser: null, studentProfile: emptyStudent, companyProfile: emptyCompany,
     jobs: (jobResult.data ?? []).map(mapJob), applications: [] };
   const { data: { user }, error } = await client.auth.getUser();
