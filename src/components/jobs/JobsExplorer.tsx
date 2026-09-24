@@ -9,6 +9,14 @@ import { useRouter } from "next/navigation";
 import type { Job } from "@/types";
 import { useApp } from "@/context/AppContext";
 import JobCard from "@/components/jobs/JobCard";
+import { Input as ShadcnInput } from "@/components/shadcn/input";
+import {
+  Select as ShadcnSelect,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/shadcn/select";
 
 interface JobsExplorerProps {
   initialFilters: {
@@ -85,26 +93,30 @@ export default function JobsExplorer({ initialFilters }: JobsExplorerProps) {
           </div>
 
           <form onSubmit={handleSubmit} className="mt-8 grid gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-subtle)] p-3 shadow-sm lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(190px,0.9fr)_auto]">
-            <label className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)]">
+            <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)]">
               <Search size={18} aria-hidden="true" />
               <span className="sr-only">{t("Tìm theo vị trí hoặc kỹ năng")}</span>
-              <input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder={t("Vị trí, công ty hoặc kỹ năng")} className="min-w-0 flex-1 bg-transparent text-sm text-[var(--foreground)] outline-none placeholder:text-slate-400" />
-            </label>
+              <ShadcnInput value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder={t("Vị trí, công ty hoặc kỹ năng")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:ring-0" />
+            </div>
 
-            <label className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)]">
+            <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)]">
               <MapPin size={18} aria-hidden="true" />
               <span className="sr-only">{t("Lọc theo địa điểm")}</span>
-              <input value={location} onChange={(event) => setLocation(event.target.value)} placeholder={t("Địa điểm")} className="min-w-0 flex-1 bg-transparent text-sm text-[var(--foreground)] outline-none placeholder:text-slate-400" />
-            </label>
+              <ShadcnInput value={location} onChange={(event) => setLocation(event.target.value)} placeholder={t("Địa điểm")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:ring-0" />
+            </div>
 
-            <label className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)]">
+            <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)]">
               <Briefcase size={18} aria-hidden="true" />
               <span className="sr-only">{t("Lọc theo hình thức")}</span>
-              <select value={jobType} onChange={(event) => setJobType(event.target.value)} className="min-w-0 flex-1 bg-transparent text-sm text-[var(--foreground)] outline-none">
-                <option value="">{t("Tất cả hình thức")}</option>
-                {jobTypes.map((type) => <option key={type} value={type}>{t(type)}</option>)}
-              </select>
-            </label>
+              <ShadcnSelect value={jobType} onValueChange={setJobType}>
+                <SelectTrigger className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:ring-0">
+                  <SelectValue placeholder={t("Tất cả hình thức")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {jobTypes.map((type) => <SelectItem key={type} value={type}>{t(type)}</SelectItem>)}
+                </SelectContent>
+              </ShadcnSelect>
+            </div>
 
             <button type="submit" className="ui-button ui-button-primary min-h-12 px-5"><Search size={17} aria-hidden="true" />{t("Tìm kiếm")}</button>
           </form>
@@ -120,7 +132,7 @@ export default function JobsExplorer({ initialFilters }: JobsExplorerProps) {
 
           <div className="flex flex-wrap items-center gap-2">
             {activeFilterCount > 0 && <button type="button" onClick={clearFilters} className="ui-button ui-button-ghost ui-button-sm"><X size={15} aria-hidden="true" />{t("Xóa bộ lọc")}</button>}
-            <label className="flex items-center gap-2 text-sm text-[var(--muted)]"><span>{t("Sắp xếp")}</span><select value={sort} onChange={(event) => setSort(event.target.value as "newest" | "salary")} className="ui-select min-w-36 py-2"><option value="newest">{t("Mới nhất")}</option><option value="salary">{t("Trợ cấp cao nhất")}</option></select></label>
+            <div className="flex items-center gap-2 text-sm text-[var(--muted)]"><span>{t("Sắp xếp")}</span><ShadcnSelect value={sort} onValueChange={(value) => setSort(value as "newest" | "salary")}><SelectTrigger className="h-10 min-w-36 border-[var(--border-strong)] bg-white text-[var(--foreground)]"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="newest">{t("Mới nhất")}</SelectItem><SelectItem value="salary">{t("Trợ cấp cao nhất")}</SelectItem></SelectContent></ShadcnSelect></div>
           </div>
         </div>
 

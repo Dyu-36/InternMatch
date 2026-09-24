@@ -5,6 +5,14 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, MapPin, Briefcase, CheckCircle2, TrendingUp } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
+import { Input as ShadcnInput } from '@/components/shadcn/input';
+import {
+  Select as ShadcnSelect,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/shadcn/select';
 
 const POPULAR_ROLES = [
   'React Developer', 'UI/UX Design', 'Data Analyst',
@@ -33,7 +41,11 @@ export default function HeroSection() {
   return (
     <section
       className="relative overflow-hidden text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8"
-      style={{ background: 'linear-gradient(135deg, #022C22 0%, #064E3B 50%, #065F46 100%)' }}
+      style={{
+        backgroundImage: "linear-gradient(135deg, rgb(2 44 34 / 0.94), rgb(6 78 59 / 0.86)), url('/assets/backgrounds/pexels-students-internship-teamwork-7429464-1.jpg')",
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+      }}
     >
       <div
         className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 pointer-events-none"
@@ -63,39 +75,39 @@ export default function HeroSection() {
           <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-12 gap-2 sm:gap-3 items-center">
             <div className="md:col-span-4 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
               <Search className="w-4 h-4 text-gray-400 shrink-0" />
-              <input
+              <ShadcnInput
                 type="text"
                 aria-label={t("Tìm theo vị trí hoặc kỹ năng")}
                 placeholder={t("Vị trí, kỹ năng (Python, React...)")}
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                className="w-full text-sm bg-transparent outline-none placeholder-gray-400 text-gray-800"
+                className="h-auto w-full border-0 bg-transparent px-0 py-0 text-sm text-gray-800 shadow-none placeholder:text-gray-400 focus-visible:border-0 focus-visible:ring-0"
               />
             </div>
             <div className="md:col-span-3 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
               <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
-              <input
+              <ShadcnInput
                 type="text"
                 aria-label={t("Địa điểm")}
                 placeholder={t("Hà Nội, TP.HCM, Remote")}
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full text-sm bg-transparent outline-none placeholder-gray-400 text-gray-800"
+                className="h-auto w-full border-0 bg-transparent px-0 py-0 text-sm text-gray-800 shadow-none placeholder:text-gray-400 focus-visible:border-0 focus-visible:ring-0"
               />
             </div>
             <div className="md:col-span-3 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
               <Briefcase className="w-4 h-4 text-gray-400 shrink-0" />
-              <select
-                aria-label={t("Hình thức làm việc")}
-                value={jobType}
-                onChange={(e) => setJobType(e.target.value)}
-                className="w-full text-sm bg-transparent outline-none text-gray-700 cursor-pointer"
-              >
-                <option value="ALL">{t("Tất cả hình thức")}</option>
-                <option value="Thực tập Toàn thời gian">{t("Toàn thời gian")}</option>
-                <option value="Thực tập Bán thời gian">{t("Bán thời gian")}</option>
-                <option value="Remote">{t("Remote")}</option>
-              </select>
+              <ShadcnSelect value={jobType} onValueChange={setJobType}>
+                <SelectTrigger aria-label={t("Hình thức làm việc")} className="h-auto w-full border-0 bg-transparent px-0 py-0 text-sm text-gray-700 shadow-none focus-visible:border-0 focus-visible:ring-0">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ALL">{t("Tất cả hình thức")}</SelectItem>
+                  <SelectItem value="Thực tập Toàn thời gian">{t("Toàn thời gian")}</SelectItem>
+                  <SelectItem value="Thực tập Bán thời gian">{t("Bán thời gian")}</SelectItem>
+                  <SelectItem value="Remote">{t("Remote")}</SelectItem>
+                </SelectContent>
+              </ShadcnSelect>
             </div>
             <div className="md:col-span-2">
               <button

@@ -19,9 +19,7 @@ export function calculateSkillMatch(studentSkills: string[], jobSkills: string[]
 
   let matches = 0;
   for (const js of normalizedJob) {
-    if (normalizedStudent.includes(js)) {
-      matches++;
-    }
+    if (normalizedStudent.includes(js)) matches++;
   }
 
   return Math.round((matches / normalizedJob.length) * 100);
