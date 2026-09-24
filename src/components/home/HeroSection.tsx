@@ -61,7 +61,7 @@ export default function HeroSection() {
 
         <div className="bg-white rounded-2xl p-2.5 sm:p-3 shadow-2xl max-w-4xl mx-auto text-gray-800">
           <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-12 gap-2 sm:gap-3 items-center">
-            <div className="md:col-span-4 flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
+            <div className="md:col-span-4 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
               <Search className="w-4 h-4 text-gray-400 shrink-0" />
               <input
                 type="text"
@@ -72,7 +72,7 @@ export default function HeroSection() {
                 className="w-full text-sm bg-transparent outline-none placeholder-gray-400 text-gray-800"
               />
             </div>
-            <div className="md:col-span-3 flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
+            <div className="md:col-span-3 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
               <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
               <input
                 type="text"
@@ -83,7 +83,7 @@ export default function HeroSection() {
                 className="w-full text-sm bg-transparent outline-none placeholder-gray-400 text-gray-800"
               />
             </div>
-            <div className="md:col-span-3 flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
+            <div className="md:col-span-3 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
               <Briefcase className="w-4 h-4 text-gray-400 shrink-0" />
               <select
                 aria-label={t("Hình thức làm việc")}

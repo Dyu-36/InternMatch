@@ -16,7 +16,7 @@ CV là file riêng tư. Chỉ chủ CV và doanh nghiệp nhận đúng đơn c�
 - GitHub: `Dyu-36/InternMatch`, nhánh duy nhất `main`.
 - Supabase: project `InternMatch`, ref `johsqcfalnqdbksenyjy`, Singapore.
 - Vercel: project `internmatch`, team `duy-e198`.
-- Hai biến môi trường của app: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+- Cấu hình Vercel của app: `NEXT_PUBLIC_INTERNMATCH_SUPABASE_URL`, `NEXT_PUBLIC_INTERNMATCH_SUPABASE_PUBLISHABLE_KEY` và secret phía server `INTERNMATCH_SUPABASE_SECRET_KEY`. Hai biến `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` chỉ dùng làm giá trị dự phòng khi phát triển tại máy; integration Supabase trên Vercel có thể đặt chúng về project khác.
 - Personal access token Supabase chỉ dùng để cấu hình hạ tầng; app không phụ thuộc token này.
 - `SUPABASE_TEST_SERVICE_ROLE_KEY` chỉ dành cho chạy script QA có dọn dữ liệu. Không đặt biến này trong Vercel hoặc frontend.
 

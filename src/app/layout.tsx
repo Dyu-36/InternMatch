@@ -30,6 +30,11 @@ export const metadata: Metadata = {
     template: "%s | InternMatch",
   },
   description: "Nền tảng kết nối sinh viên và doanh nghiệp tuyển dụng thực tập.",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

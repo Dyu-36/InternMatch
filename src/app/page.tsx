@@ -5,17 +5,18 @@ import StatsSection from "@/components/home/StatsSection";
 import HowItWorksSection from "@/components/home/HowItWorksSection";
 import SolutionsSection from "@/components/home/SolutionsSection";
 import CtaSection from "@/components/home/CtaSection";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function Home() {
   return (
     <>
       <HeroSection />
-      <CategoriesSection />
-      <FeaturedJobsSection />
-      <StatsSection />
-      <HowItWorksSection />
-      <SolutionsSection />
-      <CtaSection />
+      <ScrollReveal><CategoriesSection /></ScrollReveal>
+      <ScrollReveal><FeaturedJobsSection /></ScrollReveal>
+      <ScrollReveal><StatsSection /></ScrollReveal>
+      <ScrollReveal><HowItWorksSection /></ScrollReveal>
+      <ScrollReveal><SolutionsSection /></ScrollReveal>
+      <ScrollReveal><CtaSection /></ScrollReveal>
     </>
   );
 }

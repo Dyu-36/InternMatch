@@ -9,11 +9,21 @@ const stamp = `ui_${Date.now()}`;
 const password = `Ui!${crypto.randomUUID()}`;
 const names = [`${stamp}_company`, `${stamp}_student`];
 const errors = [];
+const storageFailures = [];
 const browser = await chromium.launch({ headless: true });
 const companyContext = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
 const studentContext = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
 const company = await companyContext.newPage(), student = await studentContext.newPage();
-for (const page of [company, student]) { page.setDefaultTimeout(20000); page.on('pageerror', error => errors.push(error.message)); }
+for (const page of [company, student]) {
+  page.setDefaultTimeout(20000);
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('response', async response => {
+    if (!response.url().includes('/storage/v1/object') || response.status() < 400) return;
+    const body = await response.json().catch(() => ({}));
+    const url = new URL(response.url());
+    storageFailures.push({ host: url.host, bucket: url.pathname.split('/')[4], status: response.status(), code: body.code ?? body.error, message: body.message });
+  });
+}
 await mkdir('qa-artifacts', { recursive: true });
 async function register(page, username, role) {
   await page.goto(`${base}/register?role=${role}`);
@@ -125,18 +135,21 @@ try {
   expect(errors).toEqual([]);
   console.log('PASS 11 routes at desktop/tablet/mobile, bilingual UI, logout, sign-in, and zero browser errors');
 } catch (error) {
+  if (storageFailures.length) console.error('Storage failures:', storageFailures);
   await company.screenshot({ path: 'qa-artifacts/failure-company.png', fullPage: true });
   await student.screenshot({ path: 'qa-artifacts/failure-student.png', fullPage: true });
   throw error;
 } finally {
   await browser.close();
   const { data } = await admin.auth.admin.listUsers({ perPage: 1000 });
+  let cleanedAccounts = 0;
   for (const user of data.users.filter(user => names.includes(user.user_metadata?.username))) {
     for (const bucket of ['avatars', 'company-logos', 'resumes']) {
       const { data: files } = await admin.storage.from(bucket).list(user.id);
       if (files?.length) await admin.storage.from(bucket).remove(files.map(file => `${user.id}/${file.name}`));
     }
     await admin.auth.admin.deleteUser(user.id);
+    cleanedAccounts++;
   }
-  console.log('Cleaned up UI test accounts and files.');
+  console.log(`Cleaned up ${cleanedAccounts} UI test accounts and their files.`);
 }

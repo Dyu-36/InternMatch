@@ -2,6 +2,7 @@
 
 import { useT } from '@/context/LocaleContext';
 
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
@@ -28,7 +29,14 @@ export function SiteHeader() {
     <header className="site-header">
       <Container className="site-header__inner">
         <Link className="site-brand" href="/" aria-label={t("InternMatch - Trang chủ")} onClick={() => setOpen(false)}>
-          <span className="site-brand__mark" aria-hidden="true">IM</span>
+          <Image
+            className="site-brand__logo"
+            src="/brand/internmatch-logo.png"
+            alt=""
+            width={36}
+            height={36}
+            priority
+          />
           <span>InternMatch</span>
         </Link>
 

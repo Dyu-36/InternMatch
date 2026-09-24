@@ -10,6 +10,7 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
 The publishable key is safe for browser use. Never put a `service_role` key in the frontend or commit it.
+On Vercel, set `NEXT_PUBLIC_INTERNMATCH_SUPABASE_URL` and `NEXT_PUBLIC_INTERNMATCH_SUPABASE_PUBLISHABLE_KEY` for the app. They take precedence over `NEXT_PUBLIC_SUPABASE_*` injected by integrations. Set `INTERNMATCH_SUPABASE_SECRET_KEY` as a server-only secret for account creation; the app falls back to regular Auth sign-up when it is absent.
 
 ## 2. Authentication
 

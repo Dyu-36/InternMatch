@@ -1,8 +1,0 @@
---- commit -mfix-auth-preserve-session-state ---
-[main a459cf2] fix-auth-preserve-session-state
- 1 file changed, 6 insertions(+), 1 deletion(-)
-exit=0
---- push origin main ---
-To https://github.com/Dyu-36/InternMatch.git
-   cad4b31..a459cf2  main -> main
-exit=0
