@@ -38,16 +38,16 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 | Web framework | Next.js 16 App Router | Routing, SSR/RSC, server mutations |
 | UI | React 19 + TypeScript strict | Component và type safety |
 | Styling | Tailwind CSS 4 | Responsive mobile-first theo mockup |
-| UI primitives | shadcn/ui + Lucide React | Form control, dialog, dropdown, icons |
+| UI primitives | Shared UI components + Lucide React | Form control, dialog, dropdown, icons |
 | Authentication | Supabase Auth | Đăng ký, đăng nhập, đăng xuất |
 | Database | Supabase PostgreSQL | Hồ sơ, doanh nghiệp, job, application |
 | File storage | Supabase Storage | CV, ảnh đại diện, logo doanh nghiệp |
-| Data access | `@supabase/ssr` + generated types | Truy cập an toàn từ Server/Client Components |
-| Form validation | React Hook Form + Zod | Form và validation phía server/client |
+| Data access | `@supabase/ssr` + domain types/mappers | Truy cập an toàn từ Server/Client Components |
+| Form validation | React forms + Zod | Form và validation phía server/client |
 | Mutations | Next.js Server Actions | Tạo job, cập nhật hồ sơ, ứng tuyển |
-| i18n | `next-intl` với locale prefix ẩn | Tiếng Việt và English, không đổi public route |
+| i18n | LocaleContext + dictionary + locale cookie | Tiếng Việt và English, không đổi public route |
 | Deploy | Vercel + Supabase | Môi trường production |
-| Test | Vitest + Playwright | Unit logic và các user flow chính |
+| Test | Supabase integration checks + Playwright | Unit logic và các user flow chính |
 
 ## 4. Route map
 
@@ -70,7 +70,7 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 
 - `id` — liên kết `auth.users.id`
 - `role` — `STUDENT` hoặc `COMPANY`
-- `full_name`
+- `name`, `username`
 - `email`
 - `avatar_url`
 
@@ -79,13 +79,13 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 - `user_id`
 - `university`
 - `major`
-- `graduation_year`
+- `expected_graduation_year`
 - `gpa`
 - `skills`
-- `bio`
+- `goals`
 - `cv_url`
 
-### `companies`
+### `company_profiles`
 
 - `user_id`
 - `company_name`
@@ -95,7 +95,7 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 - `email`
 - `hotline`
 - `address`
-- `province`
+- `city`
 - `website`
 - `logo_url`
 - `description`
@@ -105,17 +105,17 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 - `id`
 - `company_id`
 - `title`
-- `category`
-- `workplace_type`
+- `industry`
+- `job_type`
 - `location`
-- `allowance_min`
-- `allowance_max`
-- `required_skills`
+- `min_salary`
+- `max_salary`
+- `skills`
 - `description`
 - `requirements`
 - `benefits`
 - `is_featured`
-- `status`
+- `quota`, `deadline`
 - `created_at`
 
 ### `applications`
@@ -125,7 +125,7 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 - `student_id`
 - `cover_letter`
 - `cv_url`
-- `status` — `PENDING`, `APPROVED`, `REJECTED`
+- `status` — `PENDING`, `REVIEWED`, `ACCEPTED`, `REJECTED`
 - `applied_at`
 
 ## 6. Quy tắc phân quyền
@@ -134,7 +134,7 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 - Doanh nghiệp chỉ cập nhật company profile và job do mình tạo.
 - Doanh nghiệp chỉ xem ứng viên của các job thuộc doanh nghiệp mình.
 - Sinh viên chỉ có thể ứng tuyển khi đã đăng nhập.
-- Job ở trạng thái published được xem công khai.
+- Tin đã tạo được xem công khai; đơn mới chỉ được nhận trước hạn.
 - Dùng Supabase Row Level Security làm lớp bảo vệ chính; UI không được xem là lớp bảo mật.
 
 ## 7. Matching trong phạm vi hợp đồng
@@ -172,4 +172,4 @@ Không tạo thêm dashboard admin, màn hình chat, thanh toán hoặc quy trì
 - Mock data và `localStorage` chỉ có thể dùng trong prototype giao diện.
 - Sản phẩm thật dùng Supabase Auth, PostgreSQL, Storage và RLS.
 - Không thay đổi source-of-truth của Contract/Mockups để bổ sung tính năng mới.
-- File này chỉ ghi nhận kiến trúc; chưa triển khai code hoặc thay đổi UI.
+- Đã triển khai backend và apply migration. Xem `HANDOVER.md` để vận hành.

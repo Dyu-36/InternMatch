@@ -61,13 +61,13 @@ Sản phẩm được xây dựng theo phạm vi trong [Contract](./docs/Contrac
 - React
 - TypeScript
 - Tailwind CSS
-- shadcn/ui
+- Shared UI components
 - Lucide React
 - Supabase Auth
 - Supabase PostgreSQL
 - Supabase Storage
 - Zod
-- React Hook Form
+- React forms + server-side Zod validation
 - Vercel
 
 ## Kiến trúc
@@ -98,6 +98,10 @@ Chi tiết xem tại [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 ```bash
 pnpm install
 ```
+
+### Cấu hình Supabase
+
+Copy `.env.example` sang `.env.local` và điền publishable key của Supabase. Xem [hướng dẫn backend](./supabase/README.md).
 
 ### Chạy môi trường development
 
@@ -148,4 +152,8 @@ Các chức năng sau không thuộc phiên bản này:
 
 ## Trạng thái
 
- Dự án đã hoàn thành UI theo Contract và bộ mockup đã thống nhất; bước tiếp theo là tích hợp backend Supabase.
+Đã tích hợp Supabase Auth, PostgreSQL, RLS, Storage và Server Actions. App sử dụng dữ liệu thật, hỗ trợ Tiếng Việt/English. Nhánh chính: `main`.
+
+- [Tiến độ](./docs/PROGRESS.md)
+- [Hướng dẫn bàn giao và vận hành](./docs/HANDOVER.md)
+- [Kết quả QA](./docs/PHASE-7-VISUAL-QA.md)

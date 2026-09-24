@@ -10,7 +10,7 @@ Mục tiêu là tối ưu hóa quá trình tìm kiếm cơ hội thực tập, g
 - **Frontend / Framework**: Next.js 16 (React 19, App Router, TypeScript)
 - **Styling**: Tailwind CSS (Mobile-First, Responsive Design)
 - **Icons**: Lucide React
-- **Quản lý dữ liệu**: Mock Database / In-Memory / Local Storage & SQLite (hỗ trợ chuyển đổi sang Prisma / Supabase / PostgreSQL khi cần)
+- **Quản lý dữ liệu**: Supabase PostgreSQL, Auth và Storage; Server Actions + RLS
 - **Triển khai**: Tối ưu triển khai trên Vercel
 - **Đa ngôn ngữ**: Hỗ trợ 2 ngôn ngữ (Tiếng Việt & Tiếng Anh)
 
@@ -27,7 +27,7 @@ Mục tiêu là tối ưu hóa quá trình tìm kiếm cơ hội thực tập, g
 | 05 | `05_giai-phap-cho-doanh-nghiep-va-sinh-vien.jpg` | Giải pháp tối ưu | `/` (Trang chủ) | 3 giá trị cốt lõi: Thuật toán Matching Kỹ năng, Doanh nghiệp đã xác thực, Quản lý hồ sơ 1 chạm |
 | 06 | `06_vi-tri-thuc-tap-noi-bat.jpg` | Vị trí Thực tập Nổi bật | `/` & `/jobs` | Danh sách thẻ công việc nổi bật, huy hiệu HOT, mức trợ cấp, địa điểm, tags kỹ năng |
 | 07 | `07_ho-so-thuc-tap-sinh.jpg` | Hồ sơ Thực tập sinh | `/student/profile` | Chỉnh sửa Họ tên, Ảnh đại diện, Trường đại học, Chuyên ngành, Năm tốt nghiệp, GPA, Kỹ năng, Mục tiêu |
-| 08 | `08_dashboard-thuc-tap-sinh.jpg` | Dashboard Thực tập sinh | `/student/dashboard` | Thông tin tóm tắt hồ sơ, Lịch sử đơn ứng tuyển, Gợi ý việc làm phù hợp (Matching AI) |
+| 08 | `08_dashboard-thuc-tap-sinh.jpg` | Dashboard Thực tập sinh | `/student/dashboard` | Thông tin tóm tắt hồ sơ, Lịch sử đơn ứng tuyển, Gợi ý việc làm phù hợp (Matching kỹ năng) |
 | 09 | `09_dashboard-doanh-nghiep.jpg` | Dashboard Doanh nghiệp | `/company/dashboard` | Thống kê (Tổng tin đăng, Hồ sơ nhận được, Chỉ tiêu), Danh sách tin tuyển dụng, Danh sách ứng viên |
 | 10 | `10_form-dang-tin-tuyen-dung.jpg` | Đăng tin tuyển dụng (Phần 2) | `/company/jobs/create` | Yêu cầu ứng viên, Quyền lợi trợ cấp & Đào tạo, Tùy chọn Đánh dấu tin nổi bật, Nút Xuất bản tin |
 | 11 | `11_ho-so-doanh-nghiep.jpg` | Hồ sơ Doanh nghiệp | `/company/profile` | Tên DN, Mã số thuế, Lĩnh vực, Quy mô, Email, Hotline, Địa chỉ, Tỉnh/Thành phố, Website, Logo, Giới thiệu |

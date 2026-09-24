@@ -17,11 +17,13 @@ The current product contract uses username + password. InternMatch maps the user
 
 ## 3. Database and Storage
 
-Run `supabase/migrations/20260924181500_initial_schema.sql` once in the Supabase SQL Editor. It creates:
+The InternMatch project has both migrations applied. For a new project, apply the files in `supabase/migrations/` in timestamp order. They create:
 
 - `profiles`, `student_profiles`, `company_profiles`
 - `jobs`, `applications`
 - RLS policies for student/company ownership
 - `avatars`, `company-logos`, and private `resumes` buckets
 
-The migration uses `if not exists` and replaces only the policies created by this migration. Review an existing project before applying it.
+The second migration makes account roles immutable, creates profiles in an Auth trigger, limits column updates, snapshots applicant details, enforces file limits, and grants receiving companies access to submitted CVs. Migrations are recorded in `supabase_migrations.schema_migrations`; do not reapply recorded migrations.
+
+See [handover](../docs/HANDOVER.md) for test commands and operating instructions.

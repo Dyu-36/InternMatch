@@ -1,4 +1,6 @@
+'use client';
 import { forwardRef } from "react";
+import { useT } from '@/context/LocaleContext';
 import type { ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
@@ -14,7 +16,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", fullWidth = false, loading = false, loadingLabel = "Đang xử lý…", type = "button", disabled, children, ...props }, ref) => (
+  ({ className, variant = "primary", size = "md", fullWidth = false, loading = false, loadingLabel = "Đang xử lý…", type = "button", disabled, children, ...props }, ref) => {
+    const t = useT();
+    return (
     <button
       ref={ref}
       type={type}
@@ -29,9 +33,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       {...props}
     >
       {loading ? <span className="ui-spinner" aria-hidden="true" /> : null}
-      {loading ? loadingLabel : children}
+      {loading ? t(loadingLabel) : children}
     </button>
-  ),
+  ); },
 );
 
 Button.displayName = "Button";

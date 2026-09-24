@@ -4,6 +4,9 @@ import { AppProvider } from "@/context/AppContext";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import "./globals.css";
+import { readAppState } from '@/lib/repository';
+import { LocaleProvider } from '@/context/LocaleContext';
+import { cookies } from 'next/headers';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,15 +26,17 @@ export const metadata: Metadata = {
   description: "Nền tảng kết nối sinh viên và doanh nghiệp tuyển dụng thực tập.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const initialState = await readAppState();
+  const locale = (await cookies()).get('internmatch_locale')?.value === 'en' ? 'en' : 'vi';
   return (
-    <html lang="vi" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang={locale} className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <AppProvider>
+        <LocaleProvider initialLocale={locale}><AppProvider initialState={initialState}>
           <SiteHeader />
           <main className="min-h-screen">{children}</main>
           <SiteFooter />
-        </AppProvider>
+        </AppProvider></LocaleProvider>
       </body>
     </html>
   );

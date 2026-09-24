@@ -1,21 +1,25 @@
+'use client';
+
+import { useT } from '@/context/LocaleContext';
 import React from 'react';
 import { Zap, ShieldCheck, LayoutDashboard } from 'lucide-react';
 
 export default function SolutionsSection() {
+  const t = useT();
   const solutions = [
     {
       icon: Zap,
       iconBg: 'bg-blue-50 text-blue-600',
       title: 'Thuật toán Matching Kỹ năng',
       description:
-        'Tự động gợi ý các vị trí tuyển dụng chính xác dựa trên danh mục kỹ năng, ngành học và mục tiêu nghề nghiệp của sinh viên.',
+        'Gợi ý vị trí tuyển dụng dựa trên các kỹ năng trong hồ sơ sinh viên.',
     },
     {
       icon: ShieldCheck,
       iconBg: 'bg-emerald-50 text-emerald-600',
-      title: 'Doanh nghiệp đã xác thực',
+      title: 'Thông tin doanh nghiệp rõ ràng',
       description:
-        '100% tin tuyển dụng từ các công ty uy tín với chế độ đãi ngộ rõ ràng, trợ cấp minh bạch và lộ trình đào tạo bài bản.',
+        'Xem hồ sơ doanh nghiệp, yêu cầu công việc và quyền lợi trước khi ứng tuyển.',
     },
     {
       icon: LayoutDashboard,
@@ -30,19 +34,13 @@ export default function SolutionsSection() {
     <section className="py-20 bg-gray-50/60 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Pill Tag */}
-        <div className="inline-block px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3">
-          Giá trị khác biệt
-        </div>
+        <div className="inline-block px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3"> {t("Giá trị khác biệt")} </div>
 
         {/* Heading */}
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">
-          Giải pháp tối ưu cho cả Doanh nghiệp &amp; Sinh viên
-        </h2>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight mb-4"> {t("Giải pháp tối ưu cho cả Doanh nghiệp & Sinh viên")} </h2>
 
         {/* Subtitle */}
-        <p className="text-base text-gray-600 max-w-2xl mx-auto mb-14">
-          InternMatch rút ngắn khoảng cách từ nhà trường đến môi trường doanh nghiệp thực tế.
-        </p>
+        <p className="text-base text-gray-600 max-w-2xl mx-auto mb-14"> {t("InternMatch rút ngắn khoảng cách từ nhà trường đến môi trường doanh nghiệp thực tế.")} </p>
 
         {/* Solution Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
@@ -56,8 +54,8 @@ export default function SolutionsSection() {
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${item.iconBg}`}>
                   <IconComponent className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{t(item.title)}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">{t(item.description)}</p>
               </div>
             );
           })}

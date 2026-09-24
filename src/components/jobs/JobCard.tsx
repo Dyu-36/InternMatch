@@ -1,4 +1,7 @@
+'use client';
 import React from 'react';
+import Image from 'next/image';
+import { useLocale } from '@/context/LocaleContext';
 import Link from 'next/link';
 import { MapPin, Banknote, Flame } from 'lucide-react';
 import { Job } from '@/types';
@@ -10,6 +13,7 @@ interface JobCardProps {
 }
 
 export default function JobCard({ job, matchScore }: JobCardProps) {
+  const { locale } = useLocale();
   const initial = job.companyInitial || job.companyName.charAt(0).toUpperCase();
 
   return (
@@ -22,7 +26,7 @@ export default function JobCard({ job, matchScore }: JobCardProps) {
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-blue-700 font-bold text-lg flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition">
-              {initial}
+              {job.companyLogo ? <Image src={job.companyLogo} alt={job.companyName} width={44} height={44} unoptimized className="rounded-xl object-contain" /> : initial}
             </div>
             <div>
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{job.companyName}</p>
@@ -82,7 +86,7 @@ export default function JobCard({ job, matchScore }: JobCardProps) {
       <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-2 text-xs">
         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-semibold border border-emerald-100">
           <Banknote className="w-3.5 h-3.5" />
-          <span className="truncate">{formatSalary(job.minSalary, job.maxSalary)}</span>
+          <span className="truncate">{formatSalary(job.minSalary, job.maxSalary, locale)}</span>
         </div>
 
         <div className="flex items-center gap-1 text-gray-500 shrink-0">
