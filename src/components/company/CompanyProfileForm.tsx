@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Building2, ImagePlus, Save, ShieldCheck } from 'lucide-react';
+import Image from 'next/image';
 import { useApp } from '@/context/AppContext';
 import { Button, Input } from '@/components/ui';
 
@@ -62,7 +63,7 @@ export default function CompanyProfileForm() {
                 <p>Thông tin này được hiển thị trên tin tuyển dụng và hồ sơ công ty.</p>
               </div>
               <div className="company-logo-preview" aria-label="Logo doanh nghiệp">
-                {form.logoUrl ? <img src={form.logoUrl} alt="Logo doanh nghiệp" /> : <span>{(form.companyName || 'I')[0].toUpperCase()}</span>}
+                {form.logoUrl ? <Image src={form.logoUrl} alt="Logo doanh nghiệp" width={64} height={64} unoptimized /> : <span>{(form.companyName || 'I')[0].toUpperCase()}</span>}
               </div>
             </div>
             <div className="company-form-grid">

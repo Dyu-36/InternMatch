@@ -53,6 +53,7 @@ Sản phẩm được xây dựng theo phạm vi trong [Contract](./docs/Contrac
 | `/company/profile` | Hồ sơ doanh nghiệp |
 | `/company/dashboard` | Dashboard doanh nghiệp |
 | `/company/jobs/create` | Đăng tin tuyển dụng |
+| `/company/jobs/[id]` | Chỉnh sửa tin tuyển dụng |
 
 ## Tech stack
 
@@ -119,6 +120,14 @@ pnpm build
 pnpm start
 ```
 
+### Smoke test route
+
+Khi chạy app ở một terminal khác, dùng lệnh sau để kiểm tra nhanh toàn bộ route chính:
+
+```bash
+pnpm qa:routes
+```
+
 ## Tài liệu
 
 - [Đặc tả yêu cầu](./docs/SPECIFICATIONS.md)
@@ -139,4 +148,4 @@ Các chức năng sau không thuộc phiên bản này:
 
 ## Trạng thái
 
-Dự án đang ở giai đoạn thiết kế kiến trúc và chuẩn bị triển khai theo Contract cùng bộ mockup đã thống nhất.
+ Dự án đã hoàn thành UI theo Contract và bộ mockup đã thống nhất; bước tiếp theo là tích hợp backend Supabase.
