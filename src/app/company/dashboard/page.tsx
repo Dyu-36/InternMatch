@@ -1,3 +1,5 @@
+import CompanyDashboard from '@/components/company/CompanyDashboard';
+
 export default function CompanyDashboardPage() {
-  return <main />;
+  return <CompanyDashboard />;
 }
