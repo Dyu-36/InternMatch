@@ -7,7 +7,7 @@ const browser = await chromium.launch();
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   await page.goto(base);
-  const cta = page.getByRole('link', { name: 'Dành cho Doanh nghiệp', exact: true });
+  const cta = page.getByRole('main').getByRole('link', { name: 'Đăng tin tuyển dụng', exact: true });
   const colors = await cta.evaluate(element => ({ color: getComputedStyle(element).color, background: getComputedStyle(element).backgroundColor }));
   expect(colors.color).not.toBe(colors.background);
   const original = colors.background;

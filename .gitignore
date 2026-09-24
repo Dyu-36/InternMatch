@@ -34,8 +34,6 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 !.env.example
-/phase8-source/
-/phase8.zip
 
 # vercel
 .vercel
