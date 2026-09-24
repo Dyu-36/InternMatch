@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Briefcase, MapPin, Mail, Phone, Facebook, Linkedin, Github } from 'lucide-react';
+import { Briefcase, MapPin, Mail, Phone, Link2, UsersRound, Code2 } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -22,13 +22,13 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a href="#" className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition">
-                <Facebook className="w-4 h-4" />
+                <Link2 className="w-4 h-4" />
               </a>
               <a href="#" className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition">
-                <Linkedin className="w-4 h-4" />
+                <UsersRound className="w-4 h-4" />
               </a>
               <a href="#" className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-slate-700 transition">
-                <Github className="w-4 h-4" />
+                <Code2 className="w-4 h-4" />
               </a>
             </div>
           </div>
