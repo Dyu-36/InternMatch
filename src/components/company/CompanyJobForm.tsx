@@ -40,6 +40,7 @@ export default function CompanyJobForm({ jobId }: CompanyJobFormProps) {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (existingJob) setForm(toForm(existingJob));
   }, [existingJob]);
 
