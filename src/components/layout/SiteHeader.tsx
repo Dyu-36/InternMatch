@@ -12,6 +12,7 @@ import { useLocale } from '@/context/LocaleContext';
 const navItems = [
   { href: "/", label: "Trang chủ" },
   { href: "/jobs", label: "Việc làm" },
+  { href: "/company/jobs/create", label: "Tuyển dụng" },
 ];
 
 export function SiteHeader() {
