@@ -5,12 +5,7 @@ import { createClient } from '@/lib/supabase/server';
 import { requireAccount, readAppState } from '@/lib/repository';
 import { credentialsSchema, roleSchema, studentSchema, companySchema, jobSchema } from '@/lib/validation';
 import { jobPayload } from '@/lib/mappers';
-
-const AUTH_EMAIL_DOMAIN = process.env.AUTH_EMAIL_DOMAIN ?? 'internmatch.vercel.app';
-
-function authEmail(username: string) {
-  return `${username}@${AUTH_EMAIL_DOMAIN}`;
-}
+import { authEmail } from '@/lib/auth';
 
 async function result<T>(operation: () => Promise<T>) {
   try { return { data: await operation(), error: null }; }
