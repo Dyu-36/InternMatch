@@ -9,10 +9,12 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
+  loading?: boolean;
+  loadingLabel?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", fullWidth = false, type = "button", ...props }, ref) => (
+  ({ className, variant = "primary", size = "md", fullWidth = false, loading = false, loadingLabel = "Đang xử lý…", type = "button", disabled, children, ...props }, ref) => (
     <button
       ref={ref}
       type={type}
@@ -23,8 +25,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         fullWidth ? "ui-button-full" : undefined,
         className,
       )}
+      disabled={disabled || loading}
       {...props}
-    />
+    >
+      {loading ? <span className="ui-spinner" aria-hidden="true" /> : null}
+      {loading ? loadingLabel : children}
+    </button>
   ),
 );
 
