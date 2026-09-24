@@ -53,6 +53,9 @@ export async function signUp(input: unknown, roleInput: unknown) {
       });
       if (error) throw error;
       if (!data.user) throw new Error('Không thể hoàn tất đăng ký. Vui lòng thử lại.');
+      const client = await createClient();
+      const { error: signInError } = await client.auth.signInWithPassword({ email, password });
+      if (signInError) throw signInError;
       return true;
     }
     const client = await createClient();
