@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { AppProvider } from "@/context/AppContext";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -18,6 +18,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
 export const metadata: Metadata = {
   title: {
     default: "InternMatch",
@@ -30,7 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const initialState = await readAppState();
   const locale = (await cookies()).get('internmatch_locale')?.value === 'en' ? 'en' : 'vi';
   return (
-    <html lang={locale} className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang={locale} className={`${geistSans.variable} ${geistMono.variable} ${plusJakartaSans.variable}`}>
       <body>
         <LocaleProvider initialLocale={locale}><AppProvider initialState={initialState}>
           <SiteHeader />

@@ -3,38 +3,56 @@
 import { useT } from '@/context/LocaleContext';
 import React from 'react';
 import Link from 'next/link';
-import { GraduationCap, Building2 } from 'lucide-react';
+import { GraduationCap, Building2, ArrowRight } from 'lucide-react';
 
 export default function CtaSection() {
   const t = useT();
   return (
-    <section className="py-16 bg-white px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto rounded-3xl bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 text-white p-8 sm:p-12 lg:p-16 text-center shadow-xl relative overflow-hidden">
-        {/* Glow decoration */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-
-        <div className="relative max-w-3xl mx-auto space-y-6">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight"> {t("Bạn đã sẵn sàng khởi động sự nghiệp tương lai?")} </h2>
-
-          <p className="text-base sm:text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed font-normal"> {t("Tạo hồ sơ chỉ trong 2 phút để tiếp cận hàng trăm cơ hội thực tập hấp dẫn hoặc đăng tin để tìm kiếm thế hệ nhân tài kế cận ngay hôm nay!")} </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link
-              href="/register?role=STUDENT"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base shadow-lg transition active:scale-98"
-            >
-              <GraduationCap className="w-5 h-5" />
-              <span>{t("Đăng ký Thực tập sinh")}</span>
-            </Link>
-
-            <Link
-              href="/register?role=COMPANY"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-white hover:bg-gray-100 text-blue-700 font-bold text-base shadow-lg transition active:scale-98"
-            >
-              <Building2 className="w-5 h-5" />
-              <span>{t("Dành cho Doanh nghiệp")}</span>
-            </Link>
+    <section className="py-16 bg-gray-50 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div
+          className="rounded-2xl p-8 flex flex-col justify-between min-h-[240px]"
+          style={{ background: 'linear-gradient(135deg, #022C22, #065F46)' }}
+        >
+          <div>
+            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mb-4">
+              <GraduationCap className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">
+              {t("Dành cho Sinh viên")}
+            </h3>
+            <p className="text-emerald-200/80 text-sm leading-relaxed mb-6">
+              {t("Tạo hồ sơ ấn tượng, tìm kiếm cơ hội thực tập phù hợp và theo dõi quá trình ứng tuyển một cách dễ dàng.")}
+            </p>
           </div>
+          <Link
+            href="/register?role=STUDENT"
+            className="self-start inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-emerald-700 font-bold text-sm hover:bg-emerald-50 transition shadow-md"
+          >
+            {t("Đăng ký thực tập ngay")}
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="rounded-2xl p-8 bg-white border border-gray-200 shadow-sm flex flex-col justify-between min-h-[240px]">
+          <div>
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-4">
+              <Building2 className="w-5 h-5 text-emerald-600" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
+              {t("Dành cho Doanh nghiệp")}
+            </h3>
+            <p className="text-gray-500 text-sm leading-relaxed mb-6">
+              {t("Tiếp cận hàng ngàn sinh viên tài năng, đăng tin tuyển dụng thực tập và quản lý hồ sơ ứng viên hiệu quả.")}
+            </p>
+          </div>
+          <Link
+            href="/register?role=COMPANY"
+            className="self-start inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-700 transition shadow-md"
+          >
+            {t("Đăng tin tuyển dụng")}
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>
