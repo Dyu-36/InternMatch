@@ -34,7 +34,12 @@ export async function readAppState() {
   const { data: { user }, error } = await client.auth.getUser();
   if (error || !user) return base;
   const profile = await client.from('profiles').select('*').eq('id', user.id).single();
-  if (isSchemaCacheError(profile.error)) return base;
+  if (isSchemaCacheError(profile.error)) {
+    const metadata = user.user_metadata as { username?: string; role?: Role };
+    if (!metadata.username || !metadata.role) return base;
+    const account = { id: user.id, username: metadata.username, email: user.email ?? '', role: metadata.role, name: metadata.username, avatarUrl: undefined };
+    return { ...base, currentUser: account };
+  }
   if (profile.error) throw profile.error;
   const account = mapUser(profile.data);
   const [student, company, applications] = await Promise.all([
