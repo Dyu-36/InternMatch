@@ -4,11 +4,21 @@ import { emptyCompany, emptyStudent } from '@/lib/defaults';
 import { mapUser, mapStudent, mapCompany, mapJob, mapApplication } from '@/lib/mappers';
 import type { Role } from '@/types';
 
+function isSchemaCacheError(error: { code?: string } | null | undefined) {
+  return error?.code === 'PGRST205';
+}
+
 export async function requireAccount(role?: Role) {
   const client = await createClient();
   const { data: { user }, error } = await client.auth.getUser();
   if (error || !user) throw new Error('Vui lòng đăng nhập để tiếp tục.');
   const profile = await client.from('profiles').select('*').eq('id', user.id).single();
+  if (isSchemaCacheError(profile.error)) {
+    const metadata = user.user_metadata as { username?: string; role?: Role };
+    if (!metadata.username || !metadata.role) throw new Error('Hồ sơ tài khoản chưa sẵn sàng. Vui lòng thử lại sau.');
+    if (role && metadata.role !== role) throw new Error('Bạn không có quyền thực hiện thao tác này.');
+    return { client, user: { id: user.id, username: metadata.username, email: user.email ?? '', role: metadata.role, name: metadata.username, avatarUrl: undefined } };
+  }
   if (profile.error || !profile.data || (role && profile.data.role !== role)) throw new Error('Bạn không có quyền thực hiện thao tác này.');
   return { client, user: mapUser(profile.data) };
 }
@@ -24,6 +34,7 @@ export async function readAppState() {
   const { data: { user }, error } = await client.auth.getUser();
   if (error || !user) return base;
   const profile = await client.from('profiles').select('*').eq('id', user.id).single();
+  if (isSchemaCacheError(profile.error)) return base;
   if (profile.error) throw profile.error;
   const account = mapUser(profile.data);
   const [student, company, applications] = await Promise.all([
