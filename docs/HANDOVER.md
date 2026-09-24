@@ -20,7 +20,7 @@ CV là file riêng tư. Chỉ chủ CV và doanh nghiệp nhận đúng đơn c�
 - Personal access token Supabase chỉ dùng để cấu hình hạ tầng; app không phụ thuộc token này.
 - `SUPABASE_TEST_SERVICE_ROLE_KEY` chỉ dành cho chạy script QA có dọn dữ liệu. Không đặt biến này trong Vercel hoặc frontend.
 
-Auth dùng địa chỉ nội bộ `username@internmatch.local`, với Confirm email đã tắt. Đây không phải email liên lạc và không có luồng tự đặt lại mật khẩu qua email. Khi cần hỗ trợ tài khoản, chủ project xử lý bằng Supabase Auth. Email tuyển dụng trong hồ sơ doanh nghiệp là thông tin liên hệ riêng.
+Auth dùng username và mật khẩu ở giao diện. Backend map username thành địa chỉ nội bộ `${AUTH_EMAIL_DOMAIN}` (mặc định `internmatch.vercel.app`) để tương thích với Supabase Auth, với Confirm email đã tắt. Đây không phải email liên lạc và không có luồng tự đặt lại mật khẩu qua email. Khi cần hỗ trợ tài khoản, chủ project xử lý bằng Supabase Auth. Email tuyển dụng trong hồ sơ doanh nghiệp là thông tin liên hệ riêng.
 
 ## Phát triển và kiểm tra
 
