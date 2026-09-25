@@ -17,3 +17,13 @@ Prefer codebase-memory-mcp (`search_graph`, `trace_path`, `get_code_snippet`, `q
 Follow `docs/Contract.md` and the 12 mockups. Keep public route paths stable and support Vietnamese/English. Never add mock fallback to production data access. Apply schema changes through versioned Supabase migrations, preserve RLS, and never commit credentials.
 
 Run `pnpm lint` and `pnpm build`. For backend changes, run `pnpm qa:backend` with a temporary QA cleanup key; for user flows run `pnpm qa:ui` against a running app. Test scripts create and remove their own accounts and storage objects.
+
+## UI component rules
+
+- Use the existing shadcn/ui components from `src/components/shadcn` whenever a matching component exists. Do not hand-roll generic buttons, inputs, labels, selects, textareas, checkboxes, dialogs, cards, or form controls.
+- Do not create duplicate generic components under `src/components/ui`. Existing components there may be used only when they are domain-specific or when no shadcn/ui equivalent exists, such as layout primitives.
+- Before adding UI, inspect `components.json` and `src/components/shadcn`; extend the shadcn/ui component set using the canonical shadcn implementation instead of inventing a parallel API or styling system.
+- Forms must use shadcn/ui primitives with accessible labels, descriptions, invalid states, and field-level messages. Preserve existing business logic and authentication behavior during UI-only refactors.
+- Keep styling consistent with shadcn/ui tokens and `cn` from `@/lib/utils`; do not import `cn` from third-party packages or introduce ad-hoc generic CSS components.
+- When a requested UI has no existing shadcn primitive, explain the gap and add the smallest canonical primitive needed before composing the feature.
+
