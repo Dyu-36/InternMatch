@@ -74,16 +74,24 @@ try {
   await register(student, names[1], 'STUDENT');
   for (const [label, value] of [['Họ và tên', 'QA Student'], ['Chuyên ngành', 'Computer Science'], ['Điểm GPA', '3.5'], ['Kỹ năng chuyên môn', 'React, TypeScript'], ['Mục tiêu & Giới thiệu', 'Looking for a frontend internship.']]) await fill(student, label, value);
   const university = student.getByRole('combobox', { name: 'Trường Đại học / Viện đào tạo' });
+  await expect(university).toHaveCSS('background-color', 'rgb(255, 255, 255)');
   await university.click();
+  await expect(university).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await expect(student.getByRole('option').filter({ hasText: 'hust.edu.vn' })).toBeVisible();
+  await expect(student.getByRole('option').filter({ hasText: 'ftu.edu.vn' })).toBeVisible();
   const schoolSearch = student.getByPlaceholder('Gõ tên trường để tìm...');
-  await schoolSearch.fill('Bách khoa');
-  await expect(student.getByRole('option').first()).toBeVisible();
-  await schoolSearch.fill('B');
+  for (const [query, domain] of [['HUST', 'hust.edu.vn'], ['FTU', 'ftu.edu.vn'], ['Ngoại thương', 'ftu.edu.vn'], ['bach khoa', 'hust.edu.vn']]) {
+    await schoolSearch.fill(query);
+    await expect(student.getByRole('option').filter({ hasText: domain })).toBeVisible();
+  }
+  await schoolSearch.fill('zz_nonexistent_university');
   await expect(student.getByRole('option')).toHaveCount(0);
-  await expect(student.getByText('Nhập ít nhất 2 ký tự để tìm trường.')).toBeVisible();
+  await expect(student.getByText('Không tìm thấy trường phù hợp.')).toBeVisible();
   await schoolSearch.fill('Bách khoa');
-  await expect(student.getByRole('option').first()).toBeVisible();
-  await student.getByRole('option').first().click();
+  await expect(student.getByRole('option').filter({ hasText: 'hust.edu.vn' })).toBeVisible();
+  await snapshot(student, 'school-picker-open');
+  await student.getByRole('option').filter({ hasText: 'hust.edu.vn' }).click();
+  await expect(university).toHaveCSS('background-color', 'rgb(255, 255, 255)');
   const universityName = await university.innerText();
   await student.locator('#avatar').setInputFiles({ name: 'avatar.png', mimeType: 'image/png', buffer: tinyPng });
   await student.locator('#cv').setInputFiles({ name: 'qa-resume.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\nQA CV\n%%EOF') });
@@ -129,11 +137,15 @@ try {
   }
   await student.setViewportSize({ width: 1440, height: 1000 });
   await student.getByRole('button', { name: 'Change language' }).click();
+  await student.goto(`${base}/student/profile`);
+  await student.getByRole('combobox', { name: 'University / Training institute' }).click();
+  await student.getByPlaceholder('Type a school name to search...').fill('FTU');
+  await expect(student.getByRole('option').filter({ hasText: 'ftu.edu.vn' })).toBeVisible();
   await student.goto(`${base}/student/dashboard`);
   await expect(student.getByRole('heading', { name: 'Application history' })).toBeVisible();
   await snapshot(student, 'english-student-dashboard');
   await student.getByRole('button', { name: 'Sign out', exact: true }).click();
-  await expect(student.getByRole('link', { name: 'Sign in', exact: true })).toBeVisible();
+  await expect(student.getByRole('banner').getByRole('link', { name: 'Sign in', exact: true })).toBeVisible();
   await student.goto(`${base}/student/profile`);
   await expect(student).toHaveURL(/\/login/);
   await student.getByRole('button', { name: 'Change language' }).click();

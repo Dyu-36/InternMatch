@@ -16,7 +16,15 @@ Prefer codebase-memory-mcp (`search_graph`, `trace_path`, `get_code_snippet`, `q
 
 Follow `docs/Contract.md` and the 12 mockups. Keep public route paths stable and support Vietnamese/English. Never add mock fallback to production data access. Apply schema changes through versioned Supabase migrations, preserve RLS, and never commit credentials.
 
-Run `pnpm lint` and `pnpm build`. For backend changes, run `pnpm qa:backend` with a temporary QA cleanup key; for user flows run `pnpm qa:ui` against a running app. Test scripts create and remove their own accounts and storage objects.
+Run `pnpm lint` and `pnpm build`. For backend changes, run `pnpm qa:backend` with the local QA cleanup key; for user flows run `pnpm qa:ui` against a running app. Test scripts create and remove their own accounts and storage objects.
+
+### Local Supabase QA setup
+
+- Use the credentials already configured in the ignored `.env.local`; do not ask the user to resend them. Save this file as UTF-8 without a BOM so Node's `--env-file` reads every variable correctly.
+- `SUPABASE_ACCESS_TOKEN` is a Supabase Management API personal access token, not a project service-role key. If `SUPABASE_TEST_SERVICE_ROLE_KEY` is missing, use the management token to retrieve the admin API key for the configured InternMatch project (`johsqcfalnqdbksenyjy`) and store it only in `.env.local` for local QA.
+- Check that the QA key, `NEXT_PUBLIC_SUPABASE_URL`, and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` belong to that same project. Never print secret values, commit them, put them in `NEXT_PUBLIC_*` variables, or deploy QA/management credentials to Vercel.
+- The user has authorized the existing QA scripts to create and clean up their own test accounts and storage objects in this project. Preserve their cleanup logic and do not modify unrelated user data.
+- Set `BASE_URL` to the local running app (for example `http://localhost:3001` if port 3000 is occupied). Run `pnpm qa:schools` for changes to the university list/search, in addition to the checks above.
 
 ## UI component rules
 
@@ -27,4 +35,3 @@ Run `pnpm lint` and `pnpm build`. For backend changes, run `pnpm qa:backend` wit
 - Searchable selects/comboboxes must compose the canonical shadcn `Command` and `Popover` primitives; do not use a native `<select>` when users need search.
 - Keep styling consistent with shadcn/ui tokens and `cn` from `@/lib/utils`; do not import `cn` from third-party packages or introduce ad-hoc generic CSS components.
 - When a requested UI has no existing shadcn primitive, explain the gap and add the smallest canonical primitive needed before composing the feature.
-

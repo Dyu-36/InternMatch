@@ -282,5 +282,13 @@
   "Thỏa thuận": "Negotiable",
   "Tài liệu và hỗ trợ dự án": "Project documentation and support",
   "Xóa tin tuyển dụng": "Delete job",
-  "Trạng thái hồ sơ của": "Application status for"
+  "Trạng thái hồ sơ của": "Application status for",
+  "Trường Đại học / Viện đào tạo": "University / Training institute",
+  "Tìm và chọn trường": "Find and select a school",
+  "Gõ tên trường để tìm...": "Type a school name to search...",
+  "Đang tải danh sách trường...": "Loading schools...",
+  "Chưa có dữ liệu trường.": "No schools available.",
+  "Không tìm thấy trường phù hợp.": "No matching schools found.",
+  "Không thể tải danh sách trường.": "Unable to load schools.",
+  "Không thể kết nối tới danh sách trường.": "Unable to connect to the school directory."
 }

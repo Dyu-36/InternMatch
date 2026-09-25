@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "qa:routes": "node scripts/qa-routes.mjs",
+    "qa:schools": "node scripts/qa-schools.mjs",
     "qa:backend": "node --env-file=.env.local scripts/qa-backend.mjs",
     "qa:ui": "node --env-file=.env.local scripts/qa-ui.mjs",
     "assets:pexels": "node --env-file=.env.local scripts/fetch-pexels.mjs"
