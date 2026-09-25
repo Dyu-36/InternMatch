@@ -1,23 +1,20 @@
 import { NextResponse } from 'next/server';
 
 type UpstreamSchool = {
-  id?: string;
-  code?: string;
   name?: string;
-  type?: string;
   country?: string;
-  verified?: boolean;
+  domains?: string[];
+  'state-province'?: string | null;
+  web_pages?: string[];
 };
 
-const SCHOOLS_API = 'https://school.vansao.com/openapi/api/v1/schools';
+const SCHOOLS_API = 'http://universities.hipolabs.com/search';
 
 export async function GET(request: Request) {
   const search = new URL(request.url).searchParams.get('search')?.trim() ?? '';
-  if (search.length < 2) return NextResponse.json([]);
-
   const url = new URL(SCHOOLS_API);
-  url.searchParams.set('search', search);
-  url.searchParams.set('limit', '20');
+  url.searchParams.set('country', 'Vietnam');
+  if (search) url.searchParams.set('name', search);
 
   try {
     const response = await fetch(url, {
@@ -26,11 +23,18 @@ export async function GET(request: Request) {
     });
     if (!response.ok) return NextResponse.json({ error: 'Không thể tải danh sách trường.' }, { status: 502 });
 
-    const payload = await response.json() as UpstreamSchool[] | { schools?: UpstreamSchool[]; data?: UpstreamSchool[]; items?: UpstreamSchool[] };
-    const schools = Array.isArray(payload) ? payload : payload.schools ?? payload.data ?? payload.items ?? [];
+    const schools = await response.json() as UpstreamSchool[];
     const result = schools
-      .filter((school) => school.id && school.name && school.country === 'VN')
-      .map((school) => ({ id: school.id, code: school.code ?? '', name: school.name, type: school.type ?? '', verified: Boolean(school.verified) }));
+      .filter((school) => school.name && school.country === 'Vietnam')
+      .slice(0, 20)
+      .map((school) => ({
+        id: school.domains?.[0] ?? school.name,
+        code: school.domains?.[0] ?? '',
+        name: school.name,
+        type: 'university',
+        province: school['state-province'] ?? '',
+        website: school.web_pages?.[0] ?? '',
+      }));
 
     return NextResponse.json(result, { headers: { 'Cache-Control': 'public, max-age=3600, s-maxage=3600' } });
   } catch {

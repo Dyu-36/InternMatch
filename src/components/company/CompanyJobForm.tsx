@@ -2,7 +2,7 @@
 
 import { useT } from '@/context/LocaleContext';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, BriefcaseBusiness, CalendarDays, Loader2, Megaphone, Save, ShieldCheck } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -26,10 +26,15 @@ export default function CompanyJobForm({ jobId }: CompanyJobFormProps) {
   const { currentUser, companyProfile, jobs, addJob, updateJob } = useApp();
   const existingJob = useMemo(() => (jobId ? jobs.find((job) => job.id === jobId && job.companyId === currentUser?.id) : undefined), [jobId, jobs, currentUser?.id]);
   const [form, setForm] = useState<JobFormState>(existingJob ? toForm(existingJob) : emptyForm);
+  const [previousJob, setPreviousJob] = useState(existingJob);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
-  useEffect(() => { if (existingJob) setForm(toForm(existingJob)); }, [existingJob]);
+  // Synchronize a refreshed job before rendering its editable fields.
+  if (existingJob !== previousJob) {
+    setPreviousJob(existingJob);
+    setForm(existingJob ? toForm(existingJob) : emptyForm);
+  }
 
   if (!currentUser || currentUser.role !== 'COMPANY') return <div className="company-page"><div className="im-container"><section className="company-guard ui-card"><ShieldCheck size={42} /><h1>{t("Đăng tin tuyển dụng")}</h1><p>{t("Vui lòng đăng nhập bằng tài khoản doanh nghiệp để tiếp tục.")}</p></section></div></div>;
   if (jobId && !existingJob) return <div className="company-page"><div className="im-container"><section className="company-guard ui-card"><BriefcaseBusiness size={42} /><h1>{t("Không tìm thấy tin tuyển dụng")}</h1><p>{t("Tin này có thể đã bị xóa hoặc không thuộc doanh nghiệp của bạn.")}</p><Link href="/company/dashboard" className="ui-button ui-button-secondary">{t("Quay lại dashboard")}</Link></section></div></div>;
