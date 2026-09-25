@@ -46,7 +46,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const initialState = await readAppState();
   const locale = (await cookies()).get('internmatch_locale')?.value === 'en' ? 'en' : 'vi';
   return (
-    <html lang={locale} className={`${geistSans.variable} ${geistMono.variable} ${plusJakartaSans.variable}`}>
+    <html lang={locale} data-scroll-behavior="smooth" className={`${geistSans.variable} ${geistMono.variable} ${plusJakartaSans.variable}`}>
       <body suppressHydrationWarning>
         <LocaleProvider initialLocale={locale}><AppProvider key={initialState.currentUser?.id ?? 'guest'} initialState={initialState}>
           <SiteHeader />

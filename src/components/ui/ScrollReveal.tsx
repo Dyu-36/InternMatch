@@ -25,6 +25,11 @@ export default function ScrollReveal({
       return;
     }
 
+    if (!('IntersectionObserver' in window)) {
+      // The base CSS keeps the element visible when the observer API is absent.
+      return;
+    }
+
     element.dataset.revealReady = 'true';
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -36,8 +41,12 @@ export default function ScrollReveal({
       { threshold: 0, rootMargin: '-12% 0px -12% 0px' },
     );
 
+    // Never leave content permanently hidden if the observer is delayed,
+    // interrupted, or never fires (for example after a background-tab restore).
+    const fallback = window.setTimeout(() => setIsVisible(true), 2500);
     observer.observe(element);
     return () => {
+      window.clearTimeout(fallback);
       observer.disconnect();
       delete element.dataset.revealReady;
     };
