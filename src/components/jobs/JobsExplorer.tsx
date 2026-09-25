@@ -108,22 +108,22 @@ function JobsExplorerContent({ initialFilters }: JobsExplorerProps) {
           </div>
 
           <form onSubmit={handleSubmit} className="mt-8 grid gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-subtle)] p-3 shadow-sm lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(190px,0.9fr)_auto]">
-            <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)]">
+            <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)] focus-within:border-[var(--accent)]">
               <Search size={18} aria-hidden="true" />
               <span className="sr-only">{t("Tìm theo vị trí hoặc kỹ năng")}</span>
-              <ShadcnInput aria-label={t("Tìm theo vị trí hoặc kỹ năng")} value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder={t("Vị trí, công ty hoặc kỹ năng")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:ring-0" />
+              <ShadcnInput aria-label={t("Tìm theo vị trí hoặc kỹ năng")} value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder={t("Vị trí, công ty hoặc kỹ năng")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0" />
             </div>
 
-            <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)]">
+            <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)] focus-within:border-[var(--accent)]">
               <MapPin size={18} aria-hidden="true" />
               <span className="sr-only">{t("Lọc theo địa điểm")}</span>
-              <ShadcnInput aria-label={t("Lọc theo địa điểm")} value={location} onChange={(event) => setLocation(event.target.value)} placeholder={t("Địa điểm")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:ring-0" />
+              <ShadcnInput aria-label={t("Lọc theo địa điểm")} value={location} onChange={(event) => setLocation(event.target.value)} placeholder={t("Địa điểm")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0" />
             </div>
 
-            <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)]">
+            <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)] focus-within:border-[var(--accent)]">
               <Briefcase size={18} aria-hidden="true" />
               <ShadcnSelect value={jobType} onValueChange={setJobType}>
-                <SelectTrigger aria-label={t("Lọc theo hình thức")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:ring-0">
+                <SelectTrigger aria-label={t("Lọc theo hình thức")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0">
                   <SelectValue placeholder={t("Tất cả hình thức")} />
                 </SelectTrigger>
                 <SelectContent>

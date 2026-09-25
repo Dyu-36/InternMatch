@@ -129,9 +129,11 @@ textarea {
   color: #022c22;
 }
 
-:focus-visible:not([data-slot="command-input"]) {
-  outline: 2px solid var(--border-strong);
-  outline-offset: 2px;
+@layer base {
+  :focus-visible:not([data-slot="command-input"]) {
+    outline: 2px solid var(--border-strong);
+    outline-offset: 2px;
+  }
 }
 
 .hero-search-field:focus-within {
