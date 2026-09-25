@@ -1,0 +1,1582 @@
+[
+    {
+        "name":  "Đại học Quốc gia Hà Nội",
+        "short_name":  "VNU",
+        "code_university":  "QHF"
+    },
+    {
+        "name":  "Trường Đại học Công nghệ – ĐH QGHN",
+        "short_name":  "VNU-UET",
+        "code_university":  "QHI"
+    },
+    {
+        "name":  "Trường Đại học Giáo dục – ĐH QGHN",
+        "short_name":  "VNU-UED",
+        "code_university":  "QHS"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế – ĐH QGHN",
+        "short_name":  "VNU-UEB",
+        "code_university":  "QHE"
+    },
+    {
+        "name":  "Trường Đại học Khoa học Tự nhiên – ĐH QGHN",
+        "short_name":  "VNU-HUS",
+        "code_university":  "QHT"
+    },
+    {
+        "name":  "Trường Đại học Khoa học Xã hội và Nhân văn – ĐH QGHN",
+        "short_name":  "VNU-USSH",
+        "code_university":  "QHX"
+    },
+    {
+        "name":  "Trường Đại học Ngoại ngữ – ĐH QGHN",
+        "short_name":  "ULIS",
+        "code_university":  "QHF"
+    },
+    {
+        "name":  "Trường Trường Đại học Việt – Nhật – ĐH QGHN",
+        "short_name":  "VJU",
+        "code_university":  null
+    },
+    {
+        "name":  "Viện Trần Nhân Tông – ĐH QGHN",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Đại học Thương mại",
+        "short_name":  "TMU",
+        "code_university":  "TMA"
+    },
+    {
+        "name":  "Đại học Công nghiệp Việt-Hung",
+        "short_name":  "VIU",
+        "code_university":  "VHD"
+    },
+    {
+        "name":  "Trường Đại học Bách khoa Hà Nội",
+        "short_name":  "HUST",
+        "code_university":  "BKA"
+    },
+    {
+        "name":  "Trường Đại học Công đoàn",
+        "short_name":  "TUU",
+        "code_university":  "LDA"
+    },
+    {
+        "name":  "Trường Đại học Công nghệ Giao thông Vận tải",
+        "short_name":  "UTT",
+        "code_university":  "GTA"
+    },
+    {
+        "name":  "Trường Đại học Công nghiệp Dệt May Hà Nội",
+        "short_name":  "HICT",
+        "code_university":  "CCM"
+    },
+    {
+        "name":  "Trường Đại học Công nghiệp Hà Nội",
+        "short_name":  "HAUI",
+        "code_university":  "DCN"
+    },
+    {
+        "name":  "Trường Đại học Điện lực",
+        "short_name":  "EPU",
+        "code_university":  "DDL"
+    },
+    {
+        "name":  "Trường Đại học Dược Hà Nội",
+        "short_name":  "HUP",
+        "code_university":  "DKH"
+    },
+    {
+        "name":  "Trường Đại học Giao thông Vận tải",
+        "short_name":  "UTC",
+        "code_university":  "GHA"
+    },
+    {
+        "name":  "Trường Đại học Hà Nội",
+        "short_name":  "HANU",
+        "code_university":  "NHF"
+    },
+    {
+        "name":  "Trường Đại học Khoa học và Công nghệ Hà Nội (USTH, Đại học Việt Pháp)",
+        "short_name":  "USTH",
+        "code_university":  "KCN"
+    },
+    {
+        "name":  "Trường Đại học Kiểm sát Hà Nội",
+        "short_name":  "HPU",
+        "code_university":  "DKS"
+    },
+    {
+        "name":  "Trường Đại học Kiến trúc Hà Nội",
+        "short_name":  "HAU",
+        "code_university":  "KTA"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế – Kỹ thuật Công nghiệp",
+        "short_name":  "UNETI",
+        "code_university":  "DKK"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế Quốc dân",
+        "short_name":  "NEU",
+        "code_university":  "KHA"
+    },
+    {
+        "name":  "Trường Đại học Lâm nghiệp Việt Nam",
+        "short_name":  "VNUF",
+        "code_university":  "LNH"
+    },
+    {
+        "name":  "Trường Đại học Lao động – Xã hội",
+        "short_name":  "ULSA",
+        "code_university":  "DLT"
+    },
+    {
+        "name":  "Trường Đại học Luật Hà Nội",
+        "short_name":  "HLU",
+        "code_university":  "LPH"
+    },
+    {
+        "name":  "Trường Đại học Mỏ – Địa chất",
+        "short_name":  "HUMG",
+        "code_university":  "MDA"
+    },
+    {
+        "name":  "Trường Đại học Mỹ thuật Công nghiệp",
+        "short_name":  "MTCN",
+        "code_university":  "MTC"
+    },
+    {
+        "name":  "Trường Đại học Mỹ thuật Việt Nam",
+        "short_name":  "VUFA",
+        "code_university":  "MTH"
+    },
+    {
+        "name":  "Trường Đại học Ngoại thương",
+        "short_name":  "FTU",
+        "code_university":  "NTH"
+    },
+    {
+        "name":  "Trường Đại học Nội vụ Hà Nội",
+        "short_name":  "HUHA",
+        "code_university":  "DNV"
+    },
+    {
+        "name":  "Đại học Sân khấu – Điện ảnh Hà Nội",
+        "short_name":  "SKD",
+        "code_university":  "SKD"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Hà Nội",
+        "short_name":  "HNUE",
+        "code_university":  "SPH"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Nghệ thuật Trung ương",
+        "short_name":  "NUAE",
+        "code_university":  "GNT"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Thể dục Thể thao Hà Nội",
+        "short_name":  "HUPES",
+        "code_university":  "TDH"
+    },
+    {
+        "name":  "Đại học Tài nguyên và Môi trường Hà Nội",
+        "short_name":  "HUNRE",
+        "code_university":  "DMT"
+    },
+    {
+        "name":  "Trường Đại học Thủy lợi",
+        "short_name":  "TLU",
+        "code_university":  "TLA (Hà Nội), TLS (Cơ sở 2 – Tp.HCM)"
+    },
+    {
+        "name":  "Trường Đại học Văn hóa Hà Nội",
+        "short_name":  "HUC",
+        "code_university":  "VHH"
+    },
+    {
+        "name":  "Trường Đại học Xây dựng",
+        "short_name":  "NUCE",
+        "code_university":  "XDA"
+    },
+    {
+        "name":  "Trường Đại học Y Hà Nội",
+        "short_name":  "HMU",
+        "code_university":  "YHB"
+    },
+    {
+        "name":  "Trường Đại học Y tế Công cộng",
+        "short_name":  "HUPH",
+        "code_university":  "YTC"
+    },
+    {
+        "name":  "Trường Đại học Lao động – Xã hội, cơ sở Sơn Tây",
+        "short_name":  null,
+        "code_university":  "DLT"
+    },
+    {
+        "name":  "Học viện Âm nhạc Quốc gia Việt Nam",
+        "short_name":  "VNAM",
+        "code_university":  "NVH"
+    },
+    {
+        "name":  "Học viện Múa Việt Nam",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Học viện Báo chí và Tuyên truyền",
+        "short_name":  "AJC",
+        "code_university":  "HBT"
+    },
+    {
+        "name":  "Học viện Cán bộ Quản lý xây dựng và đô thị",
+        "short_name":  "AMC",
+        "code_university":  null
+    },
+    {
+        "name":  "Học viện Chính sách và phát triển",
+        "short_name":  "APD",
+        "code_university":  "HCP"
+    },
+    {
+        "name":  "Học viện Chính trị – Hành chính Quốc gia Hồ Chí Minh",
+        "short_name":  "HCMA",
+        "code_university":  null
+    },
+    {
+        "name":  "Học viện Công nghệ Bưu chính Viễn thông",
+        "short_name":  "PTIT",
+        "code_university":  "BVH"
+    },
+    {
+        "name":  "Học viện Dân tộc",
+        "short_name":  "Academy for Ethnic Minorities (VAEM)",
+        "code_university":  null
+    },
+    {
+        "name":  "Học viện Hành chính Quốc gia",
+        "short_name":  "NAPA",
+        "code_university":  "HCH (Hà Nội), HCS (Tp.HCM)"
+    },
+    {
+        "name":  "Học viện Khoa học và Công nghệ",
+        "short_name":  "GUST",
+        "code_university":  "KCN"
+    },
+    {
+        "name":  "Học viện Khoa học, Công nghệ và Đổi mới sáng tạo",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Học viện Khoa học xã hội",
+        "short_name":  "GASS",
+        "code_university":  "GASS"
+    },
+    {
+        "name":  "Học viện Ngân hàng",
+        "short_name":  "BA",
+        "code_university":  "NHH"
+    },
+    {
+        "name":  "Học viện Ngoại giao Việt Nam",
+        "short_name":  "DAV",
+        "code_university":  "QHT"
+    },
+    {
+        "name":  "Học viện Nông nghiệp Việt Nam",
+        "short_name":  "VNUA",
+        "code_university":  "HVN"
+    },
+    {
+        "name":  "Học viện Phụ nữ Việt Nam",
+        "short_name":  "VWA",
+        "code_university":  "HPN"
+    },
+    {
+        "name":  "Học viện Quản lý Giáo dục",
+        "short_name":  "National Academy of Education Managenment (NAEM)",
+        "code_university":  "HVQ"
+    },
+    {
+        "name":  "Học viện Tài chính",
+        "short_name":  "AOF",
+        "code_university":  "HTC"
+    },
+    {
+        "name":  "Học viện Thanh thiếu niên Việt Nam",
+        "short_name":  "VYA",
+        "code_university":  "HTN"
+    },
+    {
+        "name":  "Học viện Tòa án",
+        "short_name":  null,
+        "code_university":  "HTA"
+    },
+    {
+        "name":  "Học viện Tư Pháp",
+        "short_name":  "‎Judicial Academy",
+        "code_university":  null
+    },
+    {
+        "name":  "Học viện Y dược học cổ truyền Việt Nam",
+        "short_name":  "VATM",
+        "code_university":  "HYD"
+    },
+    {
+        "name":  "Viện Đại học Mở Hà Nội",
+        "short_name":  "HOU",
+        "code_university":  "MHN"
+    },
+    {
+        "name":  "Trường Đại học Thủ đô Hà Nội",
+        "short_name":  "HMU",
+        "code_university":  "HNM"
+    },
+    {
+        "name":  "Trường Đại học Công nghệ Đông Á",
+        "short_name":  "East Asia University of Technology (EAUT)",
+        "code_university":  "DDA"
+    },
+    {
+        "name":  "Trường Đại học Công nghệ và Quản lý Hữu nghị",
+        "short_name":  "UTM",
+        "code_university":  "DCQ"
+    },
+    {
+        "name":  "Trường Đại học Đại Nam",
+        "short_name":  "Dai Nam University (DNU)",
+        "code_university":  "DDN"
+    },
+    {
+        "name":  "Trường Đại học Đông Đô",
+        "short_name":  "Hanoi Dong Do International University",
+        "code_university":  "DDD"
+    },
+    {
+        "name":  "Trường Đại học FPT",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Hòa Bình",
+        "short_name":  "PEACE UNIVERSITY",
+        "code_university":  "ETU"
+    },
+    {
+        "name":  "Trường Đại học Kinh doanh và Công nghệ Hà Nội",
+        "short_name":  "Ha Noi University of Business and Technology (HUBT)",
+        "code_university":  "DQK"
+    },
+    {
+        "name":  "Trường Đại học Mỹ thuật Công nghiệp Á Châu",
+        "short_name":  "Asia University of Arts and Design (AUAD)",
+        "code_university":  "MCA"
+    },
+    {
+        "name":  "Trường Đại học Nguyễn Trãi",
+        "short_name":  "Nguyen Trai University (NTU)",
+        "code_university":  "NTU"
+    },
+    {
+        "name":  "Đại học Phương Đông",
+        "short_name":  "Phuong Dong University",
+        "code_university":  "DPD"
+    },
+    {
+        "name":  "Trường Đại học RMIT",
+        "short_name":  "RMIT University Vietnam",
+        "code_university":  "RMU"
+    },
+    {
+        "name":  "Trường Đại học Tài chính – Ngân hàng Hà Nội",
+        "short_name":  "Hanoi Financial and Banking University – FBU)",
+        "code_university":  "FBU"
+    },
+    {
+        "name":  "Trường Đại học Thăng Long",
+        "short_name":  "Thăng Long University (TLU)",
+        "code_university":  "DTL"
+    },
+    {
+        "name":  "Trường Đại học Thành Đô",
+        "short_name":  "Thanh Do University (TDU)",
+        "code_university":  "TDD"
+    },
+    {
+        "name":  "Trường Đại học Thành Tây",
+        "short_name":  "Thanh Tay University Hanoi",
+        "code_university":  "DTA"
+    },
+    {
+        "name":  "Học viện Biên phòng",
+        "short_name":  null,
+        "code_university":  "BPH"
+    },
+    {
+        "name":  "Học viện Chính trị Quân sự",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Học viện Hậu cần",
+        "short_name":  null,
+        "code_university":  "HEH"
+    },
+    {
+        "name":  "Học viện Khoa học Quân sự",
+        "short_name":  null,
+        "code_university":  "NQH"
+    },
+    {
+        "name":  "Học viện Kỹ thuật Mật mã",
+        "short_name":  "Vietnam Academy of Cryptography Techniques",
+        "code_university":  "KMA"
+    },
+    {
+        "name":  "Học viện Kỹ thuật Quân sự",
+        "short_name":  null,
+        "code_university":  "KQH"
+    },
+    {
+        "name":  "Học viện Phòng không – Không quân",
+        "short_name":  null,
+        "code_university":  "PKH"
+    },
+    {
+        "name":  "Học viện Quân y",
+        "short_name":  null,
+        "code_university":  "YQH"
+    },
+    {
+        "name":  "Học viện Quốc phòng Việt Nam",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Chính trị",
+        "short_name":  "Political Officers College",
+        "code_university":  "LCH"
+    },
+    {
+        "name":  "Trường Đại học Trần Quốc Tuấn",
+        "short_name":  "The Army officer College No1 (TQT Uni)",
+        "code_university":  "LAH"
+    },
+    {
+        "name":  "Trường Sĩ quan Pháo binh",
+        "short_name":  null,
+        "code_university":  "PBH"
+    },
+    {
+        "name":  "Trường Sĩ quan Phòng hóa",
+        "short_name":  null,
+        "code_university":  "HGH"
+    },
+    {
+        "name":  "Trường Sĩ quan Đặc công",
+        "short_name":  null,
+        "code_university":  "DCH"
+    },
+    {
+        "name":  "Trường Đại học Văn hóa – Nghệ thuật Quân đội",
+        "short_name":  "Military University of Culture and Arts",
+        "code_university":  "ZNH"
+    },
+    {
+        "name":  "Phân hiệu Học viện Kỹ thuật Mật mã tại Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Học viện An ninh Nhân dân",
+        "short_name":  null,
+        "code_university":  "ANH"
+    },
+    {
+        "name":  "Học viện Cảnh sát Nhân dân",
+        "short_name":  null,
+        "code_university":  "CSH"
+    },
+    {
+        "name":  "Học viện Chính trị Công an Nhân dân",
+        "short_name":  null,
+        "code_university":  "HCA"
+    },
+    {
+        "name":  "Đại học Phòng cháy Chữa cháy",
+        "short_name":  "Official Fire Fighting Prevention University (T34)",
+        "code_university":  "PCH / PCS"
+    },
+    {
+        "name":  "Trường Đại học Nông Lâm Bắc Giang",
+        "short_name":  null,
+        "code_university":  "DBG"
+    },
+    {
+        "name":  "Trường Đại học Thể dục Thể thao Bắc Ninh",
+        "short_name":  null,
+        "code_university":  "TDB"
+    },
+    {
+        "name":  "Phân viện Bắc Ninh – Học viện Ngân hàng",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Kinh Bắc",
+        "short_name":  "University Of Kinh Bac",
+        "code_university":  "UKB"
+    },
+    {
+        "name":  "Trường Đại học Quốc tế Bắc Hà",
+        "short_name":  "Bac Ha International University",
+        "code_university":  "BHIU"
+    },
+    {
+        "name":  "Trường Đại học Kỹ thuật – Hậu cần Công an Nhân dân",
+        "short_name":  null,
+        "code_university":  "HCB / HCN"
+    },
+    {
+        "name":  "Trường Đại học Hà Hoa Tiên",
+        "short_name":  null,
+        "code_university":  "DHH"
+    },
+    {
+        "name":  "Trường Đại học Kỹ thuật Y tế Hải Dương",
+        "short_name":  "HMTU",
+        "code_university":  "DKY"
+    },
+    {
+        "name":  "Trường Đại học Sao Đỏ",
+        "short_name":  "SDU",
+        "code_university":  "SDU"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Kỹ thuật Hưng Yên",
+        "short_name":  "UTEHY",
+        "code_university":  "SKH"
+    },
+    {
+        "name":  "Trường Đại học Hải Dương",
+        "short_name":  "UHD",
+        "code_university":  "DKT"
+    },
+    {
+        "name":  "Trường Đại học Thành Đông",
+        "short_name":  "Thanh Dong University (TDU)",
+        "code_university":  "DDB"
+    },
+    {
+        "name":  "Trường Đại học Hàng hải Việt Nam",
+        "short_name":  "ISE",
+        "code_university":  "HHA"
+    },
+    {
+        "name":  "Đại học Y Dược Hải Phòng",
+        "short_name":  "HPMU",
+        "code_university":  "YPB"
+    },
+    {
+        "name":  "Trường Đại học Hải Phòng",
+        "short_name":  "HPU",
+        "code_university":  "THP"
+    },
+    {
+        "name":  "Đại học Hải Phòng",
+        "short_name":  "Hai Phong University",
+        "code_university":  "THP"
+    },
+    {
+        "name":  "Trường Đại học Tài chính – Quản trị kinh doanh",
+        "short_name":  "UFBA",
+        "code_university":  "DFA"
+    },
+    {
+        "name":  "Trường Đại học Chu Văn An",
+        "short_name":  "Chu Van An University",
+        "code_university":  "DCA"
+    },
+    {
+        "name":  "Phân hiệu Đại học Thái Nguyên tại Lào Cai – ĐH TN",
+        "short_name":  null,
+        "code_university":  "DTP"
+    },
+    {
+        "name":  "Trường Đại học Điều dưỡng Nam Định",
+        "short_name":  "NDUN",
+        "code_university":  "YDD"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Kỹ thuật Nam Định",
+        "short_name":  "NUTE",
+        "code_university":  "SKN"
+    },
+    {
+        "name":  "Trường Đại học Lương Thế Vinh",
+        "short_name":  "Luong The Vinh University (LTVU)",
+        "code_university":  "DTV"
+    },
+    {
+        "name":  "Trường Đại học Hoa Lư",
+        "short_name":  "HLUV",
+        "code_university":  "DNB"
+    },
+    {
+        "name":  "Trường Đại học Công nghiệp Việt Trì",
+        "short_name":  "VUI",
+        "code_university":  "VUI"
+    },
+    {
+        "name":  "Trường Đại học Hùng Vương",
+        "short_name":  "HVU",
+        "code_university":  "THV"
+    },
+    {
+        "name":  "Trường Dự bị Đại học dân tộc Trung ương Việt Trì – Phú Thọ",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Công nghiệp Quảng Ninh",
+        "short_name":  "QUI",
+        "code_university":  "DDM"
+    },
+    {
+        "name":  "Phân hiệu Đại học Mỏ-Địa chất tại Quảng Ninh",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Ngoại thương, cơ sở Quảng Ninh",
+        "short_name":  null,
+        "code_university":  "NTH"
+    },
+    {
+        "name":  "Trường Đại học Hạ Long",
+        "short_name":  "HLU",
+        "code_university":  "HLU"
+    },
+    {
+        "name":  "Trường Đại học Tây Bắc",
+        "short_name":  "UTB",
+        "code_university":  "TTB"
+    },
+    {
+        "name":  "Trường Đại học Y Dược Thái Bình",
+        "short_name":  "TBUMP",
+        "code_university":  "YTB"
+    },
+    {
+        "name":  "Trường Đại học Thái Bình",
+        "short_name":  "TBU",
+        "code_university":  "DTB"
+    },
+    {
+        "name":  "Đại học Thái Nguyên",
+        "short_name":  "TNU",
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Công nghệ Thông tin và Truyền thông – ĐH TN",
+        "short_name":  "ICTU",
+        "code_university":  "DTC"
+    },
+    {
+        "name":  "Trường Đại học Khoa học – ĐH TN",
+        "short_name":  "TNUS",
+        "code_university":  "DTZ"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế và Quản trị Kinh doanh – ĐH TN",
+        "short_name":  "TUEBA",
+        "code_university":  "DTE"
+    },
+    {
+        "name":  "Trường Đại học Kỹ thuật Công nghiệp – ĐH TN",
+        "short_name":  "TNUT",
+        "code_university":  "DTK"
+    },
+    {
+        "name":  "Trường Đại học Nông Lâm – ĐH TN",
+        "short_name":  "TUAF",
+        "code_university":  "DTN"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm – ĐH TN",
+        "short_name":  "TUE",
+        "code_university":  "DTS"
+    },
+    {
+        "name":  "Trường Đại học Y Dược – ĐH TN",
+        "short_name":  "TUMP",
+        "code_university":  "DTY"
+    },
+    {
+        "name":  "Phân hiệu Đại học Công nghệ Giao thông Vận tải tại Thái Nguyên",
+        "short_name":  "UTT",
+        "code_university":  "GTA"
+    },
+    {
+        "name":  "Trường Đại học Việt Bắc",
+        "short_name":  "Viet Bac University (VBU)",
+        "code_university":  "DVB"
+    },
+    {
+        "name":  "Trường Đại học Tân Trào",
+        "short_name":  "Tan Trao University",
+        "code_university":  "TQU"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Hà Nội 2",
+        "short_name":  "ĐHSP HN2",
+        "code_university":  "SP2"
+    },
+    {
+        "name":  "Phân hiệu Đại học Công nghệ Giao thông Vận tải tại Vĩnh Phúc",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Trưng Vương",
+        "short_name":  "Trung Vuong University (TVU)",
+        "code_university":  "DVP"
+    },
+    {
+        "name":  "Trường Sĩ quan Tăng-Thiết giáp",
+        "short_name":  "Military College of Tank Armour Officer (MCTAO)",
+        "code_university":  "TGH"
+    },
+    {
+        "name":  "Trường Đại học Phú Xuân",
+        "short_name":  "Phu Xuan University",
+        "code_university":  "DPX"
+    },
+    {
+        "name":  "Đại học Huế",
+        "short_name":  "HUEUNI",
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Khoa học – ĐH Huế",
+        "short_name":  "HUSC",
+        "code_university":  "DHT"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế – ĐH Huế",
+        "short_name":  "HCE",
+        "code_university":  "DHK"
+    },
+    {
+        "name":  "Trường Đại học Luật – ĐH Huế",
+        "short_name":  "HUL",
+        "code_university":  "DHA"
+    },
+    {
+        "name":  "Trường Đại học Nghệ thuật – ĐH Huế",
+        "short_name":  "HUFA",
+        "code_university":  "DHN"
+    },
+    {
+        "name":  "Trường Đại học Ngoại ngữ – ĐH Huế",
+        "short_name":  "HUCFL",
+        "code_university":  "DHF"
+    },
+    {
+        "name":  "Trường Đại học Nông Lâm – ĐH Huế",
+        "short_name":  "HUAF",
+        "code_university":  "DHL"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm – ĐH Huế",
+        "short_name":  null,
+        "code_university":  "DHS"
+    },
+    {
+        "name":  "Trường Đại học Y Dược – ĐH Huế",
+        "short_name":  null,
+        "code_university":  "DHY"
+    },
+    {
+        "name":  "Phân hiệu Đại học Tài chính – Kế toán tại Thừa Thiên-Huế",
+        "short_name":  "UFA Thua Thien Hue Campus",
+        "code_university":  "DKQ"
+    },
+    {
+        "name":  "Học viện Âm nhạc Huế",
+        "short_name":  "Hue Academy of Music",
+        "code_university":  "HVA"
+    },
+    {
+        "name":  "Phân viện Học viện Hành chính Quốc gia tại Thành phố Huế",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Đại học Đà Nẵng",
+        "short_name":  "UDN",
+        "code_university":  "GD33"
+    },
+    {
+        "name":  "Trường Đại học Bách khoa – ĐH Đà Nẵng",
+        "short_name":  "DUT",
+        "code_university":  "DDK"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Kỹ thuật – ĐH Đà Nẵng",
+        "short_name":  "UTE",
+        "code_university":  "DSK"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế – ĐH Đà Nẵng",
+        "short_name":  "DUE",
+        "code_university":  "DDQ"
+    },
+    {
+        "name":  "Trường Đại học Ngoại ngữ – ĐH Đà Nẵng",
+        "short_name":  "UFL",
+        "code_university":  "DDF"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm – ĐH Đà Nẵng",
+        "short_name":  "UED",
+        "code_university":  "DDS"
+    },
+    {
+        "name":  "Trường Đại học Kỹ thuật Y – Dược Đà Nẵng",
+        "short_name":  null,
+        "code_university":  "YDN"
+    },
+    {
+        "name":  "Trường Đại học Thể dục Thể thao Đà Nẵng",
+        "short_name":  "DUPES",
+        "code_university":  "TTD"
+    },
+    {
+        "name":  "Trường Đại học Đông Á",
+        "short_name":  "Dong A University",
+        "code_university":  "DAD"
+    },
+    {
+        "name":  "Trường Đại học Duy Tân",
+        "short_name":  "Duy Tan University",
+        "code_university":  "DDT"
+    },
+    {
+        "name":  "Trường Đại học Kiến trúc Đà Nẵng",
+        "short_name":  null,
+        "code_university":  "KTD"
+    },
+    {
+        "name":  "Trường Đại học Mỹ tại Việt Nam – AUV Đà Nẵng",
+        "short_name":  "The American University in Vietnam – AUV",
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Quy Nhơn",
+        "short_name":  "QNU",
+        "code_university":  "DQN"
+    },
+    {
+        "name":  "Trường Đại học Quang Trung",
+        "short_name":  "Quang Trung University (QTU)",
+        "code_university":  "DQT"
+    },
+    {
+        "name":  "Trường Đại học Buôn Ma Thuột",
+        "short_name":  null,
+        "code_university":  "BMU"
+    },
+    {
+        "name":  "Phân hiệu Đại học Nông Lâm Thành phố Hồ Chí Minh tại Gia Lai",
+        "short_name":  null,
+        "code_university":  "NLG"
+    },
+    {
+        "name":  "Trường Đại học Hà Tĩnh",
+        "short_name":  "HTU",
+        "code_university":  "HHT"
+    },
+    {
+        "name":  "Trường Đại học Nha Trang",
+        "short_name":  "NTU",
+        "code_university":  "TSN"
+    },
+    {
+        "name":  "Đại học Khánh Hòa",
+        "short_name":  "UKH",
+        "code_university":  "UKH"
+    },
+    {
+        "name":  "Trường Đại học Thái Bình Dương",
+        "short_name":  "Pacific Ocean University (POU)",
+        "code_university":  "TBD"
+    },
+    {
+        "name":  "Học viện Hải quân",
+        "short_name":  null,
+        "code_university":  "HQH"
+    },
+    {
+        "name":  "Trường Sĩ quan Không quân",
+        "short_name":  null,
+        "code_university":  "KGH / KGC"
+    },
+    {
+        "name":  "Đại học Thông tin liên lạc",
+        "short_name":  "Telecommunications University (TCU)",
+        "code_university":  "TCU"
+    },
+    {
+        "name":  "Trường Dự bị Đại học dân tộc Nha Trang",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Phân hiệu Đại học Đà Nẵng tại Kon Tum – ĐH Đà Nẵng",
+        "short_name":  "UD-CK",
+        "code_university":  "DDP"
+    },
+    {
+        "name":  "Trường Đại học Đà Lạt",
+        "short_name":  "DLU",
+        "code_university":  "TDL"
+    },
+    {
+        "name":  "Trường Đại học Tôn Đức Thắng, cơ sở Bảo Lộc",
+        "short_name":  null,
+        "code_university":  "DTT"
+    },
+    {
+        "name":  "Đại học Yersin Đà Lạt",
+        "short_name":  "Yersin University",
+        "code_university":  "DYD"
+    },
+    {
+        "name":  "Học viện Lục quân Đà Lạt",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Vinh",
+        "short_name":  "Vinhuni",
+        "code_university":  "TDV"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Kỹ thuật Vinh",
+        "short_name":  "VUTED",
+        "code_university":  "SKV"
+    },
+    {
+        "name":  "Trường Đại học Y khoa Vinh",
+        "short_name":  "VMU",
+        "code_university":  "YKV"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế Nghệ An",
+        "short_name":  "NACE",
+        "code_university":  "CEA"
+    },
+    {
+        "name":  "Trường Đại học Công nghệ Vạn Xuân",
+        "short_name":  "Van Xuan University of Technology (VXUT)",
+        "code_university":  "DVX"
+    },
+    {
+        "name":  "Trường Đại học Công nghiệp Vinh",
+        "short_name":  "Industrial University of Vinh (IUV)",
+        "code_university":  "DCV"
+    },
+    {
+        "name":  "Phân hiệu Đại học Nông Lâm Thành phố Hồ Chí Minh tại Ninh Thuận",
+        "short_name":  null,
+        "code_university":  "NLN"
+    },
+    {
+        "name":  "Trường Đại học Xây dựng miền Trung",
+        "short_name":  "MUCE",
+        "code_university":  "XDT"
+    },
+    {
+        "name":  "Phân viện Phú Yên – Học viện Ngân hàng",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Phú Yên",
+        "short_name":  "PYU",
+        "code_university":  "DPY"
+    },
+    {
+        "name":  "Trường Đại học Quảng Bình",
+        "short_name":  "Quang Binh Univesity",
+        "code_university":  "DQB"
+    },
+    {
+        "name":  "Phân hiệu Đại học Nội vụ Hà Nội tại Quảng Nam",
+        "short_name":  null,
+        "code_university":  "DNV"
+    },
+    {
+        "name":  "Trường Đại học Quảng Nam",
+        "short_name":  "Quang Nam Univesity",
+        "code_university":  "DQU"
+    },
+    {
+        "name":  "Trường Đại học Phan Châu Trinh",
+        "short_name":  "Phan Chu Trinh University (PCTU)",
+        "code_university":  "DPC"
+    },
+    {
+        "name":  "Trường Đại học Phạm Văn Đồng",
+        "short_name":  "PDU",
+        "code_university":  "DPQ"
+    },
+    {
+        "name":  "Trường Đại học Tài chính – Kế toán",
+        "short_name":  "UFA",
+        "code_university":  "DKQ"
+    },
+    {
+        "name":  "Phân hiệu Đại học Công nghiệp Thành phố Hồ Chí Minh tại Quảng Ngãi",
+        "short_name":  null,
+        "code_university":  "IUQ"
+    },
+    {
+        "name":  "Phân hiệu Đại học Huế tại Quảng Trị – ĐH Huế",
+        "short_name":  null,
+        "code_university":  "DHQ"
+    },
+    {
+        "name":  "Phân hiệu Đại học Y Hà Nội tại Thanh Hóa",
+        "short_name":  "Hanoi Medical University (HMU)",
+        "code_university":  "YHT"
+    },
+    {
+        "name":  "Phân hiệu Đại học Tài nguyên và Môi trường Hà Nội tại Thanh Hóa",
+        "short_name":  null,
+        "code_university":  "DMT"
+    },
+    {
+        "name":  "Đại học Hồng Đức",
+        "short_name":  "HDU",
+        "code_university":  "HDT"
+    },
+    {
+        "name":  "Trường Đại học Văn hóa, Thể thao và Du lịch Thanh Hóa",
+        "short_name":  "DVTDT",
+        "code_university":  "DVD"
+    },
+    {
+        "name":  "Trường Dự bị Đại học dân tộc Sầm Sơn",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Đại học Quốc gia Thành phố Hồ Chí Minh",
+        "short_name":  "VNUHCM",
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Bách khoa – ĐHQG HCM",
+        "short_name":  "HCMUT",
+        "code_university":  "QSB"
+    },
+    {
+        "name":  "Trường Đại học Công nghệ Thông tin – ĐHQG HCM",
+        "short_name":  "UIT",
+        "code_university":  "QSC"
+    },
+    {
+        "name":  "Trường Đại học Khoa học Tự nhiên – ĐHQG HCM",
+        "short_name":  "HCMUS",
+        "code_university":  "QST"
+    },
+    {
+        "name":  "Trường Đại học Khoa học Xã hội và Nhân văn – ĐHQG HCM",
+        "short_name":  "hcmussh",
+        "code_university":  "QSX"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế – Luật – ĐHQG HCM",
+        "short_name":  "UEL",
+        "code_university":  "QSK"
+    },
+    {
+        "name":  "Trường Đại học Quốc tế – ĐHQG HCM",
+        "short_name":  "HCMIU",
+        "code_university":  "QSQ"
+    },
+    {
+        "name":  "Trường Đại học Công nghiệp Thành phố Hồ Chí Minh",
+        "short_name":  "IUH",
+        "code_university":  "HUI"
+    },
+    {
+        "name":  "Trường Đại học Công nghiệp Thực phẩm Thành phố Hồ Chí Minh",
+        "short_name":  "HUFI",
+        "code_university":  "DCT"
+    },
+    {
+        "name":  "Trường Đại học Giao thông vận tải Thành phố Hồ Chí Minh",
+        "short_name":  "GTS hoặc UT-HCMC",
+        "code_university":  "GTS"
+    },
+    {
+        "name":  "Trường Đại học Kiến trúc Thành phố Hồ Chí Minh",
+        "short_name":  "HCMUArc hoặc UAH",
+        "code_university":  "KTS"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế Thành phố Hồ Chí Minh",
+        "short_name":  "UEH",
+        "code_university":  "KSA"
+    },
+    {
+        "name":  "Trường Đại học Luật Thành phố Hồ Chí Minh",
+        "short_name":  "HCMUL",
+        "code_university":  "LPS"
+    },
+    {
+        "name":  "Trường Đại học Mở Thành phố Hồ Chí Minh",
+        "short_name":  "OU – HCMCOU",
+        "code_university":  "MBS"
+    },
+    {
+        "name":  "Trường Đại học Mỹ thuật Thành phố Hồ Chí Minh",
+        "short_name":  "HCMUFA",
+        "code_university":  "MTS"
+    },
+    {
+        "name":  "Trường Đại học Ngân hàng Thành phố Hồ Chí Minh",
+        "short_name":  "BUH",
+        "code_university":  "NHS"
+    },
+    {
+        "name":  "Trường Đại học Nông Lâm Thành phố Hồ Chí Minh",
+        "short_name":  "NLU",
+        "code_university":  "NLU"
+    },
+    {
+        "name":  "Trường Đại học Sân khấu – Điện ảnh Thành phố Hồ Chí Minh",
+        "short_name":  "SKDAHCM",
+        "code_university":  "DSD"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Kỹ thuật Thành phố Hồ Chí Minh",
+        "short_name":  "HCMUTE -UTE",
+        "code_university":  "SPK"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Thành phố Hồ Chí Minh",
+        "short_name":  "HCMUE",
+        "code_university":  "SPS"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm Thể dục Thể thao Thành phố Hồ Chí Minh",
+        "short_name":  "UPES",
+        "code_university":  "STS"
+    },
+    {
+        "name":  "Trường Đại học Tài chính – Marketing",
+        "short_name":  "UFM",
+        "code_university":  "DMS"
+    },
+    {
+        "name":  "Trường Đại học Tài nguyên và Môi trường Thành phố Hồ Chí Minh",
+        "short_name":  "HCMUNRE",
+        "code_university":  "DTM"
+    },
+    {
+        "name":  "Đại học Thể dục Thể thao Thành phố Hồ Chí Minh",
+        "short_name":  "HCUS",
+        "code_university":  "TDS"
+    },
+    {
+        "name":  "Trường Đại học Tôn Đức Thắng",
+        "short_name":  "TDTU",
+        "code_university":  "DTT"
+    },
+    {
+        "name":  "Trường Đại học Văn hóa Thành phố Hồ Chí Minh",
+        "short_name":  "HCMUC",
+        "code_university":  "VHS"
+    },
+    {
+        "name":  "Trường Đại học Y Dược Thành phố Hồ Chí Minh",
+        "short_name":  "UMP",
+        "code_university":  "YDS"
+    },
+    {
+        "name":  "Đại học Y Phạm Ngọc Thạch",
+        "short_name":  "PNTU",
+        "code_university":  "TYS"
+    },
+    {
+        "name":  "Phân hiệu Học viện Phụ nữ Việt Nam tại Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Giao thông Vận tải cơ sở 2",
+        "short_name":  "University of Transport and Communications",
+        "code_university":  "GSA"
+    },
+    {
+        "name":  "Trường Đại học Lao động – Xã hội cơ sở 2, Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  "DLS"
+    },
+    {
+        "name":  "Trường Đại học Ngoại thương cơ sở 2, Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  "NTS"
+    },
+    {
+        "name":  "Đại học Thủy lợi cơ sở 2, Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  "TLS"
+    },
+    {
+        "name":  "Học viện Cán bộ Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  "HVC"
+    },
+    {
+        "name":  "Học viện Công nghệ Bưu chính Viễn thông cơ sở 2, Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  "BVS"
+    },
+    {
+        "name":  "Học viện Hàng không Việt Nam",
+        "short_name":  "VAA",
+        "code_university":  "HHK"
+    },
+    {
+        "name":  "Nhạc viện Thành phố Hồ Chí Minh",
+        "short_name":  "HCMCONS",
+        "code_university":  "NVS"
+    },
+    {
+        "name":  "Phân viện Học viện Hành chính Quốc gia tại Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Phân viện miền Nam – Học viện Thanh thiếu niên Việt Nam",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Học viện Tư Pháp – Cơ sở tại Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Sài Gòn",
+        "short_name":  "SGU",
+        "code_university":  "SGD"
+    },
+    {
+        "name":  "Trường Đại học Công nghệ Sài Gòn",
+        "short_name":  "SaiGon Technology University",
+        "code_university":  "DSG"
+    },
+    {
+        "name":  "Trường Đại học Công nghệ Thành phố Hồ Chí Minh",
+        "short_name":  "HUTECH",
+        "code_university":  "DKC"
+    },
+    {
+        "name":  "Đại học Văn Lang",
+        "short_name":  "Van Lang University (VLU)",
+        "code_university":  "DVL"
+    },
+    {
+        "name":  "Đại học Fulbright Việt Nam",
+        "short_name":  "Fulbright University Vietnam",
+        "code_university":  "FUV"
+    },
+    {
+        "name":  "Trường Đại học Hoa Sen",
+        "short_name":  "Hoa Sen University (HSU)",
+        "code_university":  "HSU"
+    },
+    {
+        "name":  "Trường Đại học Hùng Vương Thành phố Hồ Chí Minh",
+        "short_name":  "Hung Vuong University Ho Chi Minh City (HVUH",
+        "code_university":  "DHV"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế – Tài chính Thành phố Hồ Chí Minh",
+        "short_name":  "University of Economics and Finance (UEF)",
+        "code_university":  "UEF"
+    },
+    {
+        "name":  "Trường Đại học Ngoại ngữ Tin học Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  "DNT"
+    },
+    {
+        "name":  "Trường Đại học Nguyễn Tất Thành",
+        "short_name":  "Nguyen Tat Thanh University (NTTU)",
+        "code_university":  "NTT"
+    },
+    {
+        "name":  "Trường Đại học Quốc tế Hồng Bàng",
+        "short_name":  "(Hong Bang University, viết tắt HBU",
+        "code_university":  "HIU"
+    },
+    {
+        "name":  "Trường Đại học Quốc tế Sài Gòn",
+        "short_name":  "The Saigon International University( SIU)",
+        "code_university":  "TTQ"
+    },
+    {
+        "name":  "Đại học Gia Định",
+        "short_name":  "Gia Dinh University",
+        "code_university":  "DCG"
+    },
+    {
+        "name":  "Trường Đại học Văn Hiến",
+        "short_name":  "Van Hien University (VHU)",
+        "code_university":  "DVH"
+    },
+    {
+        "name":  "Trường Đại học Trần Đại Nghĩa",
+        "short_name":  "Tran Dai Nghia University (TDNU)",
+        "code_university":  "VPH (Hệ quân sự), ZPH (Hệ dân sự)"
+    },
+    {
+        "name":  "Trường Đại học An ninh Nhân dân",
+        "short_name":  null,
+        "code_university":  "ANS"
+    },
+    {
+        "name":  "Đại học Cảnh sát Nhân dân",
+        "short_name":  null,
+        "code_university":  "CSS"
+    },
+    {
+        "name":  "Trường Dự bị Đại Học Thành phố Hồ Chí Minh",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học An Giang – ĐHQG HCM",
+        "short_name":  "AGU",
+        "code_university":  "TAG"
+    },
+    {
+        "name":  "Trường Đại học Dầu khí Việt Nam",
+        "short_name":  "PVU",
+        "code_university":  "PVU"
+    },
+    {
+        "name":  "Phân hiệu Đại học Mỏ-Địa chất tại Vũng Tàu",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Bà Rịa – Vũng Tàu",
+        "short_name":  "Baria-Vungtau University",
+        "code_university":  "BVU"
+    },
+    {
+        "name":  "Trường Đại học Bạc Liêu",
+        "short_name":  "BLU",
+        "code_university":  "DBL"
+    },
+    {
+        "name":  "Phân hiệu Đại học Quốc gia Thành phố Hồ Chí Minh tại Bến Tre – ĐHQG HCM",
+        "short_name":  "VNUHCM – CBT",
+        "code_university":  "QSB"
+    },
+    {
+        "name":  "Phân hiệu Đại học Bách Khoa tại Bến Tre",
+        "short_name":  "VNUHCM – CBT",
+        "code_university":  "QSB"
+    },
+    {
+        "name":  "Phân hiệu Đại học Công nghệ Thông tin tại Bến Tre",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Phân hiệu Đại học Khoa học Tự nhiên tại Bến Tre",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Phân hiệu Đại học Khoa học Xã hội và Nhân văn tại Bến Tre",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Phân hiệu Đại học Kinh tế – Luật tại Bến Tre",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Việt Đức",
+        "short_name":  "VGU",
+        "code_university":  "VGU"
+    },
+    {
+        "name":  "Trường Đại học Thủ Dầu Một",
+        "short_name":  "TDMU",
+        "code_university":  "TDM"
+    },
+    {
+        "name":  "Trường Đại học Bình Dương",
+        "short_name":  "Binh Duong University",
+        "code_university":  "DBD"
+    },
+    {
+        "name":  "Trường Đại học Kinh tế- Kỹ thuật Bình Dương",
+        "short_name":  "Binh Duong Economics and Technology University (BETU)",
+        "code_university":  "DKB"
+    },
+    {
+        "name":  "Trường Đại học Quốc tế Miền Đông",
+        "short_name":  "Eastern International University",
+        "code_university":  "EIU"
+    },
+    {
+        "name":  "Trường Đại học Ngô Quyền",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Phân hiệu Đại học Bình Dương tại Cà Mau",
+        "short_name":  null,
+        "code_university":  "DBD"
+    },
+    {
+        "name":  "Trường Đại học Tôn Đức Thắng, cơ sở Cà Mau",
+        "short_name":  null,
+        "code_university":  "TDTU"
+    },
+    {
+        "name":  "Trường Đại học Tôn Đức Thắng, cơ sở Nha Trang",
+        "short_name":  null,
+        "code_university":  null
+    },
+    {
+        "name":  "Trường Đại học Cần Thơ",
+        "short_name":  "CTU",
+        "code_university":  "TCT"
+    },
+    {
+        "name":  "Trường Đại học Y Dược Cần Thơ",
+        "short_name":  "CTUMP",
+        "code_university":  "YCT"
+    },
+    {
+        "name":  "Trường Đại học Kiến trúc Thành phố Hồ Chí Minh cơ sở Cần Thơ",
+        "short_name":  "University of Architecture Ho Chi Minh City (UAH)",
+        "code_university":  "KTS"
+    },
+    {
+        "name":  "Trường Đại học Kỹ thuật – Công nghệ Cần Thơ",
+        "short_name":  "CTUT",
+        "code_university":  "KCC"
+    },
+    {
+        "name":  "Trường Đại học Nam Cần Thơ",
+        "short_name":  "Nam Can Tho University (NCTU)",
+        "code_university":  "DNC"
+    },
+    {
+        "name":  "Trường Đại học Tây Đô",
+        "short_name":  "Tay Do University",
+        "code_university":  "DTD"
+    },
+    {
+        "name":  "Phân hiệu Đại học Lâm nghiệp Việt Nam tại Đồng Nai",
+        "short_name":  "VNUF",
+        "code_university":  "LNS"
+    },
+    {
+        "name":  "Đại học Đồng Nai",
+        "short_name":  "DNU",
+        "code_university":  "DNU"
+    },
+    {
+        "name":  "Trường Đại học Công nghệ Đồng Nai",
+        "short_name":  "Dong Nai Technology University (DNTU)",
+        "code_university":  "DCD"
+    },
+    {
+        "name":  "Trường Đại học Lạc Hồng",
+        "short_name":  "Lac Hong University.",
+        "code_university":  "DLH"
+    },
+    {
+        "name":  "Trường Đại học Nguyễn Huệ",
+        "short_name":  "Nguyễn Huệ University (NHU)",
+        "code_university":  "LBH"
+    },
+    {
+        "name":  "Trường Đại học Đồng Tháp",
+        "short_name":  "DTHU",
+        "code_university":  "SPD"
+    },
+    {
+        "name":  "Phân hiệu Đại học Cần Thơ tại Hậu Giang",
+        "short_name":  "Can Tho University (CTU)",
+        "code_university":  "TCT"
+    },
+    {
+        "name":  "Trường Đại học Võ Trường Toản",
+        "short_name":  "Vo Truong Toan University (VTTU)",
+        "code_university":  "VTT"
+    },
+    {
+        "name":  "Trường Đại học Kiên Giang",
+        "short_name":  "Kien Giang University",
+        "code_university":  "TKG"
+    },
+    {
+        "name":  "Đại học Kinh tế – Công nghiệp Long An",
+        "short_name":  "Long An University of Economics and Industry",
+        "code_university":  "DLA"
+    },
+    {
+        "name":  "Trường Đại học Tân Tạo",
+        "short_name":  "Tan Tao University (TTU",
+        "code_university":  "TTU"
+    },
+    {
+        "name":  "Trường Đại học Tiền Giang",
+        "short_name":  "TGU",
+        "code_university":  "TTG"
+    },
+    {
+        "name":  "Trường Đại học Trà Vinh",
+        "short_name":  "Tra Vinh University",
+        "code_university":  "DVT"
+    },
+    {
+        "name":  "Trường Đại học Sư phạm kỹ thuật Vĩnh Long",
+        "short_name":  "VLUTE",
+        "code_university":  "VLU"
+    },
+    {
+        "name":  "Trường Đại học Xây dựng Miền Tây",
+        "short_name":  "MTU",
+        "code_university":  "MTU"
+    },
+    {
+        "name":  "Trường Đại học Cửu Long",
+        "short_name":  "Mekong University (MKU)",
+        "code_university":  "DCL"
+    }
+]

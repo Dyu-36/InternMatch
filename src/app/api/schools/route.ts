@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import vietnamUniversities from '@/data/vietnam-universities.json';
 
 type UpstreamSchool = {
   name?: string;
@@ -9,17 +10,42 @@ type UpstreamSchool = {
   web_pages?: string[];
 };
 
-const SCHOOLS_API = 'http://universities.hipolabs.com/search';
+type LocalSchool = {
+  name: string;
+  short_name?: string | null;
+  code_university?: string | null;
+};
 
-// Search aliases only: results still come from the live directory, never mock rows.
-// Names verified at https://www.hust.edu.vn/vi/about/tong-quan.html and https://htqt.ftu.edu.vn/.
+type DirectorySchool = {
+  id: string;
+  code: string;
+  name: string;
+  type: 'university';
+  searchTerms: string[];
+  province?: string;
+  website?: string;
+};
+
+const SCHOOLS_API = 'http://universities.hipolabs.com/search';
+// Snapshot complement for the Vietnamese university directory:
+// https://github.com/lehuuhieuak/api-university-vn/blob/master/dataset-universities-vn.json
+const LOCAL_SCHOOLS = vietnamUniversities as LocalSchool[];
+
 const SCHOOL_ALIASES: Record<string, string[]> = {
-  'hust.edu.vn': ['HUST', 'HUT', 'Đại học Bách khoa Hà Nội', 'Trường Đại học Bách khoa Hà Nội', 'ĐHBKHN', 'hut.edu.vn', 'Hanoi University of Technology'],
+  'hust.edu.vn': ['HUST', 'HUT', 'Đại học Bách khoa Hà Nội', 'Trường Đại học Bách khoa Hà Nội', 'ĐHBKHN', 'Hanoi University of Technology'],
   'ftu.edu.vn': ['FTU', 'Đại học Ngoại thương', 'Trường Đại học Ngoại thương', 'ĐHNT'],
 };
 
 function normalizeSearch(value: string) {
   return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+function schoolKey(value: string) {
+  return normalizeSearch(value).replace(/^truong\s+/, '');
+}
+
+function schoolSlug(value: string) {
+  return normalizeSearch(value).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
 async function fetchSchools(country: string): Promise<UpstreamSchool[]> {
@@ -28,7 +54,7 @@ async function fetchSchools(country: string): Promise<UpstreamSchool[]> {
   const response = await fetch(url, {
     headers: { Accept: 'application/json' },
     next: { revalidate: 3600 },
-    signal: AbortSignal.timeout(10000),
+    signal: AbortSignal.timeout(7000),
   });
   if (!response.ok) throw new Error('School directory unavailable');
   const schools: unknown = await response.json();
@@ -36,45 +62,56 @@ async function fetchSchools(country: string): Promise<UpstreamSchool[]> {
   return schools;
 }
 
+function fromLocalSchool(school: LocalSchool): DirectorySchool {
+  const code = school.code_university ?? school.short_name ?? '';
+  return {
+    id: `vn-${schoolSlug(school.name)}${code ? `-${schoolSlug(code)}` : ''}`,
+    code,
+    name: school.name.trim(),
+    type: 'university',
+    searchTerms: [school.name, school.short_name ?? '', school.code_university ?? ''],
+  };
+}
+
+function fromUpstreamSchool(school: UpstreamSchool): DirectorySchool | null {
+  if (!school.name?.trim()) return null;
+  const domains = school.domains ?? [];
+  return {
+    id: domains[0] ?? school.name,
+    code: domains[0] ?? '',
+    name: school.name.trim(),
+    type: 'university',
+    searchTerms: [school.name, ...domains, ...domains.flatMap((domain) => SCHOOL_ALIASES[domain] ?? [])],
+    province: school['state-province'] ?? '',
+    website: school.web_pages?.[0] ?? '',
+  };
+}
+
 export async function GET(request: Request) {
   const search = normalizeSearch(new URL(request.url).searchParams.get('search') ?? '');
+  const upstreamResults = await Promise.allSettled(['Vietnam', 'Viet Nam'].map(fetchSchools));
+  const upstreamSchools = upstreamResults.flatMap((result) => result.status === 'fulfilled' ? result.value : []);
+  const hasCurrentHust = upstreamSchools.some((school) => school.domains?.includes('hust.edu.vn'));
+  const seen = new Set<string>();
 
-  try {
-    // The upstream directory splits VN between these two country spellings.
-    // Load both before filtering; searching upstream by name misses acronyms/domains.
-    const groups = await Promise.all(['Vietnam', 'Viet Nam'].map(fetchSchools));
-    const schools = groups.flat().filter((school) => school && typeof school.name === 'string' && school.name.trim() &&
-      (school.alpha_two_code === 'VN' || ['Vietnam', 'Viet Nam'].includes(school.country ?? '')));
-    const hasCurrentHust = schools.some((school) => school.domains?.includes('hust.edu.vn'));
-    const seenNames = new Set<string>();
-    const seenDomains = new Set<string>();
-    const result = schools
-      .filter((school) => {
-        if (hasCurrentHust && school.domains?.includes('hut.edu.vn')) return false;
-        const name = normalizeSearch(school.name!);
-        const domains = school.domains ?? [];
-        if (seenNames.has(name) || domains.some((domain) => seenDomains.has(domain))) return false;
-        seenNames.add(name);
-        domains.forEach((domain) => seenDomains.add(domain));
-        return true;
-      })
-      .filter((school) => {
-        const domains = school.domains ?? [];
-        const terms = [school.name!, ...domains, ...domains.flatMap((domain) => SCHOOL_ALIASES[domain] ?? [])];
-        return !search || terms.some((term) => normalizeSearch(term).includes(search));
-      })
-      .map((school) => ({
-        id: school.domains?.[0] ?? school.name,
-        code: school.domains?.[0] ?? '',
-        name: school.name,
-        type: 'university',
-        province: school['state-province'] ?? '',
-        website: school.web_pages?.[0] ?? '',
-      }))
-      .sort((a, b) => a.name!.localeCompare(b.name!, 'en'));
+  const result = [
+    ...upstreamSchools
+      .filter((school) => !(hasCurrentHust && school.domains?.includes('hut.edu.vn')))
+      .map(fromUpstreamSchool)
+      .filter((school): school is DirectorySchool => Boolean(school)),
+    ...LOCAL_SCHOOLS.map(fromLocalSchool),
+  ]
+    .filter((school) => {
+      const keys = [school.name, ...school.searchTerms].map(schoolKey).filter(Boolean);
+      if (keys.some((key) => seen.has(key))) return false;
+      keys.forEach((key) => seen.add(key));
+      return true;
+    })
+    .filter((school) => !search || school.searchTerms.some((term) => normalizeSearch(term).includes(search)))
+    .map(({ searchTerms: _searchTerms, ...school }) => school)
+    .sort((a, b) => a.name.localeCompare(b.name, 'vi'));
 
-    return NextResponse.json(result, { headers: { 'Cache-Control': 'public, max-age=3600, s-maxage=3600' } });
-  } catch {
-    return NextResponse.json({ error: 'Không thể kết nối tới danh sách trường.' }, { status: 502 });
-  }
+  return NextResponse.json(result, {
+    headers: { 'Cache-Control': 'public, max-age=3600, s-maxage=3600' },
+  });
 }

@@ -130,13 +130,13 @@ textarea {
 }
 
 :focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  outline: 2px solid var(--border-strong);
   outline-offset: 2px;
 }
 
 .hero-search-field:focus-within {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgb(5 150 105 / 0.12);
+  box-shadow: none;
 }
 
 .hero-search-field input:focus-visible,
@@ -391,7 +391,7 @@ textarea {
 .ui-select:focus,
 .ui-textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgb(5 150 105 / 0.12);
+  box-shadow: none;
   outline: none;
 }
 

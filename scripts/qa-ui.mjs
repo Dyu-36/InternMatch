@@ -90,7 +90,26 @@ try {
   await schoolSearch.fill('Bách khoa');
   await expect(student.getByRole('option').filter({ hasText: 'hust.edu.vn' })).toBeVisible();
   await snapshot(student, 'school-picker-open');
+  await schoolSearch.fill('');
+  await expect(student.getByRole('option').filter({ hasText: 'hust.edu.vn' })).toBeVisible();
+  await student.setViewportSize({ width: 513, height: 429 });
+  await university.scrollIntoViewIfNeeded();
+  const schoolPopover = student.locator('[data-slot=popover-content]');
+  await student.waitForTimeout(100);
+  const [compactTriggerBox, compactPopoverBox] = await Promise.all([university.boundingBox(), schoolPopover.boundingBox()]);
+  const compactLayout = {
+    trigger: compactTriggerBox,
+    popover: compactPopoverBox,
+    viewport: student.viewportSize(),
+  };
+  expect(compactPopoverBox.y, JSON.stringify(compactLayout)).toBeGreaterThanOrEqual(0);
+  expect(compactPopoverBox.y + compactPopoverBox.height, JSON.stringify(compactLayout)).toBeLessThanOrEqual(429);
+  expect(
+    compactPopoverBox.y + compactPopoverBox.height <= compactTriggerBox.y + 1 || compactPopoverBox.y >= compactTriggerBox.y + compactTriggerBox.height - 1,
+    JSON.stringify(compactLayout),
+  ).toBe(true);
   await student.getByRole('option').filter({ hasText: 'hust.edu.vn' }).click();
+  await student.setViewportSize({ width: 1440, height: 1000 });
   await expect(university).toHaveCSS('background-color', 'rgb(255, 255, 255)');
   const universityName = await university.innerText();
   await student.locator('#avatar').setInputFiles({ name: 'avatar.png', mimeType: 'image/png', buffer: tinyPng });
