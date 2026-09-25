@@ -1,61 +1,67 @@
+'use client';
+
 import Link from 'next/link';
 import { UserCheck, Search, CheckCircle2 } from 'lucide-react';
+import { useT } from '@/context/LocaleContext';
+import { Button } from '@/components/shadcn/button';
 
 const STEPS = [
   {
     step: 1,
     Icon: UserCheck,
     title: 'Tạo hồ sơ',
-    desc: 'Điền thông tin cá nhân, kỹ năng và mục tiêu nghề nghiệp của bạn chỉ trong vài phút.',
+    desc: 'Cập nhật thông tin đầy đủ để tăng độ tin cậy và cơ hội kết nối thành công.',
   },
   {
     step: 2,
     Icon: Search,
-    title: 'Tìm & ứng tuyển',
-    desc: 'Khám phá hàng ngàn vị trí thực tập phù hợp và nộp đơn ngay lập tức.',
+    title: 'Tìm & ứng tuy tuyển',
+    desc: 'Khám phá các vị trí đang tuyển và tìm công việc phù hợp với kỹ năng, ngành học và mục tiêu nghề nghiệp của bạn.',
   },
   {
     step: 3,
     Icon: CheckCircle2,
     title: 'Nhận phản hồi',
-    desc: 'Theo dõi trạng thái ứng tuyển và nhận thông báo phỏng vấn trực tiếp trên nền tảng.',
+    desc: 'Theo dõi đơn ứng tuyển và nhận gợi ý việc làm theo kỹ năng của bạn.',
   },
-];
+] as const;
 
 export default function HowItWorksSection() {
+  const t = useT();
+
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-slate-50">
-      <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-          Bắt đầu chỉ trong 3 bước
+    <section className="bg-slate-50 px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-5xl text-center">
+        <h2 className="mb-2 text-2xl font-bold text-gray-900 sm:text-3xl">
+          {t('Bắt đầu chỉ trong 3 bước')}
         </h2>
-        <p className="text-gray-500 mb-12 text-sm max-w-xl mx-auto">
-          Quy trình đơn giản, nhanh chóng để bạn sớm có được cơ hội thực tập mơ ước
+        <p className="mx-auto mb-12 max-w-xl text-sm text-gray-500">
+          {t('Quy trình đơn giản, nhanh chóng để bạn sớm có được cơ hội thực tập mơ ước')}
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {STEPS.map((s) => (
-            <div key={s.step} className="flex flex-col items-center">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+          {STEPS.map((step) => (
+            <div key={step.step} className="flex flex-col items-center">
               <div className="relative mb-5">
-                <div className="w-20 h-20 rounded-2xl bg-white shadow-md border border-gray-100 flex items-center justify-center">
-                  <s.Icon className="w-8 h-8 text-emerald-600" />
+                <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-gray-100 bg-white shadow-md">
+                  <step.Icon className="h-8 w-8 text-[var(--accent-strong)]" aria-hidden="true" />
                 </div>
-                <span className="absolute -top-3 -right-3 w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">
-                  {s.step}
+                <span className="absolute -right-3 -top-3 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent-strong)] text-xs font-bold text-white">
+                  {step.step}
                 </span>
               </div>
-              <h3 className="text-base font-bold text-gray-900 mb-2">{s.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed max-w-xs">{s.desc}</p>
+              <h3 className="mb-2 text-base font-bold text-gray-900">{t(step.title)}</h3>
+              <p className="max-w-xs text-sm leading-relaxed text-gray-500">{t(step.desc)}</p>
             </div>
           ))}
         </div>
 
-        <Link
-          href="/register?role=STUDENT"
-          className="mt-12 inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-lg"
-        >
-          Tạo hồ sơ miễn phí →
-        </Link>
+        <Button asChild className="mt-12 h-auto rounded-xl px-7 py-3.5 text-sm shadow-lg">
+          <Link href="/register?role=STUDENT">
+            {t('Tạo hồ sơ')}
+            <span aria-hidden="true">→</span>
+          </Link>
+        </Button>
       </div>
     </section>
   );

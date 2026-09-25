@@ -1,11 +1,16 @@
 const baseUrl = (process.env.BASE_URL || 'http://localhost:3000').replace(/\/$/, '');
 
-const routes = [
+const publicRoutes = [
   '/',
   '/login',
   '/register',
+  '/forgot-password',
+  '/reset-password',
   '/jobs',
   '/jobs/1',
+];
+
+const protectedRoutes = [
   '/student/profile',
   '/student/dashboard',
   '/company/profile',
@@ -21,7 +26,7 @@ const errorMarkers = [
 ];
 
 const results = await Promise.all(
-  routes.map(async (route) => {
+  publicRoutes.map(async (route) => {
     const url = `${baseUrl}${route}`;
 
     try {
@@ -47,6 +52,26 @@ const results = await Promise.all(
   }),
 );
 
+const guardResults = await Promise.all(
+  protectedRoutes.map(async route => {
+    try {
+      const response = await fetch(`${baseUrl}${route}`, { redirect: 'manual' });
+      const location = response.headers.get('location');
+      const redirectUrl = location ? new URL(location, baseUrl) : null;
+      const next = redirectUrl?.searchParams.get('next') ?? null;
+      const passed = response.status === 307 && redirectUrl?.pathname === '/login' && next === route;
+      return { route, status: response.status, next, passed };
+    } catch (error) {
+      return {
+        route,
+        status: 'ERR',
+        next: error instanceof Error ? error.message : String(error),
+        passed: false,
+      };
+    }
+  }),
+);
+
 console.log('InternMatch route smoke test');
 console.log(`Base URL: ${baseUrl}`);
 console.log('');
@@ -55,9 +80,16 @@ for (const result of results) {
   console.log(`${result.passed ? 'PASS' : 'FAIL'} ${String(result.status).padEnd(3)} ${result.route.padEnd(24)} ${result.title}`);
 }
 
-const failures = results.filter((result) => !result.passed);
+for (const result of guardResults) {
+  console.log(`${result.passed ? 'PASS' : 'FAIL'} ${String(result.status).padEnd(3)} ${result.route.padEnd(24)} -> /login?next=${result.next}`);
+}
+
+const failures = [
+  ...results.filter(result => !result.passed),
+  ...guardResults.filter(result => !result.passed),
+];
 console.log('');
-console.log(`${results.length - failures.length}/${results.length} routes passed`);
+console.log(`${results.length + guardResults.length - failures.length}/${results.length + guardResults.length} checks passed`);
 
 if (failures.length > 0) {
   process.exitCode = 1;

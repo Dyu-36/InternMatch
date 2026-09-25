@@ -1,26 +1,32 @@
-import { Building2, Users, Briefcase, Star } from 'lucide-react';
+'use client';
 
-const STATS = [
-  { value: '2,500+', label: 'Doanh nghiệp', Icon: Building2 },
-  { value: '15,000+', label: 'Sinh viên', Icon: Users },
-  { value: '8,500+', label: 'Vị trí thực tập', Icon: Briefcase },
-  { value: '94%', label: 'Tỷ lệ hài lòng', Icon: Star },
-];
+import { useMemo } from 'react';
+import { Building2, Briefcase } from 'lucide-react';
+import { useT } from '@/context/LocaleContext';
+import { useApp } from '@/context/AppContext';
 
 export default function StatsSection() {
+  const t = useT();
+  const { jobs } = useApp();
+  const companyCount = useMemo(
+    () => new Set(jobs.map((job) => job.companyId).filter(Boolean)).size,
+    [jobs],
+  );
+  const stats = [
+    { value: jobs.length, label: 'Vị trí đang tuyển', Icon: Briefcase },
+    { value: companyCount, label: 'doanh nghiệp đang tuyển', Icon: Building2 },
+  ];
+
   return (
-    <section
-      className="py-16 px-4"
-      style={{ background: 'linear-gradient(135deg, #059669 0%, #047857 100%)' }}
-    >
-      <div className="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8">
-        {STATS.map((stat) => (
+    <section className="bg-[var(--accent-strong)] px-4 py-16 text-white">
+      <div className="mx-auto grid max-w-3xl grid-cols-2 gap-8">
+        {stats.map((stat) => (
           <div key={stat.label} className="text-center">
-            <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mx-auto mb-3">
-              <stat.Icon className="w-6 h-6 text-white" />
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-white/15">
+              <stat.Icon className="h-6 w-6" aria-hidden="true" />
             </div>
-            <p className="text-4xl font-bold text-white mb-1">{stat.value}</p>
-            <p className="text-emerald-100/80 text-sm">{stat.label}</p>
+            <p className="mb-1 text-4xl font-bold">{stat.value.toLocaleString()}</p>
+            <p className="text-sm text-emerald-50">{t(stat.label)}</p>
           </div>
         ))}
       </div>

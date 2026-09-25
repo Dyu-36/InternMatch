@@ -8,12 +8,12 @@ export interface EmptyStateProps {
 
 export function EmptyState({ title, description, action }: EmptyStateProps) {
   return (
-    <div className="ui-state">
+    <section className="ui-state" aria-label={title}>
       <div>
         <p className="ui-state__title">{title}</p>
         {description ? <p className="ui-state__description">{description}</p> : null}
       </div>
       {action ? <div>{action}</div> : null}
-    </div>
+    </section>
   );
 }

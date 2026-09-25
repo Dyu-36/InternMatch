@@ -7,6 +7,7 @@ import { ArrowRight, CheckCircle2, Clock3, GraduationCap, Sparkles, UserRound, X
 import { useMemo } from 'react';
 import { useApp } from '@/context/AppContext';
 import JobCard from '@/components/jobs/JobCard';
+import { Button } from '@/components/shadcn/button';
 import { Avatar } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Container } from '@/components/ui/Container';
@@ -54,21 +55,21 @@ export default function StudentDashboard() {
 
   if (!currentUser || currentUser.role !== 'STUDENT') {
     return (
-      <main className="student-page">
+      <div className="student-page">
         <Container>
           <div className="student-guard ui-card">
             <UserRound size={28} aria-hidden="true" />
             <h1>{t("Đăng nhập để xem dashboard")}</h1>
             <p>{t("Theo dõi đơn ứng tuyển và nhận gợi ý việc làm theo kỹ năng của bạn.")}</p>
-            <Link className="ui-button ui-button-primary" href="/login?next=/student/dashboard">{t("Đăng nhập")}</Link>
+            <Button asChild><Link href="/login?next=/student/dashboard">{t("Đăng nhập")}</Link></Button>
           </div>
         </Container>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="student-page">
+    <div className="student-page">
       <Container>
         <section className="student-summary ui-card">
           <div className="student-summary__identity">
@@ -79,14 +80,14 @@ export default function StudentDashboard() {
               <p className="student-summary__meta"><GraduationCap size={17} aria-hidden="true" /> {studentProfile.university} · {studentProfile.major} {t("· Khóa")} {studentProfile.expectedGraduationYear}</p>
             </div>
           </div>
-          <Link className="ui-button ui-button-secondary" href="/student/profile"><UserRound size={17} aria-hidden="true" /> {t("Chỉnh sửa hồ sơ & CV")}</Link>
+          <Button asChild variant="outline"><Link href="/student/profile"><UserRound size={17} aria-hidden="true" /> {t("Chỉnh sửa hồ sơ & CV")}</Link></Button>
           <div className="student-summary__skills">
             <strong>{t("Kỹ năng hiện tại của bạn:")}</strong>
             <div className="student-skill-list">{studentProfile.skills.length ? studentProfile.skills.map((skill) => <Badge tone="accent" key={skill}>{skill}</Badge>) : <span className="ui-hint">{t("Chưa cập nhật kỹ năng")}</span>}</div>
           </div>
-          <div className="student-progress" aria-label={`Hồ sơ hoàn thiện ${completion}%`}>
+          <div className="student-progress" role="progressbar" aria-label={t("Mức độ hoàn thiện hồ sơ")} aria-valuemin={0} aria-valuemax={100} aria-valuenow={completion}>
             <div className="student-progress__label"><span>{t("Mức độ hoàn thiện hồ sơ")}</span><strong>{completion}%</strong></div>
-            <div className="student-progress__track"><span style={{ width: `${completion}%` }} /></div>
+            <div className="student-progress__track" aria-hidden="true"><span style={{ width: `${completion}%` }} /></div>
           </div>
         </section>
 
@@ -97,16 +98,16 @@ export default function StudentDashboard() {
               <Badge tone="accent">{applicationRows.length}</Badge>
             </div>
             {applicationRows.length === 0 ? (
-              <EmptyState title={t("Bạn chưa nộp hồ sơ vào vị trí thực tập nào.")} description={t("Khám phá các cơ hội phù hợp với kỹ năng của bạn ngay hôm nay.")} action={<Link className="ui-button ui-button-secondary" href="/jobs">{t("Khám phá việc làm")} <ArrowRight size={16} aria-hidden="true" /></Link>} />
+              <EmptyState title={t("Bạn chưa nộp hồ sơ vào vị trí thực tập nào.")} description={t("Khám phá các cơ hội phù hợp với kỹ năng của bạn ngay hôm nay.")} action={<Button asChild variant="outline"><Link href="/jobs">{t("Khám phá việc làm")} <ArrowRight size={16} aria-hidden="true" /></Link></Button>} />
             ) : (
               <div className="student-application-list">
                 {applicationRows.map((application) => {
                   const job = jobs.find((item) => item.id === application.jobId);
                   const StatusIcon = statusIcons[application.status];
-                  return <div className="student-application" key={application.id}>
+                  return <article className="student-application" key={application.id}>
                     <div><Link href={`/jobs/${application.jobId}`} className="student-application__title">{job?.title ?? t("Vị trí thực tập")}</Link><p>{job?.companyName ?? t("Doanh nghiệp")} {t("· Nộp ngày")} {application.appliedAt}</p></div>
                     <Badge tone={statusTones[application.status]}><StatusIcon size={14} aria-hidden="true" /> {t(statusLabels[application.status])}</Badge>
-                  </div>;
+                  </article>;
                 })}
               </div>
             )}
@@ -123,6 +124,6 @@ export default function StudentDashboard() {
           </section>
         </div>
       </Container>
-    </main>
+    </div>
   );
 }

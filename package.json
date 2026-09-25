@@ -11,6 +11,10 @@
     "qa:schools": "node scripts/qa-schools.mjs",
     "qa:backend": "node --env-file=.env.local scripts/qa-backend.mjs",
     "qa:ui": "node --env-file=.env.local scripts/qa-ui.mjs",
+    "seed:jobs:plan": "node --env-file=.env.local scripts/seed-jobs.mjs",
+    "seed:jobs": "node --env-file=.env.local scripts/seed-jobs.mjs --apply",
+    "seed:applicants:plan": "node --env-file=.env.local scripts/seed-applicants.mjs",
+    "seed:applicants": "node --env-file=.env.local scripts/seed-applicants.mjs --apply",
     "assets:pexels": "node --env-file=.env.local scripts/fetch-pexels.mjs"
   },
   "dependencies": {

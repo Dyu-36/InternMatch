@@ -3,9 +3,9 @@
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { requireAccount, readAppState } from '@/lib/repository';
-import { credentialsSchema, roleSchema, studentSchema, companySchema, jobSchema } from '@/lib/validation';
+import { credentialsSchema, registrationSchema, studentSchema, companySchema, jobSchema, forgotPasswordSchema, resetPasswordSchema } from '@/lib/validation';
 import { jobPayload } from '@/lib/mappers';
-import { authEmail } from '@/lib/auth';
+import { getSiteUrl, loginEmail, registrationUsername } from '@/lib/auth';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 async function result<T>(operation: () => Promise<T>) {
@@ -15,8 +15,8 @@ async function result<T>(operation: () => Promise<T>) {
     const failure = error as { code?: string; message?: string };
     const messages: Record<string, string> = {
       invalid_credentials: 'Tên đăng nhập hoặc mật khẩu không đúng.',
-      user_already_exists: 'Tên đăng nhập đã tồn tại.',
-      email_exists: 'Tên đăng nhập đã tồn tại.',
+      user_already_exists: 'Email đã được sử dụng. Vui lòng đăng nhập hoặc đặt lại mật khẩu.',
+      email_exists: 'Email đã được sử dụng. Vui lòng đăng nhập hoặc đặt lại mật khẩu.',
       '23505': 'Thông tin này đã tồn tại hoặc bạn đã ứng tuyển vào vị trí này.',
       '42501': 'Bạn không có quyền thực hiện thao tác này.',
       over_request_rate_limit: 'Bạn thao tác quá nhanh. Vui lòng thử lại sau.',
@@ -30,39 +30,82 @@ export async function getAppState() { return result(readAppState); }
 
 export async function signIn(input: unknown) {
   return result(async () => {
-    const { username, password } = credentialsSchema.parse(input);
+    const { identifier, password } = credentialsSchema.parse(input);
     const client = await createClient();
-    const { error } = await client.auth.signInWithPassword({ email: authEmail(username), password });
-    if (error) throw error;
-    return true;
+    const { data, error } = await client.auth.signInWithPassword({ email: loginEmail(identifier), password });
+    if (error || !data.user) throw error ?? new Error('Không thể đăng nhập. Vui lòng thử lại.');
+    const { data: profile, error: profileError } = await client.from('profiles').select('role').eq('id', data.user.id).single();
+    if (profileError || (profile.role !== 'STUDENT' && profile.role !== 'COMPANY')) {
+      throw new Error('Hồ sơ tài khoản chưa sẵn sàng. Vui lòng thử lại sau.');
+    }
+    return profile.role;
   });
 }
 
-export async function signUp(input: unknown, roleInput: unknown) {
+export async function signUp(input: unknown) {
   return result(async () => {
-    const { username, password } = credentialsSchema.parse(input);
-    const role = roleSchema.parse(roleInput);
-    const email = authEmail(username);
+    const { displayName, email, password, role } = registrationSchema.parse(input);
+    const username = registrationUsername(email);
+    const userMetadata = { username, role, name: displayName };
     const admin = createAdminClient();
     if (admin) {
       const { data, error } = await admin.auth.admin.createUser({
         email,
         password,
         email_confirm: true,
-        user_metadata: { username, role },
+        user_metadata: userMetadata,
       });
       if (error) throw error;
       if (!data.user) throw new Error('Không thể hoàn tất đăng ký. Vui lòng thử lại.');
+
+      const profile = await admin.from('profiles').update({ name: displayName }).eq('id', data.user.id);
+      if (profile.error) throw profile.error;
+      const roleProfile = role === 'STUDENT'
+        ? await admin.from('student_profiles').update({ full_name: displayName }).eq('user_id', data.user.id)
+        : await admin.from('company_profiles').update({ company_name: displayName }).eq('user_id', data.user.id);
+      if (roleProfile.error) throw roleProfile.error;
+
       const client = await createClient();
       const { error: signInError } = await client.auth.signInWithPassword({ email, password });
       if (signInError) throw signInError;
-      return true;
+      return role;
     }
+
     const client = await createClient();
-    const { data, error } = await client.auth.signUp({ email, password,
-      options: { data: { username, role } } });
+    const { data, error } = await client.auth.signUp({ email, password, options: { data: userMetadata } });
     if (error) throw error;
-    if (!data.session) throw new Error('Không thể hoàn tất đăng ký. Vui lòng liên hệ hỗ trợ.');
+    if (!data.session || !data.user) throw new Error('Không thể hoàn tất đăng ký. Vui lòng liên hệ hỗ trợ.');
+    const { error: profileError } = await client.from('profiles').update({ name: displayName }).eq('id', data.user.id);
+    if (profileError) throw profileError;
+    const roleProfile = role === 'STUDENT'
+      ? await client.from('student_profiles').update({ full_name: displayName }).eq('user_id', data.user.id)
+      : await client.from('company_profiles').update({ company_name: displayName }).eq('user_id', data.user.id);
+    if (roleProfile.error) throw roleProfile.error;
+    return role;
+  });
+}
+
+export async function requestPasswordReset(input: unknown) {
+  return result(async () => {
+    const { email } = forgotPasswordSchema.parse(input);
+    try {
+      const client = await createClient();
+      await client.auth.resetPasswordForEmail(email, { redirectTo: `${getSiteUrl()}/auth/callback` });
+    } catch {
+      // Keep the response identical for existing, missing, and undeliverable accounts.
+    }
+    return true;
+  });
+}
+
+export async function updatePassword(input: unknown) {
+  return result(async () => {
+    const { password } = resetPasswordSchema.parse(input);
+    const client = await createClient();
+    const { data: { user }, error: userError } = await client.auth.getUser();
+    if (userError || !user) throw new Error('Phiên đặt lại mật khẩu không hợp lệ hoặc đã hết hạn. Vui lòng yêu cầu liên kết mới.');
+    const { error } = await client.auth.updateUser({ password });
+    if (error) throw error;
     return true;
   });
 }

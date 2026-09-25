@@ -3,11 +3,34 @@ import { z } from 'zod';
 const text = z.string().trim().min(1, 'Vui lòng điền đủ thông tin bắt buộc.').max(200);
 const longText = z.string().trim().max(10000);
 const skills = z.array(z.string().trim().min(1).max(80)).max(40);
+const email = z.string().trim().toLowerCase().pipe(z.email('Vui lòng nhập email hợp lệ.'));
+const password = z.string().min(8, 'Mật khẩu cần có ít nhất 8 ký tự.').max(128);
 export const credentialsSchema = z.object({
-  username: z.string().trim().toLowerCase().regex(/^[a-z0-9_]{3,32}$/, 'Tên đăng nhập gồm 3–32 chữ cái không dấu, số hoặc dấu gạch dưới.'),
-  password: z.string().min(6, 'Mật khẩu cần có ít nhất 6 ký tự.').max(128),
+  identifier: z.string().trim().min(1).max(320).refine((value) => {
+    if (value.includes('@')) return z.email().safeParse(value).success;
+    return /^[a-z0-9_]{3,32}$/i.test(value);
+  }, 'Vui lòng nhập email hoặc username hợp lệ.'),
+  password,
 });
 export const roleSchema = z.enum(['STUDENT', 'COMPANY']);
+export const registrationSchema = z.object({
+  displayName: text.min(2, 'Vui lòng nhập họ tên hoặc tên công ty.').max(120),
+  email,
+  password,
+  confirmPassword: z.string().max(128),
+  role: roleSchema,
+}).refine((value) => value.password === value.confirmPassword, {
+  message: 'Mật khẩu xác nhận chưa khớp.',
+  path: ['confirmPassword'],
+});
+export const forgotPasswordSchema = z.object({ email });
+export const resetPasswordSchema = z.object({
+  password,
+  confirmPassword: z.string().max(128),
+}).refine((value) => value.password === value.confirmPassword, {
+  message: 'Mật khẩu xác nhận chưa khớp.',
+  path: ['confirmPassword'],
+});
 export const studentSchema = z.object({
   fullName: text, university: text, major: text,
   expectedGraduationYear: z.number().int().min(2000).max(2100),

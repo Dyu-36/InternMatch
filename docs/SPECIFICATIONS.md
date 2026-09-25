@@ -20,8 +20,8 @@ Mục tiêu là tối ưu hóa quá trình tìm kiếm cơ hội thực tập, g
 
 | STT | Mockup File | Tên màn hình / Phần | Tuyến đường (Route) | Mô tả chức năng chính |
 |-----|-------------|---------------------|----------------------|-----------------------|
-| 01 | `01_dang-nhap.jpg` | Đăng nhập | `/login` | Đăng nhập bằng Tên đăng nhập và Mật khẩu, liên kết quên mật khẩu & đăng ký |
-| 02 | `02_tao-tai-khoan-moi.jpg` | Tạo tài khoản mới | `/register` | Đăng ký theo 2 vai trò: **Thực tập sinh** hoặc **Doanh nghiệp** |
+| 01 | `01_dang-nhap.jpg` | Đăng nhập | `/login` | Đăng nhập bằng email thật hoặc username legacy, kèm liên kết quên mật khẩu và đăng ký |
+| 02 | `02_tao-tai-khoan-moi.jpg` | Tạo tài khoản mới | `/register` | Đăng ký email thật, họ tên/tên công ty, mật khẩu và xác nhận theo 2 vai trò: **Thực tập sinh** hoặc **Doanh nghiệp** |
 | 03 | `03_cta-san-sang-khoi-dong-su-nghiep.jpg` | Khối CTA Footer | Trang chủ / Footer | Lời kêu gọi hành động cho cả Sinh viên & Doanh nghiệp, thông tin liên hệ |
 | 04 | `04_hero-ket-noi-tai-nang-voi-doanh-nghiep.jpg` | Hero Section | `/` (Trang chủ) | Thanh tìm kiếm theo Vị trí/Kỹ năng, Địa điểm, Hình thức làm việc; Thống kê nhanh |
 | 05 | `05_giai-phap-cho-doanh-nghiep-va-sinh-vien.jpg` | Giải pháp tối ưu | `/` (Trang chủ) | 3 giá trị cốt lõi: Thuật toán Matching Kỹ năng, Doanh nghiệp đã xác thực, Quản lý hồ sơ 1 chạm |
@@ -32,6 +32,8 @@ Mục tiêu là tối ưu hóa quá trình tìm kiếm cơ hội thực tập, g
 | 10 | `10_form-dang-tin-tuyen-dung.jpg` | Đăng tin tuyển dụng (Phần 2) | `/company/jobs/create` | Yêu cầu ứng viên, Quyền lợi trợ cấp & Đào tạo, Tùy chọn Đánh dấu tin nổi bật, Nút Xuất bản tin |
 | 11 | `11_ho-so-doanh-nghiep.jpg` | Hồ sơ Doanh nghiệp | `/company/profile` | Tên DN, Mã số thuế, Lĩnh vực, Quy mô, Email, Hotline, Địa chỉ, Tỉnh/Thành phố, Website, Logo, Giới thiệu |
 | 12 | `12_form-dang-ky-tuyen-dung-thuc-tap.jpg` | Đăng tin tuyển dụng (Phần 1) | `/company/jobs/create` | Tiêu đề tuyển dụng, Ngành nghề, Hình thức làm việc, Địa điểm, Mức trợ cấp (min-max), Kỹ năng yêu cầu |
+
+Behavior Auth đã triển khai bổ sung các public route `/forgot-password`, `/reset-password` và callback `/auth/callback` cho recovery PKCE. Đây là mô tả hành vi vận hành sau cutover; không thay đổi mockup hoặc source-of-truth giao diện.
 
 ---
 

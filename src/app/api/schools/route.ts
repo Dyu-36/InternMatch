@@ -92,26 +92,34 @@ export async function GET(request: Request) {
   const upstreamResults = await Promise.allSettled(['Vietnam', 'Viet Nam'].map(fetchSchools));
   const upstreamSchools = upstreamResults.flatMap((result) => result.status === 'fulfilled' ? result.value : []);
   const hasCurrentHust = upstreamSchools.some((school) => school.domains?.includes('hust.edu.vn'));
-  const seen = new Set<string>();
+  const schoolsById = new Map<string, DirectorySchool>();
+  const schoolsByName = new Map<string, DirectorySchool>();
 
-  const result = [
+  const directory = [
     ...upstreamSchools
       .filter((school) => !(hasCurrentHust && school.domains?.includes('hut.edu.vn')))
       .map(fromUpstreamSchool)
       .filter((school): school is DirectorySchool => Boolean(school)),
     ...LOCAL_SCHOOLS.map(fromLocalSchool),
-  ]
-    .filter((school) => {
-      const keys = [school.name, ...school.searchTerms].map(schoolKey).filter(Boolean);
-      if (keys.some((key) => seen.has(key))) return false;
-      keys.forEach((key) => seen.add(key));
-      return true;
-    })
+  ];
+
+  for (const school of directory) {
+    // Abbreviations and admission codes can be shared by unrelated schools or campuses.
+    // Only match identities by ID, full name, or an explicitly known alternate name.
+    const names = [school.name, ...(SCHOOL_ALIASES[school.id] ?? [])].map(schoolKey);
+    const existing = schoolsById.get(school.id) ?? names.map((name) => schoolsByName.get(name)).find(Boolean);
+    const canonical = existing ?? school;
+    if (existing) existing.searchTerms = [...new Set([...existing.searchTerms, ...school.searchTerms])];
+    else schoolsById.set(school.id, school);
+    names.forEach((name) => schoolsByName.set(name, canonical));
+  }
+
+  const result = [...schoolsById.values()]
     .filter((school) => !search || school.searchTerms.some((term) => normalizeSearch(term).includes(search)))
-    .map(({ searchTerms: _searchTerms, ...school }) => school)
+    .map(({ id, code, name, type, province, website }) => ({ id, code, name, type, province, website }))
     .sort((a, b) => a.name.localeCompare(b.name, 'vi'));
 
   return NextResponse.json(result, {
-    headers: { 'Cache-Control': 'public, max-age=3600, s-maxage=3600' },
+    headers: { 'Cache-Control': 'public, max-age=0, s-maxage=3600' },
   });
 }

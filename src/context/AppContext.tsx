@@ -2,17 +2,14 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import type { User, StudentProfile, CompanyProfile, Job, Application, Role, ApplicationStatus } from '@/types';
+import type { User, StudentProfile, CompanyProfile, Job, Application, ApplicationStatus } from '@/types';
 import * as actions from '@/app/actions';
-import { authEmail } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/client';
 
 export type ProfileFiles = { avatarFile?: File; cvFile?: File; logoFile?: File };
 export type AppState = { currentUser: User | null; studentProfile: StudentProfile; companyProfile: CompanyProfile; jobs: Job[]; applications: Application[] };
 interface AppContextType extends AppState {
-  login: (username: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
-  register: (username: string, password: string, role: Role) => Promise<boolean>;
   updateStudentProfile: (profile: Partial<StudentProfile>, files?: ProfileFiles) => Promise<void>;
   updateCompanyProfile: (profile: Partial<CompanyProfile>, files?: ProfileFiles) => Promise<void>;
   addJob: (job: Omit<Job, 'id' | 'createdAt'>) => Promise<void>;
@@ -48,16 +45,7 @@ async function formFiles(userId: string, files?: ProfileFiles) {
 export function AppProvider({ children, initialState }: { children: React.ReactNode; initialState: AppState }) {
   const [state, setState] = useState(initialState);
   const router = useRouter();
-  const refresh = async () => { setState(unwrap(await actions.getAppState())); router.refresh(); };
-  const login = async (username: string, password: string) => { unwrap(await actions.signIn({ username, password })); await refresh(); return true; };
-  const register = async (username: string, password: string, role: Role) => {
-    unwrap(await actions.signUp({ username, password }, role));
-    const client = createClient();
-    const { error } = await client.auth.signInWithPassword({ email: authEmail(username), password });
-    if (error) throw new Error('Tài khoản đã tạo nhưng chưa đăng nhập được. Vui lòng thử đăng nhập lại.');
-    await refresh();
-    return true;
-  };
+  const refresh = async () => { setState(unwrap(await actions.getAppState())); };
   const logout = async () => { unwrap(await actions.signOut()); await refresh(); router.push('/'); };
   const updateStudentProfile = async (profile: Partial<StudentProfile>, files?: ProfileFiles) => { unwrap(await actions.saveStudent(profile, await formFiles(state.currentUser!.id, files))); await refresh(); };
   const updateCompanyProfile = async (profile: Partial<CompanyProfile>, files?: ProfileFiles) => { unwrap(await actions.saveCompany(profile, await formFiles(state.currentUser!.id, files))); await refresh(); };
@@ -66,7 +54,7 @@ export function AppProvider({ children, initialState }: { children: React.ReactN
   const removeJob = async (id: string) => { unwrap(await actions.deleteJob(id)); await refresh(); };
   const applyForJob = async (id: string, letter?: string) => { unwrap(await actions.applyToJob(id, letter)); await refresh(); return true; };
   const updateApplicationStatus = async (id: string, status: ApplicationStatus) => { unwrap(await actions.changeApplicationStatus(id, status)); await refresh(); };
-  return <AppContext.Provider value={{ ...state, login, logout, register, updateStudentProfile, updateCompanyProfile, addJob, updateJob, removeJob, applyForJob, updateApplicationStatus }}>{children}</AppContext.Provider>;
+  return <AppContext.Provider value={{ ...state, logout, updateStudentProfile, updateCompanyProfile, addJob, updateJob, removeJob, applyForJob, updateApplicationStatus }}>{children}</AppContext.Provider>;
 }
 
 export function useApp() {

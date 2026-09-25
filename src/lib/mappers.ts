@@ -63,6 +63,7 @@ export function mapJob(row: DbRow): Job {
 export function mapApplication(row: DbRow): Application {
   return {
     id: text(row, 'id'), jobId: text(row, 'job_id'), studentId: text(row, 'student_id'),
+    studentAvatarUrl: optionalText(row, 'student_avatar_url'),
     studentName: text(row, 'student_name'), studentUniversity: text(row, 'student_university'),
     studentMajor: text(row, 'student_major'), studentGpa: number(row, 'student_gpa'),
     studentSkills: strings(row, 'student_skills'), coverLetter: optionalText(row, 'cover_letter'),

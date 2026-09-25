@@ -39,7 +39,7 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 | UI | React 19 + TypeScript strict | Component và type safety |
 | Styling | Tailwind CSS 4 | Responsive mobile-first theo mockup |
 | UI primitives | Shared UI components + Lucide React | Form control, dialog, dropdown, icons |
-| Authentication | Supabase Auth | Đăng ký, đăng nhập, đăng xuất |
+| Authentication | Supabase Auth | Đăng ký email thật, đăng nhập email/username legacy, recovery PKCE, đăng xuất |
 | Database | Supabase PostgreSQL | Hồ sơ, doanh nghiệp, job, application |
 | File storage | Supabase Storage | CV, ảnh đại diện, logo doanh nghiệp |
 | Data access | `@supabase/ssr` + domain types/mappers | Truy cập an toàn từ Server/Client Components |
@@ -54,8 +54,11 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 | Route | Vai trò | Màn hình |
 | --- | --- | --- |
 | `/` | Public | Trang chủ, hero, search, giải pháp, job nổi bật, CTA |
-| `/login` | Public | Đăng nhập |
-| `/register` | Public | Tạo tài khoản và chọn role |
+| `/login` | Public | Đăng nhập bằng email thật hoặc username legacy |
+| `/register` | Public | Đăng ký email thật, họ tên/tên công ty, mật khẩu và xác nhận theo role |
+| `/forgot-password` | Public | Yêu cầu email khôi phục mật khẩu |
+| `/reset-password` | Public | Hoàn tất đặt mật khẩu mới từ recovery PKCE |
+| `/auth/callback` | Public | Nhận recovery PKCE callback, sau đó chuyển tới luồng reset an toàn |
 | `/jobs` | Public | Danh sách việc làm, tìm kiếm và bộ lọc |
 | `/jobs/[id]` | Public/Student | Chi tiết việc làm và ứng tuyển |
 | `/student/profile` | Student | Hồ sơ thực tập sinh, CV, kỹ năng |
@@ -136,6 +139,8 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 - Sinh viên chỉ có thể ứng tuyển khi đã đăng nhập.
 - Tin đã tạo được xem công khai; đơn mới chỉ được nhận trước hạn.
 - Dùng Supabase Row Level Security làm lớp bảo vệ chính; UI không được xem là lớp bảo mật.
+
+Route guard theo role được thực hiện tại `src/proxy.ts` trước khi truy cập khu vực Student/Company. Unauthenticated user được chuyển về login; chỉ internal `next` an toàn được giữ lại để tránh open redirect.
 
 ## 7. Matching trong phạm vi hợp đồng
 

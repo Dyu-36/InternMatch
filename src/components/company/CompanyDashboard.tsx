@@ -7,11 +7,20 @@ import { useMemo, useState } from 'react';
 import { BriefcaseBusiness, Building2, CalendarDays, CheckCircle2, Clock3, MapPin, Pencil, Plus, Trash2, Users, XCircle } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import type { ApplicationStatus } from '@/types';
-import { Badge } from '@/components/ui';
+import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/shadcn/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/shadcn/select';
+import { Label } from '@/components/shadcn/label';
+import { Avatar } from '@/components/ui/Avatar';
 
 import { ResumeLink } from '@/components/ResumeLink';
+
+function hasPassedDeadline(deadline: string) {
+  const [year, month, day] = deadline.split('-').map(Number);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return new Date(year, month - 1, day).getTime() < today.getTime();
+}
 
 const statusConfig: Record<ApplicationStatus, { label: string; tone: 'neutral' | 'accent' | 'success' | 'warning' | 'danger'; icon: typeof Clock3 }> = {
   PENDING: { label: 'Chờ xem', tone: 'warning', icon: Clock3 },
@@ -65,8 +74,8 @@ export default function CompanyDashboard() {
             <p>{t("Theo dõi tin tuyển dụng, chỉ tiêu và ứng viên trên cùng một màn hình.")}</p>
           </div>
           <div className="company-heading-actions">
-            <Link href="/company/profile" className="ui-button ui-button-secondary"><Building2 size={17} /> {t("Hồ sơ công ty")}</Link>
-            <Link href="/company/jobs/create" className="ui-button ui-button-primary"><Plus size={17} /> {t("Đăng tin mới")}</Link>
+            <Button asChild variant="outline"><Link href="/company/profile"><Building2 size={17} aria-hidden="true" /> {t("Hồ sơ công ty")}</Link></Button>
+            <Button asChild><Link href="/company/jobs/create"><Plus size={17} aria-hidden="true" /> {t("Đăng tin mới")}</Link></Button>
           </div>
         </section>
 
@@ -86,13 +95,14 @@ export default function CompanyDashboard() {
             </div>
             <div className="company-job-list">
               {companyJobs.length === 0 ? (
-                <div className="ui-state"><BriefcaseBusiness size={28} /><p className="ui-state__title">{t("Chưa có tin tuyển dụng")}</p><p className="ui-state__description">{t("Bắt đầu bằng cách tạo tin đầu tiên để tiếp cận ứng viên phù hợp.")}</p><Link href="/company/jobs/create" className="ui-button ui-button-primary">{t("Đăng tin đầu tiên")}</Link></div>
+                <div className="ui-state"><BriefcaseBusiness size={28} aria-hidden="true" /><p className="ui-state__title">{t("Chưa có tin tuyển dụng")}</p><p className="ui-state__description">{t("Bắt đầu bằng cách tạo tin đầu tiên để tiếp cận ứng viên phù hợp.")}</p><Button asChild><Link href="/company/jobs/create">{t("Đăng tin đầu tiên")}</Link></Button></div>
               ) : companyJobs.map((job) => {
                 const jobApplications = companyApplications.filter((application) => application.jobId === job.id).length;
+                const expired = Boolean(job.deadline && hasPassedDeadline(job.deadline));
                 return (
                   <article className="company-job-card" key={job.id}>
                     <div className="company-job-card__main"><div className="company-job-card__title-row"><h3>{job.title}</h3>{job.isFeatured ? <Badge tone="accent">{t("Nổi bật")}</Badge> : null}</div><p className="company-job-card__company">{job.industry}</p><div className="company-job-card__meta"><span><MapPin size={15} /> {job.location}</span><span><CalendarDays size={15} /> {job.deadline ? `${t('Hạn nhận hồ sơ')}: ${job.deadline}` : t("Không giới hạn")}</span><span><Users size={15} /> {jobApplications} {t("ứng viên")}</span></div></div>
-                    <div className="company-job-card__side"><Badge tone="success">{t("Đang tuyển")}</Badge><div className="company-job-card__actions"><Link href={`/company/jobs/${job.id}`} className="ui-button ui-button-sm ui-button-secondary"><Pencil size={15} /> {t("Sửa")}</Link><Button variant="ghost" size="sm" disabled={busy} onClick={() => handleDelete(job.id, job.title)}><Trash2 size={15} /> {t("Xóa")}</Button></div></div>
+                    <div className="company-job-card__side"><Badge tone={expired ? "danger" : "success"}>{expired ? t("Tin tuyển dụng đã hết hạn nhận hồ sơ.") : t("Đang tuyển")}</Badge><div className="company-job-card__actions"><Button asChild variant="outline" size="sm"><Link href={`/company/jobs/${job.id}`}><Pencil size={15} aria-hidden="true" /> {t("Sửa")}</Link></Button><Button variant="ghost" size="sm" disabled={busy} aria-busy={busy} onClick={() => handleDelete(job.id, job.title)}><Trash2 size={15} aria-hidden="true" /> {t("Xóa")}</Button></div></div>
                   </article>
                 );
               })}
@@ -106,7 +116,7 @@ export default function CompanyDashboard() {
                 const job = companyJobs.find((item) => item.id === application.jobId);
                 const config = statusConfig[application.status];
                 const StatusIcon = config.icon;
-                return <article className="company-candidate" key={application.id}><div className="company-candidate__avatar">{application.studentName.slice(0, 1)}</div><div className="company-candidate__body"><div className="company-candidate__top"><div><h3>{application.studentName}</h3><p>{job?.title ?? t("Tin tuyển dụng")} · GPA {application.studentGpa.toFixed(1)}</p></div><Badge tone={config.tone}><StatusIcon size={13} /> {t(config.label)}</Badge></div><div className="company-candidate__meta"><span>{application.studentUniversity}</span><span>{application.studentMajor}</span></div><p className="ui-hint">{application.studentSkills.join(', ')}</p>{application.coverLetter && <p>{application.coverLetter}</p>}<div className="company-candidate__actions"><span className="company-cv-label"><ResumeLink path={application.cvUrl} name={application.cvFileName} /></span><Select value={application.status} onValueChange={(value) => void run(() => updateApplicationStatus(application.id, value as ApplicationStatus))} disabled={busy}><SelectTrigger className="w-40" aria-label={`${t('Trạng thái hồ sơ của')} ${application.studentName}`}><SelectValue /></SelectTrigger><SelectContent><SelectItem value="PENDING">{t("Chờ xem")}</SelectItem><SelectItem value="REVIEWED">{t("Đã xem")}</SelectItem><SelectItem value="ACCEPTED">{t("Đã nhận")}</SelectItem><SelectItem value="REJECTED">{t("Từ chối")}</SelectItem></SelectContent></Select></div></div></article>;
+                return <article className="company-candidate" key={application.id}><Avatar name={application.studentName} src={application.studentAvatarUrl} size={40} /><div className="company-candidate__body"><div className="company-candidate__top"><div><h3>{application.studentName}</h3><p>{job?.title ?? t("Tin tuyển dụng")} · GPA {application.studentGpa.toFixed(1)}</p></div><Badge tone={config.tone}><StatusIcon size={13} aria-hidden="true" /> {t(config.label)}</Badge></div><div className="company-candidate__meta"><span>{application.studentUniversity}</span><span>{application.studentMajor}</span></div><p className="ui-hint">{application.studentSkills.join(', ')}</p>{application.coverLetter && <p>{application.coverLetter}</p>}<div className="company-candidate__actions"><span className="company-cv-label"><ResumeLink path={application.cvUrl} name={application.cvFileName} /></span><div><Label className="sr-only" htmlFor={`candidate-status-${application.id}`}>{t("Trạng thái hồ sơ của")} {application.studentName}</Label><Select value={application.status} onValueChange={(value) => void run(() => updateApplicationStatus(application.id, value as ApplicationStatus))} disabled={busy}><SelectTrigger id={`candidate-status-${application.id}`} size="sm" className="w-full min-w-40" aria-busy={busy}><SelectValue /></SelectTrigger><SelectContent><SelectItem value="PENDING">{t("Chờ xem")}</SelectItem><SelectItem value="REVIEWED">{t("Đã xem")}</SelectItem><SelectItem value="ACCEPTED">{t("Đã nhận")}</SelectItem><SelectItem value="REJECTED">{t("Từ chối")}</SelectItem></SelectContent></Select></div></div></div></article>;
               })}
             </div>
           </section>

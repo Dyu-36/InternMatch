@@ -72,6 +72,7 @@ export interface Application {
   id: string;
   jobId: string;
   studentId: string;
+  studentAvatarUrl?: string;
   studentName: string;
   studentUniversity: string;
   studentMajor: string;

@@ -34,7 +34,7 @@ export default function HeroSection() {
     if (keyword) params.set('q', keyword);
     if (location) params.set('location', location);
     if (jobType && jobType !== 'ALL') params.set('type', jobType);
-    router.push(`/jobs?${params.toString()}`);
+    router.push(`/jobs${params.toString() ? `?${params.toString()}` : ''}`);
   };
 
   const companyCount = new Set(jobs.map(job => job.companyId)).size;
@@ -49,29 +49,28 @@ export default function HeroSection() {
       }}
     >
       <div
-        className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 pointer-events-none"
+        className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 pointer-events-none max-sm:hidden"
         style={{ background: 'radial-gradient(circle, #10b981, transparent)', transform: 'translate(30%, -30%)' }}
       />
       <div
-        className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-10 pointer-events-none"
+        className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-10 pointer-events-none max-sm:hidden"
         style={{ background: 'radial-gradient(circle, #10b981, transparent)', transform: 'translate(-30%, 30%)' }}
       />
 
       <div className="relative max-w-5xl mx-auto text-center space-y-8">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-emerald-700/50 text-emerald-200 text-xs sm:text-sm font-medium">
-          <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
-          <span>{jobs.length > 0 ? jobs.length : '8,500'}+ {t("vị trí thực tập đang tuyển")}</span>
+        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-700/50 bg-white/10 px-4 py-1.5 text-xs font-medium text-emerald-200 backdrop-blur-md sm:text-sm">
+          <TrendingUp className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
+          <span>{jobs.length} {t('tin tuyển dụng')}</span>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white max-w-4xl mx-auto">
-          {t("Kết nối thực tập —")}{' '}
-          <span className="text-emerald-400">{t("Bước đầu sự nghiệp")}</span>
+        <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          {t('Kết nối thực tập —')}{' '}
+          <span className="text-emerald-400">{t('Bước đầu sự nghiệp')}</span>
         </h1>
 
-        <p className="text-base sm:text-lg text-emerald-100/80 max-w-2xl mx-auto leading-relaxed">
-          {t("Hàng ngàn vị trí thực tập từ công ty hàng đầu Việt Nam. Tìm cơ hội phù hợp và khởi đầu hành trình của bạn.")}
+        <p className="mx-auto max-w-2xl text-base leading-relaxed text-emerald-100/80 sm:text-lg">
+          {t('Tìm cơ hội thực tập phù hợp với kỹ năng, địa điểm và mục tiêu nghề nghiệp của bạn.')}
         </p>
-
         <div className="bg-white rounded-2xl p-2.5 sm:p-3 shadow-2xl max-w-4xl mx-auto text-gray-800">
           <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-12 gap-2 sm:gap-3 items-center">
             <div className="md:col-span-4 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
@@ -103,15 +102,15 @@ export default function HeroSection() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="ALL">{t("Tất cả hình thức")}</SelectItem>
-                  <SelectItem value="Thực tập Toàn thời gian">{t("Toàn thời gian")}</SelectItem>
-                  <SelectItem value="Thực tập Bán thời gian">{t("Bán thời gian")}</SelectItem>
-                  <SelectItem value="Remote">{t("Remote")}</SelectItem>
+                  <SelectItem value="ALL">{t('Tất cả hình thức')}</SelectItem>
+                  <SelectItem value="Thực tập Toàn thời gian">{t('Thực tập Toàn thời gian')}</SelectItem>
+                  <SelectItem value="Thực tập Bán thời gian">{t('Thực tập Bán thời gian')}</SelectItem>
+                  <SelectItem value="Remote">{t('Làm việc từ xa (Remote)')}</SelectItem>
                 </SelectContent>
               </ShadcnSelect>
             </div>
             <div className="md:col-span-2">
-              <Button type="submit" className="h-11 w-full rounded-xl bg-emerald-600 px-4 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-700">
+              <Button type="submit" className="h-11 w-full rounded-xl bg-[var(--accent-strong)] px-4 text-sm font-semibold text-white shadow-md transition hover:bg-[var(--accent-strong)]/90">
                 <Search className="w-4 h-4" />
                 <span>{t("Tìm ngay")}</span>
               </Button>
@@ -120,7 +119,7 @@ export default function HeroSection() {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-2">
-          <span className="text-emerald-300/70 text-sm">{t("Phổ biến")}:</span>
+          <span className="text-sm text-emerald-300/70">{t('Gợi ý tìm kiếm')}:</span>
           {POPULAR_ROLES.map((role) => (
             <Button
               type="button"
@@ -138,11 +137,11 @@ export default function HeroSection() {
         <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 pt-2 text-xs sm:text-sm text-emerald-200/70 font-medium">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-            <span>{jobs.length > 0 ? jobs.length : '8,500'}+ {t("tin tuyển dụng")}</span>
+            <span>{jobs.length} {t('tin tuyển dụng')}</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-            <span>{companyCount > 0 ? companyCount : '2,500'}+ {t("doanh nghiệp đang tuyển")}</span>
+            <CheckCircle2 className="h-4 w-4 text-emerald-400" aria-hidden="true" />
+            <span>{companyCount} {t('doanh nghiệp đang tuyển')}</span>
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />

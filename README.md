@@ -44,8 +44,11 @@ Sản phẩm được xây dựng theo phạm vi trong [Contract](./docs/Contrac
 | Route | Mô tả |
 | --- | --- |
 | `/` | Trang chủ |
-| `/login` | Đăng nhập |
-| `/register` | Tạo tài khoản |
+| `/login` | Đăng nhập bằng email hoặc username legacy |
+| `/register` | Đăng ký bằng email thật, mật khẩu và xác nhận mật khẩu |
+| `/forgot-password` | Yêu cầu email khôi phục mật khẩu |
+| `/reset-password` | Đặt mật khẩu mới sau khi mở link khôi phục |
+| `/auth/callback` | Callback PKCE cho luồng khôi phục mật khẩu |
 | `/jobs` | Danh sách việc làm |
 | `/jobs/[id]` | Chi tiết việc làm |
 | `/student/profile` | Hồ sơ thực tập sinh |
@@ -99,9 +102,18 @@ Chi tiết xem tại [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 pnpm install
 ```
 
-### Cấu hình Supabase
+### Cấu hình Supabase và Auth
 
-Copy `.env.example` sang `.env.local` và điền publishable key của Supabase. Xem [hướng dẫn backend](./supabase/README.md).
+Copy `.env.example` sang `.env.local`, điền publishable key và giữ `NEXT_PUBLIC_SITE_URL=http://localhost:3000` cho development. Ở production, đặt `NEXT_PUBLIC_SITE_URL` bằng public origin thực tế của ứng dụng; biến này là canonical origin dùng để tạo link khôi phục mật khẩu.
+
+Tài khoản mới đăng ký bằng email thật, họ tên đầy đủ (sinh viên) hoặc tên công ty (doanh nghiệp), mật khẩu và xác nhận mật khẩu. Đăng nhập chấp nhận cả email thật và username của tài khoản legacy; username chỉ được map nội bộ qua `AUTH_EMAIL_DOMAIN` để tương thích, không dùng làm email của tài khoản mới.
+
+Luồng quên mật khẩu gửi email khôi phục tới địa chỉ đăng ký và hoàn tất bằng PKCE. Trong Supabase Dashboard mở **Authentication → URL Configuration** và kiểm tra:
+
+- **Site URL** dùng đúng giá trị production của `NEXT_PUBLIC_SITE_URL`.
+- **Redirect URLs** có `<NEXT_PUBLIC_SITE_URL>/auth/callback`; ở development có `http://localhost:3000/auth/callback`.
+
+Xem [hướng dẫn backend](./supabase/README.md).
 
 ### Chạy môi trường development
 
@@ -110,6 +122,17 @@ pnpm dev
 ```
 
 Mở [http://localhost:3000](http://localhost:3000).
+
+### Seed dữ liệu demo
+
+Chỉ chạy trên project Supabase test/demo. Lệnh `*:plan` không ghi dữ liệu; lệnh `seed:*` áp dụng dữ liệu. Bộ seed tạo 100 tin tuyển dụng, 30 hồ sơ ứng viên hư cấu và 200 đơn ứng tuyển. Không commit secret; xem [hướng dẫn seed](./supabase/seed/README.md) để biết purge và các tùy chọn đầy đủ.
+
+```bash
+pnpm seed:jobs:plan
+pnpm seed:applicants:plan
+pnpm seed:jobs
+pnpm seed:applicants
+```
 
 ### Kiểm tra code
 

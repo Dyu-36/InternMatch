@@ -24,26 +24,31 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "InternMatch",
-    template: "%s | InternMatch",
-  },
-  description: "Nền tảng kết nối sinh viên và doanh nghiệp tuyển dụng thực tập.",
-  icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = (await cookies()).get('internmatch_locale')?.value === 'en' ? 'en' : 'vi';
+  return {
+    title: {
+      default: 'InternMatch',
+      template: '%s | InternMatch',
+    },
+    description: locale === 'en'
+      ? 'InternMatch connects students and employers with internship opportunities.'
+      : 'Nền tảng kết nối sinh viên và doanh nghiệp tuyển dụng thực tập.',
+    icons: {
+      icon: '/icon.png',
+      shortcut: '/icon.png',
+      apple: '/icon.png',
+    },
+  };
+}
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const initialState = await readAppState();
   const locale = (await cookies()).get('internmatch_locale')?.value === 'en' ? 'en' : 'vi';
   return (
     <html lang={locale} className={`${geistSans.variable} ${geistMono.variable} ${plusJakartaSans.variable}`}>
-      <body>
-        <LocaleProvider initialLocale={locale}><AppProvider initialState={initialState}>
+      <body suppressHydrationWarning>
+        <LocaleProvider initialLocale={locale}><AppProvider key={initialState.currentUser?.id ?? 'guest'} initialState={initialState}>
           <SiteHeader />
           <main className="min-h-screen">{children}</main>
           <SiteFooter />
