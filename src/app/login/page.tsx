@@ -5,9 +5,12 @@ import { useT } from '@/context/LocaleContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { KeyRound, LogIn } from 'lucide-react';
+import { KeyRound, Loader2, LogIn } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
-import { Button, Container, Input } from '@/components/ui';
+import { Button } from '@/components/shadcn/button';
+import { Input } from '@/components/shadcn/input';
+import { Label } from '@/components/shadcn/label';
+import { Container } from '@/components/ui';
 
 export default function LoginPage() {
   const t = useT();
@@ -51,11 +54,19 @@ export default function LoginPage() {
             <h1 id="login-title" className="auth-card__title">{t("Đăng nhập")}</h1>
             <p className="auth-card__description">{t("Chào mừng bạn quay trở lại với nền tảng InternMatch")}</p>
           </div>
-          <form className="auth-form" onSubmit={handleSubmit} noValidate>
-            <Input label={t("Tên đăng nhập")} name="username" autoComplete="username" placeholder={t("Nhập tên đăng nhập")} value={username} onChange={(event) => setUsername(event.target.value)} required />
-            <Input label={t("Mật khẩu")} name="password" type="password" autoComplete="current-password" placeholder={t("Nhập mật khẩu")} value={password} onChange={(event) => setPassword(event.target.value)} required />
-            {error ? <p className="ui-error" role="alert">{t(error)}</p> : null}
-            <Button type="submit" size="lg" fullWidth loading={loading} loadingLabel={t("Đang đăng nhập…")}><KeyRound size={18} aria-hidden="true" /> {t("Đăng nhập")}</Button>
+          <form className="auth-form grid gap-5" onSubmit={handleSubmit} noValidate>
+            <div className="grid gap-2">
+              <Label htmlFor="login-username">{t("Tên đăng nhập")}</Label>
+              <Input id="login-username" name="username" autoComplete="username" placeholder={t("Nhập tên đăng nhập")} value={username} onChange={(event) => setUsername(event.target.value)} required />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="login-password">{t("Mật khẩu")}</Label>
+              <Input id="login-password" name="password" type="password" autoComplete="current-password" placeholder={t("Nhập mật khẩu")} value={password} onChange={(event) => setPassword(event.target.value)} required />
+            </div>
+            {error ? <p className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive" role="alert">{t(error)}</p> : null}
+            <Button type="submit" size="lg" className="h-12 w-full bg-emerald-600 text-white hover:bg-emerald-700" disabled={loading}>
+              {loading ? <><Loader2 className="animate-spin" aria-hidden="true" /> {t("Đang đăng nhập…")}</> : <><KeyRound aria-hidden="true" /> {t("Đăng nhập")}</>}
+            </Button>
           </form>
           <div className="auth-card__footer">{t("Chưa có tài khoản?")} <Link href="/register">{t("Đăng ký ngay")}</Link></div>
         </section>

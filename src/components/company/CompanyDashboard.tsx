@@ -7,7 +7,9 @@ import { useMemo, useState } from 'react';
 import { BriefcaseBusiness, Building2, CalendarDays, CheckCircle2, Clock3, MapPin, Pencil, Plus, Trash2, Users, XCircle } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import type { ApplicationStatus } from '@/types';
-import { Badge, Button } from '@/components/ui';
+import { Badge } from '@/components/ui';
+import { Button } from '@/components/shadcn/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/shadcn/select';
 
 import { ResumeLink } from '@/components/ResumeLink';
 
@@ -104,7 +106,7 @@ export default function CompanyDashboard() {
                 const job = companyJobs.find((item) => item.id === application.jobId);
                 const config = statusConfig[application.status];
                 const StatusIcon = config.icon;
-                return <article className="company-candidate" key={application.id}><div className="company-candidate__avatar">{application.studentName.slice(0, 1)}</div><div className="company-candidate__body"><div className="company-candidate__top"><div><h3>{application.studentName}</h3><p>{job?.title ?? t("Tin tuyển dụng")} · GPA {application.studentGpa.toFixed(1)}</p></div><Badge tone={config.tone}><StatusIcon size={13} /> {t(config.label)}</Badge></div><div className="company-candidate__meta"><span>{application.studentUniversity}</span><span>{application.studentMajor}</span></div><p className="ui-hint">{application.studentSkills.join(', ')}</p>{application.coverLetter && <p>{application.coverLetter}</p>}<div className="company-candidate__actions"><span className="company-cv-label"><ResumeLink path={application.cvUrl} name={application.cvFileName} /></span><select className="ui-select ui-select--compact" value={application.status} aria-label={`${t('Trạng thái hồ sơ của')} ${application.studentName}`} disabled={busy} onChange={(event) => void run(() => updateApplicationStatus(application.id, event.target.value as ApplicationStatus))}><option value="PENDING">{t("Chờ xem")}</option><option value="REVIEWED">{t("Đã xem")}</option><option value="ACCEPTED">{t("Đã nhận")}</option><option value="REJECTED">{t("Từ chối")}</option></select></div></div></article>;
+                return <article className="company-candidate" key={application.id}><div className="company-candidate__avatar">{application.studentName.slice(0, 1)}</div><div className="company-candidate__body"><div className="company-candidate__top"><div><h3>{application.studentName}</h3><p>{job?.title ?? t("Tin tuyển dụng")} · GPA {application.studentGpa.toFixed(1)}</p></div><Badge tone={config.tone}><StatusIcon size={13} /> {t(config.label)}</Badge></div><div className="company-candidate__meta"><span>{application.studentUniversity}</span><span>{application.studentMajor}</span></div><p className="ui-hint">{application.studentSkills.join(', ')}</p>{application.coverLetter && <p>{application.coverLetter}</p>}<div className="company-candidate__actions"><span className="company-cv-label"><ResumeLink path={application.cvUrl} name={application.cvFileName} /></span><Select value={application.status} onValueChange={(value) => void run(() => updateApplicationStatus(application.id, value as ApplicationStatus))} disabled={busy}><SelectTrigger className="w-40" aria-label={`${t('Trạng thái hồ sơ của')} ${application.studentName}`}><SelectValue /></SelectTrigger><SelectContent><SelectItem value="PENDING">{t("Chờ xem")}</SelectItem><SelectItem value="REVIEWED">{t("Đã xem")}</SelectItem><SelectItem value="ACCEPTED">{t("Đã nhận")}</SelectItem><SelectItem value="REJECTED">{t("Từ chối")}</SelectItem></SelectContent></Select></div></div></article>;
               })}
             </div>
           </section>

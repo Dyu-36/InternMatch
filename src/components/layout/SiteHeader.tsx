@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { useApp } from '@/context/AppContext';
+import { Button } from '@/components/shadcn/button';
 import { useLocale } from '@/context/LocaleContext';
 
 const navItems = [
@@ -49,29 +50,31 @@ export function SiteHeader() {
         </nav>
 
         <div className="site-header__actions" data-open={open}>
-          <button type="button" className="ui-button ui-button-ghost ui-button-sm" aria-label="Change language" onClick={() => setLocale(locale === 'vi' ? 'en' : 'vi')}>{locale === 'vi' ? 'EN' : 'VI'}</button>
+          <Button type="button" variant="ghost" size="sm" aria-label="Change language" onClick={() => setLocale(locale === 'vi' ? 'en' : 'vi')}>{locale === 'vi' ? 'EN' : 'VI'}</Button>
           {currentUser ? <>
-            <Link className="ui-button ui-button-ghost ui-button-sm" href={dashboard} onClick={() => setOpen(false)}>Dashboard</Link>
-            <button type="button" className="ui-button ui-button-secondary ui-button-sm" disabled={busy} onClick={async () => {
+            <Button asChild variant="ghost" size="sm"><Link href={dashboard} onClick={() => setOpen(false)}>Dashboard</Link></Button>
+            <Button type="button" variant="outline" size="sm" disabled={busy} onClick={async () => {
               setBusy(true); setError('');
               try { await logout(); setOpen(false); } catch { setError(t("Không thể đăng xuất. Vui lòng thử lại.")); } finally { setBusy(false); }
-            }}>{t("Đăng xuất")}</button>
+            }}>{t("Đăng xuất")}</Button>
           </> : <>
-          <Link className="ui-button ui-button-ghost ui-button-sm" href="/login" onClick={() => setOpen(false)}> {t("Đăng nhập")} </Link>
-          <Link className="ui-button ui-button-primary ui-button-sm" href="/register" onClick={() => setOpen(false)}> {t("Tạo tài khoản")} </Link>
+          <Button asChild variant="ghost" size="sm"><Link href="/login" onClick={() => setOpen(false)}>{t("Đăng nhập")}</Link></Button>
+          <Button asChild size="sm" className="bg-emerald-600 text-white hover:bg-emerald-700"><Link href="/register" onClick={() => setOpen(false)}>{t("Tạo tài khoản")}</Link></Button>
           </>}
           {error && <span role="alert" className="ui-error">{t(error)}</span>}
         </div>
 
-        <button
+        <Button
+          variant="outline"
+          size="icon"
           className="site-header__menu-button"
           type="button"
           aria-label={open ? t("Đóng menu") : t("Mở menu")}
           aria-expanded={open}
           onClick={() => setOpen((current) => !current)}
         >
-          {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
-        </button>
+          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </Button>
       </Container>
     </header>
   );

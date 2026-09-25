@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import type { Job } from "@/types";
 import { useApp } from "@/context/AppContext";
 import JobCard from "@/components/jobs/JobCard";
+import { Button } from "@/components/shadcn/button";
 import { Input as ShadcnInput } from "@/components/shadcn/input";
 import {
   Select as ShadcnSelect,
@@ -118,7 +119,7 @@ export default function JobsExplorer({ initialFilters }: JobsExplorerProps) {
               </ShadcnSelect>
             </div>
 
-            <button type="submit" className="ui-button ui-button-primary min-h-12 px-5"><Search size={17} aria-hidden="true" />{t("Tìm kiếm")}</button>
+            <Button type="submit" className="min-h-12 bg-emerald-600 px-5 text-white hover:bg-emerald-700"><Search size={17} aria-hidden="true" />{t("Tìm kiếm")}</Button>
           </form>
         </div>
       </section>
@@ -131,12 +132,12 @@ export default function JobsExplorer({ initialFilters }: JobsExplorerProps) {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            {activeFilterCount > 0 && <button type="button" onClick={clearFilters} className="ui-button ui-button-ghost ui-button-sm"><X size={15} aria-hidden="true" />{t("Xóa bộ lọc")}</button>}
+            {activeFilterCount > 0 && <Button type="button" variant="ghost" size="sm" onClick={clearFilters}><X size={15} aria-hidden="true" />{t("Xóa bộ lọc")}</Button>}
             <div className="flex items-center gap-2 text-sm text-[var(--muted)]"><span>{t("Sắp xếp")}</span><ShadcnSelect value={sort} onValueChange={(value) => setSort(value as "newest" | "salary")}><SelectTrigger className="h-10 min-w-36 border-[var(--border-strong)] bg-white text-[var(--foreground)]"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="newest">{t("Mới nhất")}</SelectItem><SelectItem value="salary">{t("Trợ cấp cao nhất")}</SelectItem></SelectContent></ShadcnSelect></div>
           </div>
         </div>
 
-        {filteredJobs.length > 0 ? <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{filteredJobs.map((job) => <JobCard key={job.id} job={job} />)}</div> : <div className="ui-state"><p className="ui-state__title">{t("Chưa tìm thấy vị trí phù hợp")}</p><p className="ui-state__description">{t("Thử thay đổi từ khóa, địa điểm hoặc hình thức làm việc để xem thêm cơ hội.")}</p><button type="button" onClick={clearFilters} className="ui-button ui-button-secondary ui-button-sm">{t("Xem tất cả việc làm")}</button></div>}
+        {filteredJobs.length > 0 ? <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{filteredJobs.map((job) => <JobCard key={job.id} job={job} />)}</div> : <div className="ui-state"><p className="ui-state__title">{t("Chưa tìm thấy vị trí phù hợp")}</p><p className="ui-state__description">{t("Thử thay đổi từ khóa, địa điểm hoặc hình thức làm việc để xem thêm cơ hội.")}</p><Button type="button" variant="outline" size="sm" onClick={clearFilters}>{t("Xem tất cả việc làm")}</Button></div>}
 
         <div className="mt-10 rounded-2xl border border-[var(--border)] bg-white p-5 sm:flex sm:items-center sm:justify-between sm:gap-6"><div><h3 className="font-bold text-[var(--foreground)]">{t("Chưa có hồ sơ trên InternMatch?")}</h3><p className="mt-1 text-sm leading-6 text-[var(--muted)]">{t("Tạo hồ sơ miễn phí để sẵn sàng ứng tuyển khi tìm được cơ hội phù hợp.")}</p></div><Link href="/register?role=STUDENT" className="ui-button ui-button-primary mt-4 sm:mt-0">{t("Tạo hồ sơ")}</Link></div>
       </section>

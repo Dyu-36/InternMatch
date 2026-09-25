@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
+import { Button } from '@/components/shadcn/button';
 import JobCard from '@/components/jobs/JobCard';
 import { calculateSkillMatch } from '@/lib/utils';
 
@@ -42,17 +43,16 @@ export default function FeaturedJobsSection() {
 
         <div className="flex gap-2 mb-6 overflow-x-auto pb-1">
           {FILTER_TABS.map((tab) => (
-            <button
+            <Button
+              type="button"
+              variant={activeFilter === tab ? 'default' : 'outline'}
+              size="sm"
               key={tab}
               onClick={() => setActiveFilter(tab)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors shrink-0 ${
-                activeFilter === tab
-                  ? 'bg-emerald-600 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+              className={`h-auto rounded-full px-4 py-1.5 text-sm font-medium ${activeFilter === tab ? 'bg-emerald-600 text-white hover:bg-emerald-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
             >
               {t(tab)}
-            </button>
+            </Button>
           ))}
         </div>
 

@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, MapPin, Briefcase, CheckCircle2, TrendingUp } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
+import { Button } from '@/components/shadcn/button';
 import { Input as ShadcnInput } from '@/components/shadcn/input';
 import {
   Select as ShadcnSelect,
@@ -110,13 +111,10 @@ export default function HeroSection() {
               </ShadcnSelect>
             </div>
             <div className="md:col-span-2">
-              <button
-                type="submit"
-                className="w-full h-11 flex items-center justify-center gap-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-md"
-              >
+              <Button type="submit" className="h-11 w-full rounded-xl bg-emerald-600 px-4 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-700">
                 <Search className="w-4 h-4" />
                 <span>{t("Tìm ngay")}</span>
-              </button>
+              </Button>
             </div>
           </form>
         </div>
@@ -124,13 +122,16 @@ export default function HeroSection() {
         <div className="flex flex-wrap items-center justify-center gap-2">
           <span className="text-emerald-300/70 text-sm">{t("Phổ biến")}:</span>
           {POPULAR_ROLES.map((role) => (
-            <button
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
               key={role}
               onClick={() => setKeyword(role)}
-              className="px-3 py-1 rounded-full text-xs font-medium border border-emerald-700/50 text-emerald-200 hover:bg-emerald-800/40 hover:border-emerald-500 transition-colors cursor-pointer"
+              className="h-auto rounded-full border border-emerald-700/50 px-3 py-1 text-xs font-medium text-emerald-200 transition-colors hover:border-emerald-500 hover:bg-emerald-800/40 hover:text-emerald-100"
             >
               {t(role)}
-            </button>
+            </Button>
           ))}
         </div>
 
