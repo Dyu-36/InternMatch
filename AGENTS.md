@@ -24,6 +24,7 @@ Run `pnpm lint` and `pnpm build`. For backend changes, run `pnpm qa:backend` wit
 - Do not create duplicate generic components under `src/components/ui`. Existing components there may be used only when they are domain-specific or when no shadcn/ui equivalent exists, such as layout primitives.
 - Before adding UI, inspect `components.json` and `src/components/shadcn`; extend the shadcn/ui component set using the canonical shadcn implementation instead of inventing a parallel API or styling system.
 - Forms must use shadcn/ui primitives with accessible labels, descriptions, invalid states, and field-level messages. Preserve existing business logic and authentication behavior during UI-only refactors.
+- Searchable selects/comboboxes must compose the canonical shadcn `Command` and `Popover` primitives; do not use a native `<select>` when users need search.
 - Keep styling consistent with shadcn/ui tokens and `cn` from `@/lib/utils`; do not import `cn` from third-party packages or introduce ad-hoc generic CSS components.
 - When a requested UI has no existing shadcn primitive, explain the gap and add the smallest canonical primitive needed before composing the feature.
 
