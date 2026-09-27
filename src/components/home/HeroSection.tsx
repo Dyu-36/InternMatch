@@ -15,7 +15,6 @@ import {
   SelectValue,
 } from '@/components/shadcn/select';
 import { VnLocationPicker } from '@/components/ui/VnAddressFields';
-import { cn } from '@/lib/utils';
 
 const POPULAR_ROLES = [
   'React Developer', 'UI/UX Design', 'Data Analyst',
@@ -78,24 +77,14 @@ export default function HeroSection() {
           <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-12 gap-2 sm:gap-3 items-center">
             <div className="md:col-span-4 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
               <Search className="w-4 h-4 text-gray-400 shrink-0" />
-              <div className="relative flex min-w-0 flex-1">
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    'pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-sm text-gray-400 transition-opacity',
-                    keyword && 'opacity-0',
-                  )}
-                >
-                  {t("Vị trí, kỹ năng (Python, React...)")}
-                </span>
-                <ShadcnInput
-                  type="text"
-                  aria-label={t("Tìm theo vị trí hoặc kỹ năng")}
-                  value={keyword}
-                  onChange={(e) => setKeyword(e.target.value)}
-                  className="h-auto w-full border-0 bg-transparent px-0 py-0 text-sm text-gray-800 shadow-none focus-visible:border-0 focus-visible:ring-0"
-                />
-              </div>
+              <ShadcnInput
+                type="text"
+                aria-label={t("Tìm theo vị trí hoặc kỹ năng")}
+                placeholder={t("Vị trí, kỹ năng (Python, React...)")}
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                className="h-5 min-w-0 flex-1 rounded-none border-0 bg-transparent px-1 py-0 text-sm leading-5 text-gray-800 shadow-none placeholder:text-gray-400 focus-visible:border-0 focus-visible:ring-0"
+              />
             </div>
             <VnLocationPicker
               id="hero-location"
