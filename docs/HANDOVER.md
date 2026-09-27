@@ -24,6 +24,37 @@ Auth mới dùng email thật cho đăng ký và recovery. Login nhận email th
 
 Trước khi vận hành từng môi trường, kiểm tra **Supabase → Authentication → URL Configuration**: **Site URL** phải khớp `NEXT_PUBLIC_SITE_URL`, và **Redirect URLs** phải chứa `<NEXT_PUBLIC_SITE_URL>/auth/callback`. Development dùng `http://localhost:3000`; production dùng public origin thực tế, không ghi cứng hoặc suy đoán URL production.
 
+### Deploy lên Vercel
+
+```bash
+pnpm lint && pnpm build      # build gate chạy trước khi Vercel build
+vercel --prod                # hoặc push lên main để Vercel tự deploy
+```
+
+`vercel.json` đã khoá framework `nextjs`, `pnpm install --frozen-lockfile`, `pnpm build`
+và region `sin1`. Repo đã link sẵn `.vercel/project.json` (project `internmatch-vn`).
+
+Biến môi trường bắt buộc trên Vercel (Production):
+
+- `NEXT_PUBLIC_SITE_URL` — public origin thực tế, ví dụ `https://internmatch.vercel.app`.
+- `NEXT_PUBLIC_INTERNMATCH_SUPABASE_URL` — ref `johsqcfalnqdbksenyjy`.
+- `NEXT_PUBLIC_INTERNMATCH_SUPABASE_PUBLISHABLE_KEY` — publishable key, an toàn cho client.
+
+`next.config.ts` **fail build** nếu thiếu hai biến `NEXT_PUBLIC_INTERNMATCH_SUPABASE_*`
+(đã kiểm chứng: build dừng với `InternMatch Supabase environment is not configured.`).
+Hai biến `NEXT_PUBLIC_SUPABASE_*` do integration Supabase inject chỉ là dự phòng và
+không làm qua được gate này — luôn đặt cặp `..._INTERNMATCH_...`.
+
+Nên đặt `INTERNMATCH_SUPABASE_SECRET_KEY` (server-only). Khi có biến này, `signUp`
+dùng Supabase Admin API (`email_confirm: true`) nên đăng ký chạy ngay mà không cần xác
+nhận email; thiếu nó thì rơi về `auth.signUp` và sẽ lỗi nếu project bật *Confirm email*.
+
+Không đặt `SUPABASE_TEST_SERVICE_ROLE_KEY` hay `SUPABASE_ACCESS_TOKEN` lên Vercel.
+
+`.vercelignore` loại `qa-artifacts`, `.env*`, `docs/mockups` và `.tmp-*`. Dữ liệu đơn vị
+hành chính nằm gọn trong `src/data/vn-divisions.json` và là thứ duy nhất app dùng lúc
+chạy; repo không lưu bản workbook gốc.
+
 ## Phát triển và kiểm tra
 
 ```bash

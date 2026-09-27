@@ -14,8 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/shadcn/select';
-import { VnDivisionCombobox } from '@/components/ui/VnAddressFields';
-import { useVnProvinces } from '@/lib/use-vn-divisions';
+import { VnLocationPicker } from '@/components/ui/VnAddressFields';
 
 const POPULAR_ROLES = [
   'React Developer', 'UI/UX Design', 'Data Analyst',
@@ -28,7 +27,7 @@ export default function HeroSection() {
   const { jobs } = useApp();
   const [keyword, setKeyword] = useState('');
   const [province, setProvince] = useState('');
-  const provinces = useVnProvinces();
+  const [ward, setWard] = useState('');
   const [jobType, setJobType] = useState('ALL');
 
   const handleSearch = (e: React.FormEvent) => {
@@ -36,6 +35,7 @@ export default function HeroSection() {
     const params = new URLSearchParams();
     if (keyword) params.set('q', keyword);
     if (province) params.set('province', province);
+    if (ward) params.set('ward', ward);
     if (jobType && jobType !== 'ALL') params.set('type', jobType);
     router.push(`/jobs${params.toString() ? `?${params.toString()}` : ''}`);
   };
@@ -67,8 +67,7 @@ export default function HeroSection() {
         </div>
 
         <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-          {t('Kết nối thực tập —')}{' '}
-          <span className="text-wine-300">{t('Bước đầu sự nghiệp')}</span>
+            Match the talent, meet the opportunity
         </h1>
 
         <p className="mx-auto max-w-2xl text-base leading-relaxed text-wine-200/85 sm:text-lg">
@@ -87,18 +86,22 @@ export default function HeroSection() {
                 className="h-auto w-full border-0 bg-transparent px-0 py-0 text-sm text-gray-800 shadow-none placeholder:text-gray-400 focus-visible:border-0 focus-visible:ring-0"
               />
             </div>
-            <VnDivisionCombobox
-              id="hero-province"
+            <VnLocationPicker
+              id="hero-location"
               label={t("Địa điểm")}
-              value={province}
-              options={provinces.options}
-              onChange={setProvince}
+              provinceCode={province}
+              wardCode={ward}
+              onProvinceChange={setProvince}
+              onWardChange={setWard}
               placeholder={t("Tỉnh / Thành phố")}
-              searchPlaceholder={t("Gõ tên tỉnh / thành phố...")}
-              emptyText={t("Chưa có dữ liệu tỉnh / thành phố.")}
-              loading={provinces.loading}
-              failed={provinces.failed}
-              clearLabel="Tất cả tỉnh / thành phố"
+              provinceSearchPlaceholder={t("Gõ tên tỉnh / thành phố...")}
+              wardSearchPlaceholder={t("Gõ tên xã / phường / đặc khu...")}
+              provinceEmptyText={t("Chưa có dữ liệu tỉnh / thành phố.")}
+              wardEmptyText={t("Chưa có dữ liệu xã / phường / đặc khu.")}
+              clearLabel="Xóa địa điểm"
+              clearWardLabel="Bỏ chọn xã / phường / đặc khu"
+              backLabel="Tỉnh khác"
+              unitsLabel="đơn vị"
               icon={<MapPin className="w-4 h-4 text-gray-400 shrink-0" />}
               className="md:col-span-3 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition"
               triggerClassName="h-auto w-full border-0 bg-transparent px-0 py-0 text-sm text-gray-700 shadow-none hover:bg-transparent focus-visible:border-0 focus-visible:ring-0"

@@ -15,5 +15,8 @@ export async function GET(request: Request) {
   }
   const province = VN_PROVINCES.find((candidate) => candidate.code === provinceCode);
   if (!province) return NextResponse.json({ error: 'Mã tỉnh / thành phố không hợp lệ.' }, { status: 400, headers: HEADERS });
-  return NextResponse.json(province.wards.map(({ code, name, nameEn }) => ({ code, name, nameEn })), { headers: HEADERS });
+  return NextResponse.json(
+    province.wards.map(({ code, name, nameEn, fullName, level }) => ({ code, name, nameEn, fullName, level })),
+    { headers: HEADERS },
+  );
 }

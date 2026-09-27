@@ -26,7 +26,7 @@ export default function LoginForm() {
     event.preventDefault();
     setError('');
     const nextFieldErrors: { identifier?: string; password?: string } = {};
-    if (!identifier.trim()) nextFieldErrors.identifier = 'Vui lòng nhập email hoặc username.';
+    if (!identifier.trim()) nextFieldErrors.identifier = 'Vui lòng nhập email.';
     if (!password) nextFieldErrors.password = 'Vui lòng nhập mật khẩu.';
     setFieldErrors(nextFieldErrors);
     if (Object.keys(nextFieldErrors).length > 0) {
@@ -63,12 +63,13 @@ export default function LoginForm() {
           </div>
           <form className="auth-form grid gap-5" onSubmit={handleSubmit} noValidate>
             <div className="grid gap-2">
-              <Label htmlFor="login-identifier">{t("Email hoặc username")}</Label>
+              <Label htmlFor="login-identifier">Email</Label>
               <Input
                 id="login-identifier"
                 name="identifier"
+                inputMode="email"
                 autoComplete="username"
-                placeholder={t("Nhập email hoặc username")}
+                placeholder={t("Nhập email")}
                 value={identifier}
                 onChange={(event) => { setIdentifier(event.target.value); setFieldErrors((current) => ({ ...current, identifier: undefined })); setError(''); }}
                 aria-invalid={Boolean(fieldErrors.identifier)}

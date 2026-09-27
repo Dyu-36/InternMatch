@@ -44,3 +44,9 @@ next-env.d.ts
 
 # Supabase CLI local state
 /supabase/.temp/
+
+# scratch files
+/.tmp-*
+
+# local QA notes
+/Feedback.xlsx

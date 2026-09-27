@@ -1,3 +1,4 @@
 qa-artifacts
 .env*
 docs/mockups
+.tmp-*

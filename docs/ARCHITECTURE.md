@@ -137,14 +137,22 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 
 ### Đơn vị hành chính
 
-`src/data/vn-divisions.json` chứa 34 tỉnh/thành phố và 3.321 xã/phường theo mô hình
-hai cấp có hiệu lực từ 01/07/2025 (nguồn: `thanglequoc/vietnamese-provinces-database`,
-bản JSON rút gọn tổng hợp từ dữ liệu Cục Thống kê). Mọi nơi ghi địa chỉ đều theo
-chuỗi tỉnh/thành phố → xã/phường → địa chỉ cụ thể.
+`src/data/vn-divisions.json` chứa 34 tỉnh/thành phố và 3.321 đơn vị cấp xã theo mô hình
+hai cấp có hiệu lực từ 01/07/2025, theo danh sách hành chính của Cục Thống kê (Phường
+709 · Xã 2.599 · Đặc khu 13). Đây là nguồn dữ liệu duy nhất trong repo — không có file sinh
+tự động và không lưu bản workbook gốc. Mỗi tỉnh có `code` (2 số), `name` (tên ngắn),
+`nameEn`, `fullName` (có tiền tố "Tỉnh"/"Thành phố"); mỗi xã có `code` (5 số), `name`,
+`nameEn`, `fullName` và `level` (`Phường` / `Xã` / `Đặc khu`) theo cột "Cấp". Mọi nơi ghi
+địa chỉ đều theo chuỗi tỉnh/thành phố → xã/phường/đặc khu → địa chỉ cụ thể.
+
+Khi sửa file này: mã tỉnh 2 số, mã xã 5 số, `fullName` = `<level> + " " + name`, danh sách
+xã sắp theo cấp rồi theo tên (thứ tự tiếng Việt), và mã mới phải có `nameEn`. Tên trong
+file là dạng NFC, không có khoảng trắng thừa.
 
 - `src/lib/vn-divisions.ts` (server-only): tra cứu và sinh nhãn hiển thị; chỉ dùng ở server action, validation và route handler.
 - `src/app/api/divisions/route.ts`: trả 34 tỉnh, hoặc xã/phường của một tỉnh khi có `?province=<code>`, để picker tải theo nhu cầu thay vì nạp cả dataset vào bundle.
-- `src/components/ui/VnAddressFields.tsx`: combobox shadcn (`Popover` + `Command`) cho cả form nhập lẫn bộ lọc.
+- `src/components/ui/VnAddressFields.tsx`: combobox shadcn (`Popover` + `Command`) cho cả form nhập lẫn bộ lọc. `VnDivisionCombobox` là một ô, `VnLocationFilter` là bộ lọc hai ô ở `/jobs`, `VnLocationPicker` là một ô hai tầng dùng ở hero trang chủ.
+- Danh sách xã nhóm theo `level` (Phường / Xã / Đặc khu) kèm số lượng; ô tìm kiếm khớp cả `name`, `nameEn` và `fullName` nên gõ "thành phố Hà Nội" hay "đặc khu Côn Đảo" đều ra.
 - Cột `province_code` / `ward_code` là nguồn sự thật; `location`, `city`, `address` là nhãn hiển thị do server sinh lại từ mã.
 
 ## 6. Quy tắc phân quyền

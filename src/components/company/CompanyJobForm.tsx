@@ -54,7 +54,7 @@ export default function CompanyJobForm({ jobId }: CompanyJobFormProps) {
     if (!form.title.trim() || !form.description.trim() || !form.requirements.trim() || !form.benefits.trim()) { setError('Vui lòng hoàn thiện các trường bắt buộc trước khi xuất bản.'); return; }
     const nextLocationErrors: Partial<Record<VnLocationField, string>> = {};
     if (!location.provinceCode) nextLocationErrors.provinceCode = 'Vui lòng chọn tỉnh / thành phố.';
-    else if (!location.wardCode) nextLocationErrors.wardCode = 'Vui lòng chọn xã / phường.';
+    else if (!location.wardCode) nextLocationErrors.wardCode = 'Vui lòng chọn xã / phường / đặc khu.';
     else if (location.addressDetail.trim().length < 3) nextLocationErrors.addressDetail = 'Vui lòng nhập địa chỉ cụ thể.';
     if (Object.keys(nextLocationErrors).length > 0) { setLocationErrors(nextLocationErrors); return; }
     const minSalary = Number(form.minSalary) || 0;

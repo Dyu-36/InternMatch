@@ -26,6 +26,11 @@ Run `pnpm lint` and `pnpm build`. For backend changes, run `pnpm qa:backend` wit
 - The user has authorized the existing QA scripts to create and clean up their own test accounts and storage objects in this project. Preserve their cleanup logic and do not modify unrelated user data.
 - Set `BASE_URL` to the local running app (for example `http://localhost:3001` if port 3000 is occupied). Run `pnpm qa:schools` for changes to the university list/search, in addition to the checks above.
 
+### Administrative divisions
+
+- `src/data/vn-divisions.json` is the single source of truth for the 34 provinces/cities and 3,321 wards/communes/special zones in force since 2025-07-01 (Cục Thống kê list, 34/3321, `Phường` 709 · `Xã` 2.599 · `Đặc khu` 13). There is no generator and no copy of the source workbook in the repo; edit the JSON directly, keeping province codes 2 digits, ward codes 5 digits, `fullName` equal to `<level> + " " + name`, wards sorted by `level` then Vietnamese name, and every new code carrying a `nameEn`.
+- Ward "Cấp" (`Phường` / `Xã` / `Đặc khu`) is the only level vocabulary; do not hardcode "xã/phường" in user-facing labels.
+
 ## UI component rules
 
 - Use the existing shadcn/ui components from `src/components/shadcn` whenever a matching component exists. Do not hand-roll generic buttons, inputs, labels, selects, textareas, checkboxes, dialogs, cards, or form controls.

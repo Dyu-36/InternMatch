@@ -24,7 +24,7 @@ export function ResetPasswordForm({ authenticated }: { authenticated: boolean })
     event.preventDefault();
     setError('');
     const nextFieldErrors: { password?: string; confirmPassword?: string } = {};
-    if (password.length < 8) nextFieldErrors.password = t('Mật khẩu cần có ít nhất 8 ký tự.');
+    if (password.length < 6) nextFieldErrors.password = t('Mật khẩu cần có ít nhất 6 ký tự.');
     if (!confirmPassword) nextFieldErrors.confirmPassword = t('Vui lòng nhập lại mật khẩu.');
     if (password !== confirmPassword) nextFieldErrors.confirmPassword = t('Mật khẩu xác nhận chưa khớp.');
     setFieldErrors(nextFieldErrors);

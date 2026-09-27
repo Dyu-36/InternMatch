@@ -37,7 +37,7 @@ export default function CompanyProfileForm() {
     setSaved(false);
     const nextErrors: Partial<Record<VnLocationField, string>> = {};
     if (!location.provinceCode) nextErrors.provinceCode = 'Vui lòng chọn tỉnh / thành phố.';
-    else if (!location.wardCode) nextErrors.wardCode = 'Vui lòng chọn xã / phường.';
+    else if (!location.wardCode) nextErrors.wardCode = 'Vui lòng chọn xã / phường / đặc khu.';
     else if (location.addressDetail.trim().length < 3) nextErrors.addressDetail = 'Vui lòng nhập địa chỉ cụ thể.';
     if (Object.keys(nextErrors).length > 0) { setLocationErrors(nextErrors); return; }
     setBusy(true);

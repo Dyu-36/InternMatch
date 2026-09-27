@@ -67,13 +67,14 @@ export function SiteHeader() {
             type="button"
             variant="ghost"
             size="sm"
+            className="text-base font-normal"
             aria-label={t('Đổi ngôn ngữ')}
             onClick={() => setLocale(locale === 'vi' ? 'en' : 'vi')}
           >
             {locale === 'vi' ? 'EN' : 'VI'}
           </Button>
           {currentUser ? <>
-            <Button asChild variant="ghost" size="sm">
+            <Button asChild variant="ghost" size="sm" className="h-9 text-base">
               <Link
                 href={dashboard}
                 aria-current={isRouteActive(pathname, dashboard) ? 'page' : undefined}
@@ -82,7 +83,7 @@ export function SiteHeader() {
                 {t(dashboardLabel)}
               </Link>
             </Button>
-            <Button type="button" variant="outline" size="sm" disabled={busy} onClick={async () => {
+            <Button type="button" variant="outline" size="sm" className="h-9 text-base" disabled={busy} onClick={async () => {
               setBusy(true);
               setError('');
               try {
@@ -95,7 +96,7 @@ export function SiteHeader() {
               }
             }}>{t('Đăng xuất')}</Button>
           </> : <>
-            <Button asChild variant="ghost" size="sm">
+            <Button asChild variant="ghost" size="sm" className="h-9 text-base">
               <Link
                 href="/login"
                 aria-current={isRouteActive(pathname, '/login') ? 'page' : undefined}
@@ -104,7 +105,7 @@ export function SiteHeader() {
                 {t('Đăng nhập')}
               </Link>
             </Button>
-            <Button asChild size="sm">
+            <Button asChild size="sm" className="h-9 text-base">
               <Link
                 href="/register"
                 aria-current={isRouteActive(pathname, '/register') ? 'page' : undefined}

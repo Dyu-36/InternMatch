@@ -71,19 +71,19 @@ try {
   await register(company, emails[0], displayNames[0], 'COMPANY');
   for (const [selector, value] of [['#company-name', 'QA InternMatch Company'], ['#company-tax-code', '0123456789'], ['#company-industry', 'Technology'], ['#company-size', '50–200'], ['#company-email', 'qa@example.com'], ['#company-hotline', '0901234567'], ['#company-address-detail', '1 QA Street'], ['#company-website', 'https://example.com'], ['#company-description', 'Company created for automated QA.']]) { const field = company.locator(selector); await field.fill(value); await expect(field).toHaveValue(value); }
   await pickDivision(company, 'Tỉnh / Thành phố', 'Gõ tên tỉnh / thành phố...', 'Hà Nội');
-  await pickDivision(company, 'Xã / Phường', 'Gõ tên xã / phường...', 'Ba Đình');
+  await pickDivision(company, 'Xã / Phường / Đặc khu', 'Gõ tên xã / phường / đặc khu...', 'Ba Đình');
   await company.locator('input[type=file]').setInputFiles({ name: 'logo.png', mimeType: 'image/png', buffer: tinyPng });
   await company.getByRole('button', { name: 'Lưu hồ sơ' }).click();
   await expect(company.getByText('Đã lưu thông tin doanh nghiệp.')).toBeVisible();
   await company.reload();
   await expect(company.getByLabel('Tỉnh / Thành phố')).toContainText('Hà Nội');
-  await expect(company.getByLabel('Xã / Phường')).toContainText('Ba Đình');
+  await expect(company.getByLabel('Xã / Phường / Đặc khu')).toContainText('Phường Ba Đình');
   await expect(company.locator('#company-address-detail')).toHaveValue('1 QA Street');
   await expect(company.getByLabel('Tên doanh nghiệp')).toHaveValue('QA InternMatch Company');
   await company.goto(`${base}/company/jobs/create`);
   for (const [label, value] of [['Tiêu đề tuyển dụng', `${stamp} Frontend Intern`], ['Ngành nghề', 'Technology'], ['Địa chỉ cụ thể', '2 QA Street'], ['Trợ cấp tối thiểu', '2000000'], ['Trợ cấp tối đa', '4000000'], ['Số lượng tuyển', '2'], ['Kỹ năng yêu cầu', 'React, TypeScript'], ['Mô tả công việc', 'Build accessible interfaces.'], ['Yêu cầu ứng viên', 'React and TypeScript fundamentals.'], ['Quyền lợi & đào tạo', 'Mentoring and internship allowance.']]) await fill(company, label, value);
   await pickDivision(company, 'Tỉnh / Thành phố', 'Gõ tên tỉnh / thành phố...', 'Hà Nội');
-  await pickDivision(company, 'Xã / Phường', 'Gõ tên xã / phường...', 'Ba Đình');
+  await pickDivision(company, 'Xã / Phường / Đặc khu', 'Gõ tên xã / phường / đặc khu...', 'Ba Đình');
   await company.getByLabel('Đánh dấu tin nổi bật').check();
   await company.getByRole('button', { name: 'Xuất bản tin' }).click();
   await expect(company).toHaveURL(/\/company\/dashboard/);

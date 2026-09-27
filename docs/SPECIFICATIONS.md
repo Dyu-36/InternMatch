@@ -35,10 +35,13 @@ Mục tiêu là tối ưu hóa quá trình tìm kiếm cơ hội thực tập, g
 
 Behavior Auth đã triển khai bổ sung các public route `/forgot-password`, `/reset-password` và callback `/auth/callback` cho recovery PKCE. Đây là mô tả hành vi vận hành sau cutover; không thay đổi mockup hoặc source-of-truth giao diện.
 
-Địa chỉ ở mockup 11 và 12 được triển khai theo chuỗi lọc ba bước tỉnh/thành phố → xã/phường →
-địa chỉ cụ thể, và bộ lọc địa điểm tại `/jobs` cùng ô tìm kiếm địa điểm trên trang chủ dùng
-cùng bộ dữ liệu đó. Đây là chi tiết hoá chức năng "địa chỉ"/"lọc theo địa điểm" đã có trong
-Contract, không phải thay đổi source-of-truth giao diện.
+Địa chỉ ở mockup 11 và 12 được triển khai theo chuỗi lọc ba bước tỉnh/thành phố →
+xã/phường/đặc khu → địa chỉ cụ thể, và bộ lọc địa điểm tại `/jobs` cùng ô tìm kiếm
+địa điểm trên trang chủ dùng cùng bộ dữ liệu đó. Tầng xã lấy đúng cột "Cấp" của danh
+sách hành chính (Phường / Xã / Đặc khu), nên nhãn và danh sách nhóm theo loại đơn vị thay
+vì ghi cứng "xã/phường". Ô địa điểm ở trang chủ là một ô hai tầng: chọn tỉnh xong danh
+sách xã của tỉnh đó mở ngay trong popover. Đây là chi tiết hoá chức năng "địa chỉ"/"lọc
+theo địa điểm" đã có trong Contract, không phải thay đổi source-of-truth giao diện.
 
 ---
 

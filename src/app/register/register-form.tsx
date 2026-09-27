@@ -43,7 +43,7 @@ export default function RegisterForm() {
     const nextFieldErrors: RegisterFieldErrors = {};
     if (displayName.trim().length < 2) nextFieldErrors.displayName = 'Vui lòng nhập họ tên hoặc tên công ty.';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) nextFieldErrors.email = 'Vui lòng nhập email hợp lệ.';
-    if (password.length < 8) nextFieldErrors.password = 'Mật khẩu cần có ít nhất 8 ký tự.';
+    if (password.length < 6) nextFieldErrors.password = 'Mật khẩu cần có ít nhất 6 ký tự.';
     if (!confirmPassword) nextFieldErrors.confirmPassword = 'Vui lòng nhập lại mật khẩu.';
     if (password !== confirmPassword) nextFieldErrors.confirmPassword = 'Mật khẩu xác nhận chưa khớp.';
     if (Object.keys(nextFieldErrors).length > 0) {
@@ -79,7 +79,7 @@ export default function RegisterForm() {
           </div>
           <form className="auth-form grid gap-5" onSubmit={handleSubmit} noValidate>
             <fieldset className="grid gap-2 border-0 p-0">
-              <legend className="text-sm font-medium leading-none">{t("Bạn tham gia với tư cách")}</legend>
+              <legend className="mb-3 text-sm font-medium leading-none">{t("Bạn tham gia với tư cách")}</legend>
               <div className="grid gap-3 sm:grid-cols-2">
                 <Button
                   type="button"

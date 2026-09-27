@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import type { VnWardLevel } from './vn-divisions-types';
 
 export interface VnProvinceOption { code: string; name: string; nameEn: string; fullName: string; wardCount: number; }
-export interface VnWardOption { code: string; name: string; nameEn: string; }
+export interface VnWardOption { code: string; name: string; nameEn: string; fullName: string; level: VnWardLevel; }
 export type VnDivisionOption = VnProvinceOption | VnWardOption;
 
 export interface VnDivisionsState<T extends VnDivisionOption> {

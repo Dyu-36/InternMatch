@@ -5,15 +5,15 @@ const text = z.string().trim().min(1, 'Vui lòng điền đủ thông tin bắt 
 const longText = z.string().trim().max(10000);
 const skills = z.array(z.string().trim().min(1).max(80)).max(40);
 const email = z.string().trim().toLowerCase().pipe(z.email('Vui lòng nhập email hợp lệ.'));
-const password = z.string().min(8, 'Mật khẩu cần có ít nhất 8 ký tự.').max(128);
+const password = z.string().min(6, 'Mật khẩu cần có ít nhất 6 ký tự.').max(128);
 const provinceCode = z.string().regex(/^\d{2}$/, 'Vui lòng chọn tỉnh / thành phố.');
-const wardCode = z.string().regex(/^\d{5}$/, 'Vui lòng chọn xã / phường.');
+const wardCode = z.string().regex(/^\d{5}$/, 'Vui lòng chọn xã / phường / đặc khu.');
 const addressDetail = text.min(3, 'Vui lòng nhập địa chỉ cụ thể.');
 // A ward code only means something together with its province, so the pair is
 // checked against the bundled administrative dataset.
 function checkLocation(value: { provinceCode: string; wardCode: string }, ctx: z.RefinementCtx) {
   if (value.provinceCode && value.wardCode && !resolveLocation({ ...value, addressDetail: '' })) {
-    ctx.addIssue({ code: 'custom', path: ['wardCode'], message: 'Xã / phường không thuộc tỉnh / thành phố đã chọn.' });
+    ctx.addIssue({ code: 'custom', path: ['wardCode'], message: 'Xã / phường / đặc khu không thuộc tỉnh / thành phố đã chọn.' });
   }
 }
 export const credentialsSchema = z.object({

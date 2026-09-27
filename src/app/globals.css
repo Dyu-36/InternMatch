@@ -147,11 +147,14 @@ a {
   text-decoration: none;
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
+@layer base {
+  /* Let shadcn and Tailwind utilities set each control's typography. */
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
 }
 
 ::selection {
@@ -203,7 +206,7 @@ textarea {
   align-items: center;
   gap: 0.75rem;
   color: var(--foreground);
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 750;
   letter-spacing: -0.02em;
   font-family: var(--font-display);
@@ -226,7 +229,7 @@ textarea {
 .site-header__nav-link {
   border-radius: 8px;
   color: var(--muted);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 650;
   padding: 0.6rem 0.75rem;
   transition: color 160ms ease, background 160ms ease;
@@ -536,11 +539,7 @@ textarea {
   text-decoration: underline;
 }
 
-@media (max-width: 760px) {
-  .im-container {
-    width: min(100% - 1.25rem, 1180px);
-  }
-
+@media (max-width: 1023px) {
   .site-header__inner {
     min-height: 64px;
   }
@@ -576,9 +575,15 @@ textarea {
   .site-header__actions[data-open=true] {
     order: 4;
     width: 100%;
+    flex-wrap: wrap;
     padding-bottom: 0.75rem;
   }
+}
 
+@media (max-width: 760px) {
+  .im-container {
+    width: min(100% - 1.25rem, 1180px);
+  }
 
   .site-footer__inner {
     align-items: flex-start;
