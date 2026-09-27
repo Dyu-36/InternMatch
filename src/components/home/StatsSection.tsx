@@ -26,7 +26,7 @@ export default function StatsSection() {
               <stat.Icon className="h-6 w-6" aria-hidden="true" />
             </div>
             <p className="mb-1 text-4xl font-bold">{stat.value.toLocaleString()}</p>
-            <p className="text-sm text-emerald-50">{t(stat.label)}</p>
+            <p className="text-sm text-wine-200">{t(stat.label)}</p>
           </div>
         ))}
       </div>

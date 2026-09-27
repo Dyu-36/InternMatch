@@ -29,7 +29,7 @@ try {
   assert.ok((await anonymous.from('profiles').select('*')).error);
   pass('Account roles are immutable; private account data is not public');
   ok(await company.from('company_profiles').update({ company_name: 'QA InternMatch', email: 'qa@example.com' }).eq('user_id', companyId));
-  const jobPayload = { company_id: companyId, title: `${stamp} Frontend`, industry: 'Technology', job_type: 'Remote', location: 'Hà Nội', min_salary: 100, max_salary: 200, skills: ['React'], description: 'QA description', requirements: 'QA requirements', benefits: 'QA benefits', quota: 1 };
+  const jobPayload = { company_id: companyId, title: `${stamp} Frontend`, industry: 'Technology', job_type: 'Remote', location: 'Phường Ba Đình, Hà Nội', province_code: '01', ward_code: '00004', address_detail: 'Số 1 QA Street', min_salary: 100, max_salary: 200, skills: ['React'], description: 'QA description', requirements: 'QA requirements', benefits: 'QA benefits', quota: 1 };
   assert.ok((await student.from('jobs').insert({ ...jobPayload, company_id: studentId })).error);
   const job = ok(await company.from('jobs').insert(jobPayload).select('*').single());
   assert.equal(job.company_name, 'QA InternMatch');

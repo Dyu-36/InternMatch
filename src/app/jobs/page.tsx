@@ -20,7 +20,8 @@ type SearchValue = string | string[] | undefined;
 type JobsPageProps = {
   searchParams: Promise<{
     q?: SearchValue;
-    location?: SearchValue;
+    province?: SearchValue;
+    ward?: SearchValue;
     type?: SearchValue;
   }>;
 };
@@ -36,7 +37,8 @@ export default async function JobsPage({ searchParams }: JobsPageProps) {
     <JobsExplorer
       initialFilters={{
         keyword: firstValue(params.q),
-        location: firstValue(params.location),
+        province: firstValue(params.province),
+        ward: firstValue(params.ward),
         jobType: firstValue(params.type),
       }}
     />

@@ -18,11 +18,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/shadcn/select";
+import { VnLocationFilter } from "@/components/ui/VnAddressFields";
 
 interface JobsExplorerProps {
   initialFilters: {
     keyword: string;
-    location: string;
+    province: string;
+    ward: string;
     jobType: string;
     industry?: string;
   };
@@ -56,42 +58,44 @@ function JobsExplorerContent({ initialFilters }: JobsExplorerProps) {
   const router = useRouter();
   const { jobs } = useApp();
   const [keyword, setKeyword] = useState(initialFilters.keyword);
-  const [location, setLocation] = useState(initialFilters.location);
+  const [province, setProvince] = useState(initialFilters.province);
+  const [ward, setWard] = useState(initialFilters.ward);
   const [jobType, setJobType] = useState(initialFilters.jobType);
   const [sort, setSort] = useState<"newest" | "salary">("newest");
   const [industry, setIndustry] = useState(initialFilters.industry ?? "");
 
   const filteredJobs = useMemo(() => {
-    const normalizedLocation = location.trim().toLowerCase();
     const nextJobs = jobs.filter((job) => {
-      const locationMatches = !normalizedLocation || job.location.toLowerCase().includes(normalizedLocation);
+      const provinceMatches = !province || job.provinceCode === province;
+      const wardMatches = !ward || job.wardCode === ward;
       const typeMatches = !jobType || job.jobType === jobType;
       const industryMatches = !industry || industryMatchers[industry]?.(job.industry) === true;
-      return locationMatches && typeMatches && industryMatches && matchesKeyword(job, keyword);
+      return provinceMatches && wardMatches && typeMatches && industryMatches && matchesKeyword(job, keyword);
     });
 
     return [...nextJobs].sort((a, b) => {
       if (sort === "salary") return b.maxSalary - a.maxSalary;
       return b.createdAt.localeCompare(a.createdAt);
     });
-  }, [jobs, keyword, location, jobType, industry, sort]);
+  }, [jobs, keyword, province, ward, jobType, industry, sort]);
 
 
-  const activeFilterCount = [keyword.trim(), location.trim(), jobType, industry].filter(Boolean).length;
+  const activeFilterCount = [keyword.trim(), province, ward, jobType, industry].filter(Boolean).length;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const params = new URLSearchParams();
     if (keyword.trim()) params.set("q", keyword.trim());
-    if (location.trim()) params.set("location", location.trim());
+    if (province) params.set("province", province);
+    if (ward) params.set("ward", ward);
     if (jobType) params.set("type", jobType);
     if (industry) params.set("industry", industry);
     router.push(`/jobs${params.toString() ? `?${params.toString()}` : ""}`);
   }
 
   function clearFilters() {
-    setKeyword("");
-    setLocation("");
+    setProvince("");
+    setWard("");
     setJobType("");
     setIndustry("");
     router.push("/jobs");
@@ -107,18 +111,25 @@ function JobsExplorerContent({ initialFilters }: JobsExplorerProps) {
             <p className="mt-4 text-base leading-7 text-[var(--muted)]">{t("Khám phá các vị trí đang tuyển và tìm công việc phù hợp với kỹ năng, ngành học và mục tiêu nghề nghiệp của bạn.")}</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-8 grid gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-subtle)] p-3 shadow-sm lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(190px,0.9fr)_auto]">
+          <form onSubmit={handleSubmit} className="mt-8 grid gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-subtle)] p-3 shadow-sm lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(190px,0.9fr)_auto]">
             <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)] focus-within:border-[var(--accent)]">
               <Search size={18} aria-hidden="true" />
               <span className="sr-only">{t("Tìm theo vị trí hoặc kỹ năng")}</span>
               <ShadcnInput aria-label={t("Tìm theo vị trí hoặc kỹ năng")} value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder={t("Vị trí, công ty hoặc kỹ năng")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0" />
             </div>
 
-            <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)] focus-within:border-[var(--accent)]">
-              <MapPin size={18} aria-hidden="true" />
-              <span className="sr-only">{t("Lọc theo địa điểm")}</span>
-              <ShadcnInput aria-label={t("Lọc theo địa điểm")} value={location} onChange={(event) => setLocation(event.target.value)} placeholder={t("Địa điểm")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0" />
-            </div>
+            <VnLocationFilter
+              idPrefix="job-filter"
+              provinceCode={province}
+              wardCode={ward}
+              onProvinceChange={setProvince}
+              onWardChange={setWard}
+              className="min-w-0 gap-3 lg:contents"
+              cellClassName="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)] focus-within:border-[var(--accent)]"
+              triggerClassName="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none hover:bg-transparent hover:text-inherit focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0"
+              provinceIcon={<MapPin size={18} aria-hidden="true" />}
+              wardIcon={<MapPin size={18} aria-hidden="true" />}
+            />
 
             <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)] focus-within:border-[var(--accent)]">
               <Briefcase size={18} aria-hidden="true" />
@@ -132,7 +143,7 @@ function JobsExplorerContent({ initialFilters }: JobsExplorerProps) {
               </ShadcnSelect>
             </div>
 
-            <Button type="submit" className="min-h-12 bg-emerald-700 px-5 text-white hover:bg-emerald-800"><Search size={17} aria-hidden="true" />{t("Tìm kiếm")}</Button>
+            <Button type="submit" className="min-h-12 bg-wine-600 px-5 text-white hover:bg-wine-800"><Search size={17} aria-hidden="true" />{t("Tìm kiếm")}</Button>
           </form>
         </div>
       </section>
@@ -152,7 +163,7 @@ function JobsExplorerContent({ initialFilters }: JobsExplorerProps) {
 
         {filteredJobs.length > 0 ? <div className="grid min-w-0 gap-5 md:grid-cols-2 lg:grid-cols-3">{filteredJobs.map((job) => <JobCard key={job.id} job={job} />)}</div> : <div className="ui-state"><p className="ui-state__title">{t("Chưa tìm thấy vị trí phù hợp")}</p><p className="ui-state__description">{t("Thử thay đổi từ khóa, địa điểm hoặc hình thức làm việc để xem thêm cơ hội.")}</p><Button type="button" variant="outline" size="sm" onClick={clearFilters}>{t("Xem tất cả việc làm")}</Button></div>}
 
-        <div className="mt-10 rounded-2xl border border-[var(--border)] bg-white p-5 sm:flex sm:items-center sm:justify-between sm:gap-6"><div><h3 className="font-bold text-[var(--foreground)]">{t("Chưa có hồ sơ trên InternMatch?")}</h3><p className="mt-1 text-sm leading-6 text-[var(--muted)]">{t("Tạo hồ sơ miễn phí để sẵn sàng ứng tuyển khi tìm được cơ hội phù hợp.")}</p></div><Button asChild className="mt-4 bg-emerald-700 text-white hover:bg-emerald-800 sm:mt-0"><Link href="/register?role=STUDENT">{t("Tạo hồ sơ")}</Link></Button></div>
+        <div className="mt-10 rounded-2xl border border-[var(--border)] bg-white p-5 sm:flex sm:items-center sm:justify-between sm:gap-6"><div><h3 className="font-bold text-[var(--foreground)]">{t("Chưa có hồ sơ trên InternMatch?")}</h3><p className="mt-1 text-sm leading-6 text-[var(--muted)]">{t("Tạo hồ sơ miễn phí để sẵn sàng ứng tuyển khi tìm được cơ hội phù hợp.")}</p></div><Button asChild className="mt-4 bg-wine-600 text-white hover:bg-wine-800 sm:mt-0"><Link href="/register?role=STUDENT">{t("Tạo hồ sơ")}</Link></Button></div>
       </section>
     </div>
   );
@@ -162,7 +173,8 @@ export default function JobsExplorer({ initialFilters }: JobsExplorerProps) {
   const searchParams = useSearchParams();
   const urlFilters = {
     keyword: searchParams.get("q") ?? initialFilters.keyword,
-    location: searchParams.get("location") ?? initialFilters.location,
+    province: searchParams.get("province") ?? initialFilters.province,
+    ward: searchParams.get("ward") ?? initialFilters.ward,
     jobType: searchParams.get("type") ?? initialFilters.jobType,
     industry: searchParams.get("industry") ?? "",
   };

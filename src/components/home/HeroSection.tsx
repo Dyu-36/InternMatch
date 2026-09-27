@@ -14,6 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/shadcn/select';
+import { VnDivisionCombobox } from '@/components/ui/VnAddressFields';
+import { useVnProvinces } from '@/lib/use-vn-divisions';
 
 const POPULAR_ROLES = [
   'React Developer', 'UI/UX Design', 'Data Analyst',
@@ -25,14 +27,15 @@ export default function HeroSection() {
   const router = useRouter();
   const { jobs } = useApp();
   const [keyword, setKeyword] = useState('');
-  const [location, setLocation] = useState('');
+  const [province, setProvince] = useState('');
+  const provinces = useVnProvinces();
   const [jobType, setJobType] = useState('ALL');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (keyword) params.set('q', keyword);
-    if (location) params.set('location', location);
+    if (province) params.set('province', province);
     if (jobType && jobType !== 'ALL') params.set('type', jobType);
     router.push(`/jobs${params.toString() ? `?${params.toString()}` : ''}`);
   };
@@ -43,32 +46,32 @@ export default function HeroSection() {
     <section
       className="relative overflow-hidden text-white pt-16 pb-24 px-4 sm:px-6 lg:px-8"
       style={{
-        backgroundImage: "linear-gradient(135deg, rgb(2 44 34 / 0.94), rgb(6 78 59 / 0.86)), url('/assets/backgrounds/pexels-students-internship-teamwork-7429464-1.jpg')",
+        backgroundImage: "linear-gradient(135deg, rgb(62 12 30 / 0.94), rgb(157 13 47 / 0.86)), url('/assets/backgrounds/pexels-students-internship-teamwork-7429464-1.jpg')",
         backgroundPosition: 'center',
         backgroundSize: 'cover',
       }}
     >
       <div
         className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 pointer-events-none max-sm:hidden"
-        style={{ background: 'radial-gradient(circle, #10b981, transparent)', transform: 'translate(30%, -30%)' }}
+        style={{ background: 'radial-gradient(circle, #b4204a, transparent)', transform: 'translate(30%, -30%)' }}
       />
       <div
         className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-10 pointer-events-none max-sm:hidden"
-        style={{ background: 'radial-gradient(circle, #10b981, transparent)', transform: 'translate(-30%, 30%)' }}
+        style={{ background: 'radial-gradient(circle, #b4204a, transparent)', transform: 'translate(-30%, 30%)' }}
       />
 
       <div className="relative max-w-5xl mx-auto text-center space-y-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-700/50 bg-white/10 px-4 py-1.5 text-xs font-medium text-emerald-200 backdrop-blur-md sm:text-sm">
-          <TrendingUp className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-wine-400/40 bg-white/10 px-4 py-1.5 text-xs font-medium text-wine-200 backdrop-blur-md sm:text-sm">
+          <TrendingUp className="h-3.5 w-3.5 text-wine-300" aria-hidden="true" />
           <span>{jobs.length} {t('tin tuyển dụng')}</span>
         </div>
 
         <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
           {t('Kết nối thực tập —')}{' '}
-          <span className="text-emerald-400">{t('Bước đầu sự nghiệp')}</span>
+          <span className="text-wine-300">{t('Bước đầu sự nghiệp')}</span>
         </h1>
 
-        <p className="mx-auto max-w-2xl text-base leading-relaxed text-emerald-100/80 sm:text-lg">
+        <p className="mx-auto max-w-2xl text-base leading-relaxed text-wine-200/85 sm:text-lg">
           {t('Tìm cơ hội thực tập phù hợp với kỹ năng, địa điểm và mục tiêu nghề nghiệp của bạn.')}
         </p>
         <div className="bg-white rounded-2xl p-2.5 sm:p-3 shadow-2xl max-w-4xl mx-auto text-gray-800">
@@ -84,17 +87,22 @@ export default function HeroSection() {
                 className="h-auto w-full border-0 bg-transparent px-0 py-0 text-sm text-gray-800 shadow-none placeholder:text-gray-400 focus-visible:border-0 focus-visible:ring-0"
               />
             </div>
-            <div className="md:col-span-3 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
-              <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
-              <ShadcnInput
-                type="text"
-                aria-label={t("Địa điểm")}
-                placeholder={t("Hà Nội, TP.HCM, Remote")}
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="h-auto w-full border-0 bg-transparent px-0 py-0 text-sm text-gray-800 shadow-none placeholder:text-gray-400 focus-visible:border-0 focus-visible:ring-0"
-              />
-            </div>
+            <VnDivisionCombobox
+              id="hero-province"
+              label={t("Địa điểm")}
+              value={province}
+              options={provinces.options}
+              onChange={setProvince}
+              placeholder={t("Tỉnh / Thành phố")}
+              searchPlaceholder={t("Gõ tên tỉnh / thành phố...")}
+              emptyText={t("Chưa có dữ liệu tỉnh / thành phố.")}
+              loading={provinces.loading}
+              failed={provinces.failed}
+              clearLabel="Tất cả tỉnh / thành phố"
+              icon={<MapPin className="w-4 h-4 text-gray-400 shrink-0" />}
+              className="md:col-span-3 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition"
+              triggerClassName="h-auto w-full border-0 bg-transparent px-0 py-0 text-sm text-gray-700 shadow-none hover:bg-transparent focus-visible:border-0 focus-visible:ring-0"
+            />
             <div className="md:col-span-3 hero-search-field flex items-center gap-2 px-3 py-2 bg-gray-50/70 hover:bg-gray-100/70 rounded-xl border border-gray-200 transition">
               <Briefcase className="w-4 h-4 text-gray-400 shrink-0" />
               <ShadcnSelect value={jobType} onValueChange={setJobType}>
@@ -119,7 +127,7 @@ export default function HeroSection() {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-2">
-          <span className="text-sm text-emerald-300/70">{t('Gợi ý tìm kiếm')}:</span>
+          <span className="text-sm text-wine-300/70">{t('Gợi ý tìm kiếm')}:</span>
           {POPULAR_ROLES.map((role) => (
             <Button
               type="button"
@@ -127,24 +135,24 @@ export default function HeroSection() {
               size="sm"
               key={role}
               onClick={() => setKeyword(role)}
-              className="h-auto rounded-full border border-emerald-700/50 px-3 py-1 text-xs font-medium text-emerald-200 transition-colors hover:border-emerald-500 hover:bg-emerald-800/40 hover:text-emerald-100"
+              className="h-auto rounded-full border border-wine-400/40 px-3 py-1 text-xs font-medium text-wine-200 transition-colors hover:border-wine-300 hover:bg-wine-800/40 hover:text-wine-200"
             >
               {t(role)}
             </Button>
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 pt-2 text-xs sm:text-sm text-emerald-200/70 font-medium">
+        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 pt-2 text-xs sm:text-sm text-wine-200/70 font-medium">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <CheckCircle2 className="w-4 h-4 text-wine-300" />
             <span>{jobs.length} {t('tin tuyển dụng')}</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-emerald-400" aria-hidden="true" />
+            <CheckCircle2 className="w-4 h-4 text-wine-300" aria-hidden="true" />
             <span>{companyCount} {t('doanh nghiệp đang tuyển')}</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <CheckCircle2 className="w-4 h-4 text-wine-300" />
             <span>{t("Kết nối dựa trên kỹ năng")}</span>
           </div>
         </div>

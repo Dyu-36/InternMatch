@@ -97,8 +97,10 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 - `company_size`
 - `email`
 - `hotline`
-- `address`
-- `city`
+- `province_code`, `ward_code` — mã tỉnh/thành phố (2 số) và xã/phường (5 số)
+- `address_detail` — địa chỉ cụ thể do người dùng nhập
+- `address` — nhãn hiển thị, server sinh từ `ward_code` + `address_detail`
+- `city` — nhãn hiển thị, server sinh từ `province_code`
 - `website`
 - `logo_url`
 - `description`
@@ -110,7 +112,9 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 - `title`
 - `industry`
 - `job_type`
-- `location`
+- `province_code`, `ward_code` — mã tỉnh/thành phố (2 số) và xã/phường (5 số)
+- `address_detail` — địa chỉ cụ thể (tòa nhà, số nhà)
+- `location` — nhãn hiển thị, server sinh từ `ward_code` + `province_code`
 - `min_salary`
 - `max_salary`
 - `skills`
@@ -130,6 +134,18 @@ Không tách microservices ở phiên bản này. Một ứng dụng và một d
 - `cv_url`
 - `status` — `PENDING`, `REVIEWED`, `ACCEPTED`, `REJECTED`
 - `applied_at`
+
+### Đơn vị hành chính
+
+`src/data/vn-divisions.json` chứa 34 tỉnh/thành phố và 3.321 xã/phường theo mô hình
+hai cấp có hiệu lực từ 01/07/2025 (nguồn: `thanglequoc/vietnamese-provinces-database`,
+bản JSON rút gọn tổng hợp từ dữ liệu Cục Thống kê). Mọi nơi ghi địa chỉ đều theo
+chuỗi tỉnh/thành phố → xã/phường → địa chỉ cụ thể.
+
+- `src/lib/vn-divisions.ts` (server-only): tra cứu và sinh nhãn hiển thị; chỉ dùng ở server action, validation và route handler.
+- `src/app/api/divisions/route.ts`: trả 34 tỉnh, hoặc xã/phường của một tỉnh khi có `?province=<code>`, để picker tải theo nhu cầu thay vì nạp cả dataset vào bundle.
+- `src/components/ui/VnAddressFields.tsx`: combobox shadcn (`Popover` + `Command`) cho cả form nhập lẫn bộ lọc.
+- Cột `province_code` / `ward_code` là nguồn sự thật; `location`, `city`, `address` là nhãn hiển thị do server sinh lại từ mã.
 
 ## 6. Quy tắc phân quyền
 
@@ -172,7 +188,27 @@ Kết quả chỉ dùng cho khu vực “Gợi ý việc làm phù hợp” trê
 
 Không tạo thêm dashboard admin, màn hình chat, thanh toán hoặc quy trình ngoài các màn hình trên.
 
-## 9. Ranh giới giữa prototype và sản phẩm thật
+## 9. Bảng màu thương hiệu (Christmas Mulled Wine)
+
+Toàn bộ màu thương hiệu nằm trong `src/app/globals.css` dưới dạng token; không hardcode hex trong component.
+
+| Token | Mã màu | Vai trò |
+| --- | --- | --- |
+| `--wine-800` | `#3E0C1E` | Nền panel tối, chữ nhấn mạnh (`--accent-strong`) |
+| `--wine-700` | `#6E0D27` | Trạng thái hover của nút chính (`--accent-hover`) |
+| `--wine-600` | `#9D0D2F` | Màu thương hiệu chính (`--accent`, `--primary`) |
+| `--wine-500` | `#B4204A` | Nhấn mạnh, badge nổi bật |
+| `--wine-400` | `#E87D87` | Viền và highlight trên nền tối |
+| `--wine-300` | `#ECA59D` | Chữ nhấn trên nền tối |
+| `--wine-200` | `#E7C3CB` | Viền badge mềm (`--accent-border`) |
+| `--wine-50` | `#FAF3F4` | Nền nhạt cho chip, badge, hover (`--accent-soft`) |
+
+- Ramp này được expose sang Tailwind qua `@theme inline` nên dùng được `bg-wine-600`, `text-wine-300`, `border-wine-200`…
+- Màu trạng thái `--success`, `--warning`, `--danger` giữ nguyên vì mang ý nghĩa trạng thái, không thuộc bảng màu thương hiệu.
+- Trung tính (`--background`, `--surface-subtle`, `--muted`, `--border`) dùng sắc ấm để hòa với tông rượu vang.
+- Logo `public/brand/internmatch-logo.png` (và `src/app/icon.png`, `Logo.png`) đã chuyển sang tông rượu vang; nếu khách gửi file gốc mới thì thay thế trực tiếp, không cần sửa code.
+
+## 10. Ranh giới giữa prototype và sản phẩm thật
 
 - Mock data và `localStorage` chỉ có thể dùng trong prototype giao diện.
 - Sản phẩm thật dùng Supabase Auth, PostgreSQL, Storage và RLS.

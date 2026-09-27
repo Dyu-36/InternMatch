@@ -72,7 +72,7 @@ export default function RegisterForm() {
     <div className="auth-page">
       <Container>
         <section className="auth-card auth-card--register" aria-labelledby="register-title">
-          <div className="auth-card__icon auth-card__icon--green"><UserPlus size={28} aria-hidden="true" /></div>
+          <div className="auth-card__icon auth-card__icon--primary"><UserPlus size={28} aria-hidden="true" /></div>
           <div className="auth-card__header">
             <h1 id="register-title" className="auth-card__title">{t("Tạo tài khoản mới")}</h1>
             <p className="auth-card__description">{t("Tạo tài khoản để trải nghiệm các tính năng matching chuyên nghiệp")}</p>

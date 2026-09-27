@@ -50,7 +50,7 @@ export function ResetPasswordForm({ authenticated }: { authenticated: boolean })
       <div className="auth-page">
         <Container>
           <section className="auth-card" aria-labelledby="reset-password-title">
-            <div className="auth-card__icon auth-card__icon--blue"><KeyRound size={28} aria-hidden="true" /></div>
+            <div className="auth-card__icon auth-card__icon--deep"><KeyRound size={28} aria-hidden="true" /></div>
             <div className="auth-card__header">
               <h1 id="reset-password-title" className="auth-card__title">{locale === 'en' ? t('Auth.resetPasswordTitle') : 'Đặt lại mật khẩu'}</h1>
               <p className="auth-card__description">{t('Phiên đặt lại mật khẩu không hợp lệ hoặc đã hết hạn. Vui lòng yêu cầu liên kết mới.')}</p>
@@ -67,7 +67,7 @@ export function ResetPasswordForm({ authenticated }: { authenticated: boolean })
       <div className="auth-page">
         <Container>
           <section className="auth-card" aria-labelledby="reset-password-title">
-            <div className="auth-card__icon auth-card__icon--green"><ShieldCheck size={28} aria-hidden="true" /></div>
+            <div className="auth-card__icon auth-card__icon--success"><ShieldCheck size={28} aria-hidden="true" /></div>
             <div className="auth-card__header">
               <h1 id="reset-password-title" className="auth-card__title">{locale === 'en' ? t('Auth.passwordUpdated') : 'Mật khẩu đã được cập nhật'}</h1>
               <p className="auth-card__description">{locale === 'en' ? t('Auth.resetPasswordDescription') : 'Bạn có thể sử dụng mật khẩu mới để đăng nhập.'}</p>
@@ -83,7 +83,7 @@ export function ResetPasswordForm({ authenticated }: { authenticated: boolean })
     <div className="auth-page">
       <Container>
         <section className="auth-card" aria-labelledby="reset-password-title">
-          <div className="auth-card__icon auth-card__icon--blue"><KeyRound size={28} aria-hidden="true" /></div>
+          <div className="auth-card__icon auth-card__icon--deep"><KeyRound size={28} aria-hidden="true" /></div>
           <div className="auth-card__header">
             <h1 id="reset-password-title" className="auth-card__title">{locale === 'en' ? t('Auth.resetPasswordTitle') : 'Tạo mật khẩu mới'}</h1>
             <p className="auth-card__description">{locale === 'en' ? t('Auth.resetPasswordDescription') : 'Nhập mật khẩu mới để tiếp tục.'}</p>

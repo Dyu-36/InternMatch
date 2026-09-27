@@ -23,7 +23,7 @@ export function ApplyPanel({ job }: { job: Job }) {
   return <section className="ui-card p-6"><h2 className="text-lg font-extrabold">{t("Sẵn sàng ứng tuyển?")}</h2>
     {!currentUser ? <><p className="mt-2 text-sm text-[var(--muted)]">{t("Tạo hồ sơ để gửi thông tin đến nhà tuyển dụng.")}</p><Button asChild className="mt-5 w-full"><Link href="/register?role=STUDENT">{t("Tạo hồ sơ để ứng tuyển")}</Link></Button><Button asChild variant="outline" className="mt-2 w-full"><Link href={`/login?next=/jobs/${job.id}`}>{t("Đã có tài khoản? Đăng nhập")}</Link></Button></>
     : currentUser.role !== 'STUDENT' ? <p className="mt-3 text-sm">{t("Chỉ tài khoản thực tập sinh có thể ứng tuyển.")}</p>
-    : applied ? <p className="mt-3 text-green-700" role="status">{t("Đã ứng tuyển. Theo dõi kết quả tại dashboard.")}</p>
+    : applied ? <p className="mt-3 text-[var(--success)]" role="status">{t("Đã ứng tuyển. Theo dõi kết quả tại dashboard.")}</p>
     : expired ? <p className="mt-3">{t("Tin tuyển dụng đã hết hạn nhận hồ sơ.")}</p>
     : <form className="mt-4 grid gap-3" onSubmit={async event => {
       event.preventDefault(); setBusy(true); setError('');

@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import type { User, StudentProfile, CompanyProfile, Job, Application, ApplicationStatus } from '@/types';
+import type { User, StudentProfile, CompanyProfile, Job, JobDraft, Application, ApplicationStatus } from '@/types';
 import * as actions from '@/app/actions';
 import { createClient } from '@/lib/supabase/client';
 
@@ -12,7 +12,7 @@ interface AppContextType extends AppState {
   logout: () => Promise<void>;
   updateStudentProfile: (profile: Partial<StudentProfile>, files?: ProfileFiles) => Promise<void>;
   updateCompanyProfile: (profile: Partial<CompanyProfile>, files?: ProfileFiles) => Promise<void>;
-  addJob: (job: Omit<Job, 'id' | 'createdAt'>) => Promise<void>;
+  addJob: (job: JobDraft) => Promise<void>;
   updateJob: (id: string, job: Partial<Job>) => Promise<void>;
   removeJob: (id: string) => Promise<void>;
   applyForJob: (id: string, letter?: string) => Promise<boolean>;
@@ -49,7 +49,7 @@ export function AppProvider({ children, initialState }: { children: React.ReactN
   const logout = async () => { unwrap(await actions.signOut()); await refresh(); router.push('/'); };
   const updateStudentProfile = async (profile: Partial<StudentProfile>, files?: ProfileFiles) => { unwrap(await actions.saveStudent(profile, await formFiles(state.currentUser!.id, files))); await refresh(); };
   const updateCompanyProfile = async (profile: Partial<CompanyProfile>, files?: ProfileFiles) => { unwrap(await actions.saveCompany(profile, await formFiles(state.currentUser!.id, files))); await refresh(); };
-  const addJob = async (job: Omit<Job, 'id' | 'createdAt'>) => { unwrap(await actions.saveJob(job)); await refresh(); };
+  const addJob = async (job: JobDraft) => { unwrap(await actions.saveJob(job)); await refresh(); };
   const updateJob = async (id: string, job: Partial<Job>) => { unwrap(await actions.saveJob(job, id)); await refresh(); };
   const removeJob = async (id: string) => { unwrap(await actions.deleteJob(id)); await refresh(); };
   const applyForJob = async (id: string, letter?: string) => { unwrap(await actions.applyToJob(id, letter)); await refresh(); return true; };

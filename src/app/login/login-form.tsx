@@ -56,7 +56,7 @@ export default function LoginForm() {
     <div className="auth-page">
       <Container>
         <section className="auth-card" aria-labelledby="login-title">
-          <div className="auth-card__icon auth-card__icon--blue"><LogIn size={28} aria-hidden="true" /></div>
+          <div className="auth-card__icon auth-card__icon--primary"><LogIn size={28} aria-hidden="true" /></div>
           <div className="auth-card__header">
             <h1 id="login-title" className="auth-card__title">{t("Đăng nhập")}</h1>
             <p className="auth-card__description">{t("Chào mừng bạn quay trở lại với nền tảng InternMatch")}</p>
@@ -94,7 +94,7 @@ export default function LoginForm() {
               {fieldErrors.password ? <p id="login-password-error" className="text-sm text-destructive" role="alert">{t(fieldErrors.password)}</p> : null}
             </div>
             <div className="flex justify-end">
-              <Link className="text-sm font-semibold text-emerald-700 underline-offset-4 hover:underline" href="/forgot-password">
+              <Link className="text-sm font-semibold text-wine-700 underline-offset-4 hover:underline" href="/forgot-password">
                 {locale === 'en' ? t('Auth.forgotPassword') : 'Quên mật khẩu?'}
               </Link>
             </div>

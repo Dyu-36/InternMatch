@@ -81,10 +81,10 @@ export default function CompanyDashboard() {
 
         {error && <p className="ui-error" role="alert">{t(error)}</p>}
         <section className="company-stats" aria-label={t("Tổng quan tuyển dụng")}>
-          <div className="company-stat"><span className="company-stat__icon company-stat__icon--blue"><BriefcaseBusiness size={18} /></span><div><strong>{companyJobs.length}</strong><span>{t("Tin đang quản lý")}</span></div></div>
-          <div className="company-stat"><span className="company-stat__icon company-stat__icon--green"><Users size={18} /></span><div><strong>{companyApplications.length}</strong><span>{t("Hồ sơ nhận được")}</span></div></div>
-          <div className="company-stat"><span className="company-stat__icon company-stat__icon--amber"><CheckCircle2 size={18} /></span><div><strong>{totalQuota}</strong><span>{t("Tổng chỉ tiêu")}</span></div></div>
-          <div className="company-stat"><span className="company-stat__icon company-stat__icon--purple"><Clock3 size={18} /></span><div><strong>{companyApplications.filter((application) => application.status === 'PENDING').length}</strong><span>{t("Hồ sơ chờ xử lý")}</span></div></div>
+          <div className="company-stat"><span className="company-stat__icon company-stat__icon--deep"><BriefcaseBusiness size={18} /></span><div><strong>{companyJobs.length}</strong><span>{t("Tin đang quản lý")}</span></div></div>
+          <div className="company-stat"><span className="company-stat__icon company-stat__icon--dark"><Users size={18} /></span><div><strong>{companyApplications.length}</strong><span>{t("Hồ sơ nhận được")}</span></div></div>
+          <div className="company-stat"><span className="company-stat__icon company-stat__icon--base"><CheckCircle2 size={18} /></span><div><strong>{totalQuota}</strong><span>{t("Tổng chỉ tiêu")}</span></div></div>
+          <div className="company-stat"><span className="company-stat__icon company-stat__icon--bright"><Clock3 size={18} /></span><div><strong>{companyApplications.filter((application) => application.status === 'PENDING').length}</strong><span>{t("Hồ sơ chờ xử lý")}</span></div></div>
         </section>
 
         <div className="company-dashboard-grid">

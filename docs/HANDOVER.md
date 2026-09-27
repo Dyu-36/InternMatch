@@ -57,12 +57,16 @@ pnpm qa:ui
 
 ## Migration
 
-Ba migration theo thứ tự:
+Ba migration nền theo thứ tự:
 
 1. `20260924181500_initial_schema.sql`
 2. `20260924190000_secure_backend.sql`
 3. `20260925100000_application_avatar_snapshot.sql`
 
-Với project mới, apply cả ba theo thứ tự. Với project hiện tại, chỉ chạy migration mới nếu nó chưa được ghi nhận trong `supabase_migrations.schema_migrations`; không chạy lại migration đã ghi nhận. Schema có RLS, quyền update theo cột, trigger tạo profile, sao chép hồ sơ (kể cả avatar) vào đơn và đồng bộ thông tin doanh nghiệp trên tin tuyển dụng.
+Sau đó là migration địa chỉ có cấu trúc:
+
+4. `20260927120000_structured_location.sql` — thêm `province_code`, `ward_code`, `address_detail` cho `jobs` và `company_profiles`; index lọc theo tỉnh/xã.
+
+Với project mới, apply cả bốn theo thứ tự. Với project hiện tại, chỉ chạy migration mới nếu nó chưa được ghi nhận trong `supabase_migrations.schema_migrations`; không chạy lại migration đã ghi nhận. Schema có RLS, quyền update theo cột, trigger tạo profile, sao chép hồ sơ (kể cả avatar) vào đơn và đồng bộ thông tin doanh nghiệp trên tin tuyển dụng.
 
 Tài liệu kỹ thuật về cookie và refresh phiên: [Supabase SSR](https://supabase.com/docs/guides/auth/server-side/creating-a-client?queryGroups=framework&framework=nextjs).

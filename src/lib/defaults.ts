@@ -6,5 +6,5 @@ export const emptyStudent: StudentProfile = {
 };
 export const emptyCompany: CompanyProfile = {
   id: '', userId: '', companyName: '', taxCode: '', industry: '', companySize: '',
-  email: '', hotline: '', address: '', city: '', website: '', description: '',
+  email: '', hotline: '', provinceCode: '', wardCode: '', addressDetail: '', address: '', city: '', website: '', description: '',
 };

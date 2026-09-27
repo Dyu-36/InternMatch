@@ -38,6 +38,20 @@ import { allJobs } from './seed-data/jobs.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const logoCatalog = JSON.parse(readFileSync(path.join(HERE, 'seed-data', 'company-logos.json'), 'utf8'));
+const divisions = JSON.parse(readFileSync(path.join(HERE, '..', 'src', 'data', 'vn-divisions.json'), 'utf8'));
+const provinceByCode = new Map(divisions.provinces.map((province) => [province.code, province]));
+
+// Same display strings the app derives in src/lib/vn-divisions.ts.
+function resolveLocation({ provinceCode, wardCode, addressDetail }) {
+  const province = provinceByCode.get(provinceCode);
+  const ward = province?.wards.find((candidate) => candidate.code === wardCode);
+  if (!province || !ward) return null;
+  return {
+    location: `${ward.fullName}, ${province.name}`,
+    city: province.name,
+    address: addressDetail.trim() ? `${ward.fullName}, ${addressDetail.trim()}` : ward.fullName,
+  };
+}
 
 const APPLY = process.argv.includes('--apply');
 const PURGE = process.argv.includes('--purge');
@@ -101,9 +115,11 @@ function validate() {
     if (!Array.isArray(job.salary) || job.salary.length !== 2) problems.push(`${at}: salary must be [min, max]`);
     else if (job.salary[0] <= 0 || job.salary[1] < job.salary[0]) problems.push(`${at}: invalid salary range`);
     if (!Number.isInteger(job.quota) || job.quota < 1) problems.push(`${at}: quota must be a positive integer`);
-    for (const field of ['title', 'location', 'description', 'requirements']) {
+    for (const field of ['title', 'description', 'requirements', 'addressDetail']) {
       if (typeof job[field] !== 'string' || !job[field].trim()) problems.push(`${at}: ${field} is required`);
     }
+    if (!/^\d{2}$/.test(job.provinceCode ?? '') || !/^\d{5}$/.test(job.wardCode ?? '')) problems.push(`${at}: provinceCode/wardCode must be 2 and 5 digits`);
+    if (!resolveLocation(job)) problems.push(`${at}: provinceCode "${job.provinceCode}" and wardCode "${job.wardCode}" must match the administrative dataset`);
     if (!Array.isArray(job.skills) || job.skills.length === 0) problems.push(`${at}: skills are required`);
     if (job.deadline !== undefined && !Number.isInteger(job.deadline)) problems.push(`${at}: deadline must be an integer day offset`);
   }
@@ -122,13 +138,17 @@ function buildJobRows(companyIds = new Map(companies.map((company) => [company.s
   return allJobs.map((job, index) => {
     const company = companies.find((item) => item.slug === job.company);
     const postedDaysAgo = job.posted ?? index % 21;
+    const location = resolveLocation(job);
     return {
       id: jobId(job.slug),
       company_id: companyIds.get(company.slug),
       title: job.title,
       industry: JOB_INDUSTRY[company.category],
       job_type: job.jobType,
-      location: job.location,
+      location: location.location,
+      province_code: job.provinceCode,
+      ward_code: job.wardCode,
+      address_detail: job.addressDetail.trim(),
       min_salary: job.salary[0],
       max_salary: job.salary[1],
       skills: job.skills,
@@ -145,20 +165,27 @@ function buildJobRows(companyIds = new Map(companies.map((company) => [company.s
 }
 
 function companyRows(companyIds = new Map(companies.map((company) => [company.slug, companyId(company.slug)]))) {
-  return companies.map((company) => ({
-    user_id: companyIds.get(company.slug),
-    company_name: company.name,
-    tax_code: '0000000000',
-    industry: company.industry,
-    company_size: company.size,
-    email: demoEmail(company.slug),
-    hotline: '',
-    address: company.address,
-    city: company.city,
-    website: company.website,
-    logo_url: logoCatalog.logos?.[company.slug]?.url ?? null,
-    description: company.description,
-  }));
+  return companies.map((company) => {
+    const location = resolveLocation(company);
+    if (!location) throw new Error(`Seed company "${company.slug}" has an unknown province/ward code`);
+    return {
+      user_id: companyIds.get(company.slug),
+      company_name: company.name,
+      tax_code: '0000000000',
+      industry: company.industry,
+      company_size: company.size,
+      email: demoEmail(company.slug),
+      hotline: '',
+      address: location.address,
+      city: location.city,
+      province_code: company.provinceCode,
+      ward_code: company.wardCode,
+      address_detail: company.addressDetail.trim(),
+      website: company.website,
+      logo_url: logoCatalog.logos?.[company.slug]?.url ?? null,
+      description: company.description,
+    };
+  });
 }
 
 // ------------------------------------------------------------------- runtime

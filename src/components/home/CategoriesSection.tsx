@@ -5,12 +5,12 @@ import { Code2, Megaphone, DollarSign, Palette, LineChart, UserCheck } from 'luc
 import { useT } from '@/context/LocaleContext';
 
 const CATEGORIES = [
-  { slug: 'information-technology', label: 'Công nghệ thông tin', Icon: Code2, color: 'bg-blue-50 text-blue-600' },
-  { slug: 'marketing-communications', label: 'Marketing & Truyền thông', Icon: Megaphone, color: 'bg-purple-50 text-purple-600' },
-  { slug: 'finance-accounting', label: 'Tài chính - Kế toán', Icon: DollarSign, color: 'bg-amber-50 text-amber-600' },
-  { slug: 'design-creative', label: 'Thiết kế & Sáng tạo', Icon: Palette, color: 'bg-pink-50 text-pink-600' },
-  { slug: 'business-sales', label: 'Kinh doanh & Bán hàng', Icon: LineChart, color: 'bg-emerald-50 text-emerald-600' },
-  { slug: 'human-resources-administration', label: 'Nhân sự & Hành chính', Icon: UserCheck, color: 'bg-orange-50 text-orange-600' },
+  { slug: 'information-technology', label: 'Công nghệ thông tin', Icon: Code2, color: 'bg-wine-100 text-wine-800' },
+  { slug: 'marketing-communications', label: 'Marketing & Truyền thông', Icon: Megaphone, color: 'bg-wine-50 text-wine-600' },
+  { slug: 'finance-accounting', label: 'Tài chính - Kế toán', Icon: DollarSign, color: 'bg-wine-200 text-wine-700' },
+  { slug: 'design-creative', label: 'Thiết kế & Sáng tạo', Icon: Palette, color: 'bg-wine-50 text-wine-500' },
+  { slug: 'business-sales', label: 'Kinh doanh & Bán hàng', Icon: LineChart, color: 'bg-wine-100 text-wine-600' },
+  { slug: 'human-resources-administration', label: 'Nhân sự & Hành chính', Icon: UserCheck, color: 'bg-wine-200 text-wine-800' },
 ] as const;
 
 export default function CategoriesSection() {
@@ -41,12 +41,12 @@ export default function CategoriesSection() {
             <Link
               key={category.slug}
               href={`/jobs?industry=${category.slug}`}
-              className="group flex flex-col items-center rounded-xl border border-gray-200 bg-white p-5 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md"
+              className="group flex flex-col items-center rounded-xl border border-gray-200 bg-white p-5 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-wine-300 hover:shadow-md"
             >
               <span className={`mb-3 flex h-12 w-12 items-center justify-center rounded-xl ${category.color}`} aria-hidden="true">
                 <category.Icon className="h-6 w-6" />
               </span>
-              <span className="text-sm font-semibold leading-tight text-gray-800 transition-colors group-hover:text-emerald-700">
+              <span className="text-sm font-semibold leading-tight text-gray-800 transition-colors group-hover:text-wine-700">
                 {t(category.label)}
               </span>
             </Link>

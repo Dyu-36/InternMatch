@@ -7,7 +7,7 @@ export function SiteFooter() {
   const t = useT();
 
   return (
-    <footer className="bg-slate-900 px-6 py-12 text-slate-300">
+    <footer className="bg-wine-900 px-6 py-12 text-wine-200">
       <div className="mx-auto grid max-w-6xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Link href="/" className="text-xl font-extrabold text-white">InternMatch</Link>
@@ -36,7 +36,7 @@ export function SiteFooter() {
           </p>
         </div>
       </div>
-      <div className="mx-auto mt-10 max-w-6xl border-t border-slate-700 pt-6 text-xs">
+      <div className="mx-auto mt-10 max-w-6xl border-t border-wine-700 pt-6 text-xs">
         {t('© 2026 InternMatch. Kết nối đúng cơ hội thực tập.')}
       </div>
     </footer>

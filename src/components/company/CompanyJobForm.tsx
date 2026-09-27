@@ -7,18 +7,22 @@ import Link from 'next/link';
 import { ArrowLeft, BriefcaseBusiness, CalendarDays, Loader2, Megaphone, Save, ShieldCheck } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
-import type { Job, JobType } from '@/types';
+import type { Job, JobDraft, JobType } from '@/types';
 import { Button } from '@/components/shadcn/button';
 import { Checkbox } from '@/components/shadcn/checkbox';
 import { Input } from '@/components/shadcn/input';
 import { Label } from '@/components/shadcn/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/shadcn/select';
 import { Textarea } from '@/components/shadcn/textarea';
+import { VnAddressFields } from '@/components/ui/VnAddressFields';
+import type { VnLocation, VnLocationField } from '@/lib/vn-divisions-types';
 
 interface CompanyJobFormProps { jobId?: string; }
-type JobFormState = { title: string; industry: string; jobType: JobType; location: string; minSalary: string; maxSalary: string; skills: string; description: string; requirements: string; benefits: string; quota: string; deadline: string; isFeatured: boolean; };
-const emptyForm: JobFormState = { title: '', industry: 'Công nghệ thông tin', jobType: 'Thực tập Toàn thời gian', location: '', minSalary: '', maxSalary: '', skills: '', description: '', requirements: '', benefits: '', quota: '1', deadline: '', isFeatured: false };
-function toForm(job: Job): JobFormState { return { title: job.title, industry: job.industry, jobType: job.jobType, location: job.location, minSalary: String(job.minSalary || ''), maxSalary: String(job.maxSalary || ''), skills: job.skills.join(', '), description: job.description, requirements: job.requirements, benefits: job.benefits, quota: String(job.quota ?? 1), deadline: job.deadline ?? '', isFeatured: Boolean(job.isFeatured) }; }
+type JobFormState = { title: string; industry: string; jobType: JobType; minSalary: string; maxSalary: string; skills: string; description: string; requirements: string; benefits: string; quota: string; deadline: string; isFeatured: boolean; };
+const emptyForm: JobFormState = { title: '', industry: 'Công nghệ thông tin', jobType: 'Thực tập Toàn thời gian', minSalary: '', maxSalary: '', skills: '', description: '', requirements: '', benefits: '', quota: '1', deadline: '', isFeatured: false };
+const emptyLocation: VnLocation = { provinceCode: '', wardCode: '', addressDetail: '' };
+function toForm(job: Job): JobFormState { return { title: job.title, industry: job.industry, jobType: job.jobType, minSalary: String(job.minSalary || ''), maxSalary: String(job.maxSalary || ''), skills: job.skills.join(', '), description: job.description, requirements: job.requirements, benefits: job.benefits, quota: String(job.quota ?? 1), deadline: job.deadline ?? '', isFeatured: Boolean(job.isFeatured) }; }
+function toLocation(job: Job): VnLocation { return { provinceCode: job.provinceCode, wardCode: job.wardCode, addressDetail: job.addressDetail }; }
 
 export default function CompanyJobForm({ jobId }: CompanyJobFormProps) {
   const t = useT();
@@ -29,34 +33,44 @@ export default function CompanyJobForm({ jobId }: CompanyJobFormProps) {
   const [previousJob, setPreviousJob] = useState(existingJob);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [location, setLocation] = useState<VnLocation>(existingJob ? toLocation(existingJob) : emptyLocation);
+  const [locationErrors, setLocationErrors] = useState<Partial<Record<VnLocationField, string>>>({});
 
   // Synchronize a refreshed job before rendering its editable fields.
   if (existingJob !== previousJob) {
     setPreviousJob(existingJob);
     setForm(existingJob ? toForm(existingJob) : emptyForm);
+    setLocation(existingJob ? toLocation(existingJob) : emptyLocation);
+    setLocationErrors({});
   }
 
   if (!currentUser || currentUser.role !== 'COMPANY') return <div className="company-page"><div className="im-container"><section className="company-guard ui-card"><ShieldCheck size={42} aria-hidden="true" /><h1>{t("Đăng tin tuyển dụng")}</h1><p>{t("Vui lòng đăng nhập bằng tài khoản doanh nghiệp để tiếp tục.")}</p></section></div></div>;
   if (jobId && !existingJob) return <div className="company-page"><div className="im-container"><section className="company-guard ui-card"><BriefcaseBusiness size={42} aria-hidden="true" /><h1>{t("Không tìm thấy tin tuyển dụng")}</h1><p>{t("Tin này có thể đã bị xóa hoặc không thuộc doanh nghiệp của bạn.")}</p><Button asChild variant="outline"><Link href="/company/dashboard">{t("Quay lại dashboard")}</Link></Button></section></div></div>;
 
   const update = (field: keyof JobFormState, value: string | boolean) => { setForm((previous) => ({ ...previous, [field]: value })); setError(''); };
+  const updateLocation = (next: VnLocation) => { setLocation(next); setLocationErrors({}); setError(''); };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!form.title.trim() || !form.location.trim() || !form.description.trim() || !form.requirements.trim() || !form.benefits.trim()) { setError('Vui lòng hoàn thiện các trường bắt buộc trước khi xuất bản.'); return; }
+    if (!form.title.trim() || !form.description.trim() || !form.requirements.trim() || !form.benefits.trim()) { setError('Vui lòng hoàn thiện các trường bắt buộc trước khi xuất bản.'); return; }
+    const nextLocationErrors: Partial<Record<VnLocationField, string>> = {};
+    if (!location.provinceCode) nextLocationErrors.provinceCode = 'Vui lòng chọn tỉnh / thành phố.';
+    else if (!location.wardCode) nextLocationErrors.wardCode = 'Vui lòng chọn xã / phường.';
+    else if (location.addressDetail.trim().length < 3) nextLocationErrors.addressDetail = 'Vui lòng nhập địa chỉ cụ thể.';
+    if (Object.keys(nextLocationErrors).length > 0) { setLocationErrors(nextLocationErrors); return; }
     const minSalary = Number(form.minSalary) || 0;
     const maxSalary = Number(form.maxSalary) || minSalary;
     if (maxSalary < minSalary) { setError('Mức trợ cấp tối đa phải lớn hơn hoặc bằng mức tối thiểu.'); return; }
-    const payload: Omit<Job, 'id' | 'createdAt'> = { companyId: companyProfile.id, companyName: companyProfile.companyName, companyLogo: companyProfile.logoUrl, companyInitial: (companyProfile.companyName || 'I')[0].toUpperCase(), title: form.title.trim(), industry: form.industry.trim(), jobType: form.jobType, location: form.location.trim(), minSalary, maxSalary, skills: form.skills.split(',').map((skill) => skill.trim()).filter(Boolean), description: form.description.trim(), requirements: form.requirements.trim(), benefits: form.benefits.trim(), quota: Math.max(1, Number(form.quota) || 1), deadline: form.deadline || undefined, isFeatured: form.isFeatured, isHot: form.isFeatured };
+    const payload: JobDraft = { companyId: companyProfile.id, companyName: companyProfile.companyName, companyLogo: companyProfile.logoUrl, companyInitial: (companyProfile.companyName || 'I')[0].toUpperCase(), title: form.title.trim(), industry: form.industry.trim(), jobType: form.jobType, ...location, minSalary, maxSalary, skills: form.skills.split(',').map((skill) => skill.trim()).filter(Boolean), description: form.description.trim(), requirements: form.requirements.trim(), benefits: form.benefits.trim(), quota: Math.max(1, Number(form.quota) || 1), deadline: form.deadline || undefined, isFeatured: form.isFeatured, isHot: form.isFeatured };
     setBusy(true);
     try { if (jobId) await updateJob(jobId, payload); else await addJob(payload); router.push('/company/dashboard'); }
     catch (saveError) { setError(saveError instanceof Error ? saveError.message : 'Không thể lưu tin tuyển dụng.'); } finally { setBusy(false); }
   };
-  return <div className="company-page"><div className="im-container"><Link href="/company/dashboard" className="company-back-link"><ArrowLeft size={16} /> {t("Quay lại dashboard")}</Link><section className="company-page-heading"><div className="company-heading-icon company-heading-icon--purple" aria-hidden="true"><Megaphone size={22} /></div><div><p className="company-kicker">{t("Tin tuyển dụng")}</p><h1>{jobId ? t("Chỉnh sửa tin tuyển dụng") : t("Đăng tin tuyển dụng mới")}</h1><p>{t("Tạo một tin rõ ràng, đầy đủ để thu hút đúng nhóm thực tập sinh.")}</p></div></section><form className="company-form-shell" onSubmit={handleSubmit}>
+  return <div className="company-page"><div className="im-container"><Link href="/company/dashboard" className="company-back-link"><ArrowLeft size={16} /> {t("Quay lại dashboard")}</Link><section className="company-page-heading"><div className="company-heading-icon company-heading-icon--deep" aria-hidden="true"><Megaphone size={22} /></div><div><p className="company-kicker">{t("Tin tuyển dụng")}</p><h1>{jobId ? t("Chỉnh sửa tin tuyển dụng") : t("Đăng tin tuyển dụng mới")}</h1><p>{t("Tạo một tin rõ ràng, đầy đủ để thu hút đúng nhóm thực tập sinh.")}</p></div></section><form className="company-form-shell" onSubmit={handleSubmit}>
 <section className="company-form-section"><div className="company-section-heading"><div><h2>{t("Thông tin vị trí")}</h2><p>{t("Các trường có dấu * là bắt buộc.")}</p></div></div><div className="company-form-grid">
   <div className="grid gap-2"><Label htmlFor="job-title">{t("Tiêu đề tuyển dụng")}</Label><Input id="job-title" value={form.title} onChange={(event) => update('title', event.target.value)} placeholder={t("Ví dụ: Thực tập sinh Frontend Developer")} required /></div>
   <div className="grid gap-2"><Label htmlFor="job-industry">{t("Ngành nghề")}</Label><Input id="job-industry" value={form.industry} onChange={(event) => update('industry', event.target.value)} required /></div>
   <div className="grid gap-2"><Label htmlFor="job-type">{t("Hình thức làm việc")}</Label><Select value={form.jobType} onValueChange={(value) => update('jobType', value as JobType)}><SelectTrigger id="job-type" className="w-full"><SelectValue placeholder={t("Chọn hình thức")}/></SelectTrigger><SelectContent><SelectItem value="Thực tập Toàn thời gian">{t("Thực tập Toàn thời gian")}</SelectItem><SelectItem value="Thực tập Bán thời gian">{t("Thực tập Bán thời gian")}</SelectItem><SelectItem value="Full-time">Full-time</SelectItem><SelectItem value="Part-time">Part-time</SelectItem><SelectItem value="Remote">Remote</SelectItem></SelectContent></Select></div>
-  <div className="grid gap-2"><Label htmlFor="job-location">{t("Địa điểm làm việc")}</Label><Input id="job-location" value={form.location} onChange={(event) => update('location', event.target.value)} placeholder={t("Ví dụ: Cầu Giấy, Hà Nội")} required /></div>
+<div className="grid gap-1.15 md:col-span-2 md:grid-cols-3"><VnAddressFields idPrefix="job" location={location} onChange={updateLocation} errors={locationErrors} /></div>
   <div className="grid gap-2"><Label htmlFor="job-min-salary">{t("Trợ cấp tối thiểu (VNĐ / tháng)")}</Label><Input id="job-min-salary" type="number" min="0" value={form.minSalary} onChange={(event) => update('minSalary', event.target.value)} required /></div>
   <div className="grid gap-2"><Label htmlFor="job-max-salary">{t("Trợ cấp tối đa (VNĐ / tháng)")}</Label><Input id="job-max-salary" type="number" min="0" value={form.maxSalary} onChange={(event) => update('maxSalary', event.target.value)} required /></div>
   <div className="grid gap-2"><Label htmlFor="job-quota">{t("Số lượng tuyển")}</Label><Input id="job-quota" type="number" min="1" value={form.quota} onChange={(event) => update('quota', event.target.value)} required /></div>

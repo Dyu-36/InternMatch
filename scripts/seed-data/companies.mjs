@@ -51,8 +51,9 @@ export const companies = [
     wikidataId: 'Q2283',
     industry: 'Công nghệ thông tin',
     size: 'Trên 100.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Khu công nghệ Cầu Giấy, đường Dương Đình Nghệ, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00166',
+    addressDetail: 'Khu công nghệ Cầu Giấy, đường Dương Đình Nghệ',
     website: 'https://www.microsoft.com',
     description:
       'Microsoft là tập đoàn công nghệ với hệ sinh thái Microsoft 365, Azure và các nền tảng phát triển phần mềm. ' +
@@ -67,8 +68,9 @@ export const companies = [
     wikidataId: 'Q95',
     industry: 'Công nghệ thông tin',
     size: 'Trên 100.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Khu đô thị Cầu Giấy, phố Dương Đình Nghệ, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00166',
+    addressDetail: 'Khu đô thị Cầu Giấy, phố Dương Đình Nghệ',
     website: 'https://about.google',
     description:
       'Google phát triển các sản phẩm như Search, Cloud, Android và YouTube, đồng thời đầu tư mạnh vào trung tâm dữ liệu tại Việt Nam. ' +
@@ -83,8 +85,9 @@ export const companies = [
     wikidataId: 'Q37156',
     industry: 'Công nghệ thông tin',
     size: 'Trên 50.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Khu trung tâm Quận 1, đường Hàm Nghi, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '26743',
+    addressDetail: 'Khu trung tâm Quận 1, đường Hàm Nghi',
     website: 'https://www.ibm.com',
     description:
       'IBM cung cấp nền tảng đám mây, tư vấn công nghệ và tự động hoá cho doanh nghiệp tại Việt Nam. ' + DEMO_NOTICE,
@@ -98,8 +101,9 @@ export const companies = [
     wikidataId: 'Q248',
     industry: 'Công nghệ thông tin',
     size: 'Trên 50.000 nhân viên',
-    city: 'Đà Nẵng',
-    address: 'Khu công nghệ phía Nam, đường Lê Duẩn, Đà Nẵng',
+    provinceCode: '48',
+    wardCode: '20242',
+    addressDetail: 'Khu công nghệ phía Nam, đường Lê Duẩn',
     website: 'https://www.intel.com',
     description:
       'Intel thiết kế và sản xuất bộ vi xử lý cùng nền tảng chip tiên tiến, tuyển dụng mạnh kỹ sư tại Đà Nẵng. ' + DEMO_NOTICE,
@@ -113,8 +117,9 @@ export const companies = [
     wikidataId: 'Q182477',
     industry: 'Công nghệ thông tin',
     size: 'Trên 10.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Toà nhà Detech Tower, đường Tôn Thất Thuyết, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00004',
+    addressDetail: 'Toà nhà Detech Tower, đường Tôn Thất Thuyết',
     website: 'https://www.nvidia.com',
     description:
       'NVIDIA cung cấp nền tảng tính toán tăng tốc GPU và trí tuệ nhân tạo cho trung tâm dữ liệu, xe hơi và robot. ' +
@@ -129,8 +134,9 @@ export const companies = [
     wikidataId: 'Q173395',
     industry: 'Công nghệ thông tin',
     size: 'Trên 50.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Khu chế xuất Thủ Đức, đường Võ Văn Kiệt, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '26824',
+    addressDetail: 'Khu chế xuất Thủ Đức, đường Võ Văn Kiệt',
     website: 'https://www.cisco.com',
     description:
       'Cisco là nhà sản xuất thiết bị mạng và an ninh mạng, tuyển dụng sinh viên theo chương trình phát triển tài năng mạng. ' +
@@ -145,8 +151,9 @@ export const companies = [
     wikidataId: 'Q20718',
     industry: 'Điện tử - Bán lẻ',
     size: 'Trên 100.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Khu đô thị mới Thủ Thiêm, đường Lê Gia Trí, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '26929',
+    addressDetail: 'Khu đô thị mới Thủ Thiêm, đường Lê Gia Trí',
     website: 'https://www.samsung.com',
     description:
       'Samsung Electronics sản xuất điện thoại, thiết bị gia dụng và linh kiện bán dẫn, có nhà máy lớn tại Việt Nam. ' +
@@ -161,8 +168,9 @@ export const companies = [
     wikidataId: 'Q610241',
     industry: 'Công nghệ thông tin',
     size: 'Trên 10.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Khu Cầu Giấy, đường Dương Đình Nghệ, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00166',
+    addressDetail: 'Khu Cầu Giấy, đường Dương Đình Nghệ',
     website: 'https://fpt-software.com',
     description:
       'FPT là tập đoàn công nghệ Việt Nam, mạnh về phát triển phần mềm, chuyển đổi số và trung tâm dữ liệu. ' +
@@ -177,8 +185,9 @@ export const companies = [
     wikidataId: 'Q20873932',
     industry: 'Công nghệ thông tin',
     size: 'Trên 5.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Khu đô thị mới Thủ Thiêm, đường Nguyễn Cơ Thạch, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '26929',
+    addressDetail: 'Khu đô thị mới Thủ Thiêm, đường Nguyễn Cơ Thạch',
     website: 'https://www.grab.com',
     description:
       'Grab vận hành nền tảng di chuyển, giao hàng và dịch vụ tài chính với đội ngũ kỹ thuật đặt tại Việt Nam. ' +
@@ -195,8 +204,9 @@ export const companies = [
     wikidataId: 'Q491748',
     industry: 'Kiểm toán - Tư vấn tài chính',
     size: 'Trên 10.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Khu trung tâm Hoàn Kiếm, đường Lý Thường Kiệt, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00070',
+    addressDetail: 'Khu trung tâm Hoàn Kiếm, đường Lý Thường Kiệt',
     website: 'https://www2.deloitte.com',
     description:
       'Deloitte cung cấp dịch vụ kiểm toán, tư vấn thuế, tài chính và rủi ro cho doanh nghiệp tại Việt Nam. ' + DEMO_NOTICE,
@@ -210,8 +220,9 @@ export const companies = [
     wikidataId: 'Q488048',
     industry: 'Kiểm toán - Tư vấn tài chính',
     size: 'Trên 10.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Toà nhà Times City, đường Lê Thánh Tôn, Quận 1, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '26743',
+    addressDetail: 'Toà nhà Times City, đường Lê Thánh Tôn',
     website: 'https://www.pwc.com',
     description:
       'PwC kiểm toán, tư vấn thuế và giao dịch M&A, tuyển sinh viên kinh tế, toán và tài chính. ' + DEMO_NOTICE,
@@ -225,8 +236,9 @@ export const companies = [
     wikidataId: 'Q489097',
     industry: 'Kiểm toán - Tư vấn tài chính',
     size: 'Trên 10.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Toà nhà Lê Thành, đường Đào Duy Từ, Hoàn Kiếm, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00070',
+    addressDetail: 'Toà nhà Lê Thành, đường Đào Duy Từ',
     website: 'https://www.ey.com',
     description:
       'EY tư vấn kiểm toán, thuế, tài chính và quản trị rủi ro, trọng tâm tăng trưởng bền vững. ' + DEMO_NOTICE,
@@ -240,8 +252,9 @@ export const companies = [
     wikidataId: 'Q493751',
     industry: 'Kiểm toán - Tư vấn tài chính',
     size: 'Trên 10.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Khu trung tâm Quận 1, đường Lê Thánh Tôn, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '26743',
+    addressDetail: 'Khu trung tâm Quận 1, đường Lê Thánh Tôn',
     website: 'https://kpmg.com',
     description:
       'KPMG cung cấp dịch vụ kiểm toán, tư vấn thuế và tư vấn rủi ro tại Việt Nam và khu vực. ' + DEMO_NOTICE,
@@ -255,8 +268,9 @@ export const companies = [
     wikidataId: 'Q3115410',
     industry: 'Kiểm toán - Tư vấn tài chính',
     size: 'Trên 1.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Khu Cầu Giấy, đường Trần Đăng Ninh, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00166',
+    addressDetail: 'Khu Cầu Giấy, đường Trần Đăng Ninh',
     website: 'https://www.grantthornton.global',
     description:
       'Grant Thornton là mạng lưới kiểm toán và tư vấn độc lập, phục vụ doanh nghiệp vừa và nhỏ. ' + DEMO_NOTICE,
@@ -270,8 +284,9 @@ export const companies = [
     wikidataId: 'Q1131326',
     industry: 'Kiểm toán - Tư vấn tài chính',
     size: 'Trên 1.000 nhân viên',
-    city: 'Đà Nẵng',
-    address: 'Khu trung tâm Hải Châu, đường Lê Lợi, Đà Nẵng',
+    provinceCode: '48',
+    wardCode: '20242',
+    addressDetail: 'Khu trung tâm Hải Châu, đường Lê Lợi',
     website: 'https://www.forvismazars.com',
     description:
       'Forvis Mazars cung cấp dịch vụ kiểm toán, kế toán và tư vấn tài chính cho doanh nghiệp trong nhiều ngành. ' +
@@ -286,8 +301,9 @@ export const companies = [
     wikidataId: 'Q7277730',
     industry: 'Kiểm toán - Tư vấn tài chính',
     size: 'Trên 1.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Khu trung tâm Quận 1, đường Hàm Nghi, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '26743',
+    addressDetail: 'Khu trung tâm Quận 1, đường Hàm Nghi',
     website: 'https://www.rsm.global',
     description:
       'RSM là mạng lưới kế toán kiểm toán quốc tế, tuyển dụng nhân sự tại văn phòng Hà Nội và TP. Hồ Chí Minh. ' +
@@ -302,8 +318,9 @@ export const companies = [
     wikidataId: 'Q701027',
     industry: 'Kiểm toán - Tư vấn tài chính',
     size: 'Trên 1.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Khu Hoàn Kiếm, đường Nguyễn Thái Học, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00070',
+    addressDetail: 'Khu Hoàn Kiếm, đường Nguyễn Thái Học',
     website: 'https://www.bdo.global',
     description:
       'BDO cung cấp dịch vụ kiểm toán, tư vấn thuế và kinh doanh cho doanh nghiệp vừa và nhỏ. ' + DEMO_NOTICE,
@@ -319,8 +336,9 @@ export const companies = [
     wikidataId: 'Q2813',
     industry: 'Đồ uống - Thực phẩm',
     size: 'Trên 50.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Khu Cầu Giấy, đường Mạc Đĩnh Chi, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00166',
+    addressDetail: 'Khu Cầu Giấy, đường Mạc Đĩnh Chi',
     website: 'https://www.coca-colacompany.com',
     description:
       'Coca-Cola vận hành hệ thống phân phối đồ uống tại Việt Nam qua các nhà phân phối và tuyến giao hàng. ' + DEMO_NOTICE,
@@ -334,8 +352,9 @@ export const companies = [
     wikidataId: 'Q334800',
     industry: 'Thực phẩm - Đồ uống',
     size: 'Trên 100.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Khu Chế xuất Tân Thuận, đường Nguyễn Hữu Cảnh, Quận 7, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '26704',
+    addressDetail: 'Khu Chế xuất Tân Thuận, đường Nguyễn Hữu Cảnh',
     website: 'https://www.pepsico.com',
     description:
       'PepsiCo phân phối nước giải khát và thực phẩm theo mô hình tăng trưởng doanh nghiệp tại Việt Nam. ' +
@@ -350,8 +369,9 @@ export const companies = [
     wikidataId: 'Q160746',
     industry: 'Thực phẩm - Đồ uống',
     size: 'Trên 50.000 nhân viên',
-    city: 'Đà Nẵng',
-    address: 'Khu công nghiệp Hoà Khánh, đường Võ Nguyên Giáp, Đà Nẵng',
+    provinceCode: '48',
+    wardCode: '20209',
+    addressDetail: 'Khu công nghiệp Hoà Khánh, đường Võ Nguyên Giáp',
     website: 'https://www.nestle.com',
     description:
       'Nestlé sở hữu nhà máy tại Đà Nẵng và tuyển dụng nhân sự kinh doanh cho mạng lưới phân phối toàn quốc. ' +
@@ -366,8 +386,9 @@ export const companies = [
     wikidataId: 'Q157062',
     industry: 'Hàng tiêu dùng',
     size: 'Trên 50.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Khu trung tâm Quận 7, đường Lê Văn Lương, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '26704',
+    addressDetail: 'Khu trung tâm Quận 7, đường Lê Văn Lương',
     website: 'https://www.unilever.com',
     description:
       'Unilever quản lý danh mục hàng tiêu dùng và tuyển dụng nhân sự kinh doanh tại Việt Nam. ' + DEMO_NOTICE,
@@ -381,8 +402,9 @@ export const companies = [
     wikidataId: 'Q459477',
     industry: 'Logistics - Vận chuyển',
     size: 'Trên 50.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Cảng Hà Nội Nội Bài, huyện Sóc Sơn, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00376',
+    addressDetail: 'Cảng Hà Nội Nội Bài, đường Võ Nhuệ',
     website: 'https://www.fedex.com',
     description:
       'FedEx vận hành mạng lưới logistics tại Việt Nam với dịch vụ giao hàng nhanh và hàng quan trọng. ' + DEMO_NOTICE,
@@ -396,8 +418,9 @@ export const companies = [
     wikidataId: 'Q489815',
     industry: 'Logistics - Vận chuyển',
     size: 'Trên 50.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Khu Chế xuất Tân Bình, đường Hoàng Văn Thụ, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '27004',
+    addressDetail: 'Khu Chế xuất Tân Bình, đường Hoàng Văn Thụ',
     website: 'https://www.dhl.com',
     description:
       'DHL Express và DHL Global Forwarding phục vụ khách hàng xuất nhập khẩu tại Việt Nam. ' + DEMO_NOTICE,
@@ -411,8 +434,9 @@ export const companies = [
     wikidataId: 'Q54078',
     industry: 'Bán lẻ - Nội thất',
     size: 'Trên 10.000 nhân viên',
-    city: 'TP. Hồ Chí Minh',
-    address: 'Khu đô thị mới Thủ Thiêm, đường Nguyễn Văn Linh, TP. Hồ Chí Minh',
+    provinceCode: '79',
+    wardCode: '26929',
+    addressDetail: 'Khu đô thị mới Thủ Thiêm, đường Nguyễn Văn Linh',
     website: 'https://www.ikea.com',
     description:
       'IKEA vận hành cửa hàng và trung tâm cung cấp tại TP. Hồ Chí Minh, tuyển dụng nhân sự bán hàng và vận hành. ' +
@@ -427,8 +451,9 @@ export const companies = [
     wikidataId: 'Q1109534',
     industry: 'Viễn thông',
     size: 'Trên 50.000 nhân viên',
-    city: 'Hà Nội',
-    address: 'Khu Cầu Giấy, đường Nguyễn Đình Chiểu, Hà Nội',
+    provinceCode: '01',
+    wardCode: '00166',
+    addressDetail: 'Khu Cầu Giấy, đường Nguyễn Đình Chiểu',
     website: 'https://www.viettel.com.vn',
     description:
       'Viettel cung cấp dịch vụ viễn thông, phát triển ứng dụng số và bán hàng qua mạng lưới đại lý toàn quốc. ' +

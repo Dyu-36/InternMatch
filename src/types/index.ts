@@ -33,8 +33,11 @@ export interface CompanyProfile {
   companySize: string; // e.g. "50-200 nhân viên"
   email: string;
   hotline: string;
-  address: string;
-  city: string; // e.g. "Hà Nội"
+  provinceCode: string;
+  wardCode: string;
+  addressDetail: string;
+  address: string; // derived display: ward name plus street detail
+  city: string; // derived display: province name
   website: string;
   logoUrl?: string;
   description: string;
@@ -51,7 +54,10 @@ export interface Job {
   title: string;
   industry: string;
   jobType: JobType;
-  location: string;
+  provinceCode: string;
+  wardCode: string;
+  location: string; // derived display: ward name plus province name
+  addressDetail: string;
   minSalary: number;
   maxSalary: number;
   salaryText?: string;
@@ -65,6 +71,10 @@ export interface Job {
   createdAt: string;
   deadline?: string;
 }
+
+// Write payload for a posting: the display `location` is derived server-side
+// from the province/ward codes, so the client never sends it.
+export type JobDraft = Omit<Job, 'id' | 'createdAt' | 'location'>;
 
 export type ApplicationStatus = 'PENDING' | 'REVIEWED' | 'ACCEPTED' | 'REJECTED';
 

@@ -9,19 +9,19 @@ export default function SolutionsSection() {
   const solutions = [
     {
       icon: Zap,
-      iconBg: 'bg-blue-50 text-blue-600',
+      iconBg: 'bg-wine-100 text-wine-700',
       title: 'Thuật toán Matching Kỹ năng',
       description: 'Gợi ý vị trí tuyển dụng dựa trên các kỹ năng trong hồ sơ sinh viên.',
     },
     {
       icon: ShieldCheck,
-      iconBg: 'bg-emerald-50 text-emerald-600',
+      iconBg: 'bg-wine-50 text-wine-600',
       title: 'Thông tin doanh nghiệp rõ ràng',
       description: 'Xem hồ sơ doanh nghiệp, yêu cầu công việc và quyền lợi trước khi ứng tuyển.',
     },
     {
       icon: LayoutDashboard,
-      iconBg: 'bg-amber-50 text-amber-600',
+      iconBg: 'bg-wine-200 text-wine-800',
       title: 'Quản lý hồ sơ & Tuyển dụng 1 chạm',
       description: 'Hệ thống Dashboard trực quan giúp sinh viên theo dõi trạng thái đơn và giúp nhà tuyển dụng xét duyệt ứng viên tức thì.',
     },
@@ -30,7 +30,7 @@ export default function SolutionsSection() {
   return (
     <section className="py-20 bg-white px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto text-center">
-        <span className="inline-block px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3">
+        <span className="inline-block px-3.5 py-1 rounded-full bg-wine-50 text-wine-700 text-xs font-bold tracking-wider uppercase mb-3">
           {t("Giá trị khác biệt")}
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">

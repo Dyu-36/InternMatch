@@ -30,10 +30,15 @@ Mục tiêu là tối ưu hóa quá trình tìm kiếm cơ hội thực tập, g
 | 08 | `08_dashboard-thuc-tap-sinh.jpg` | Dashboard Thực tập sinh | `/student/dashboard` | Thông tin tóm tắt hồ sơ, Lịch sử đơn ứng tuyển, Gợi ý việc làm phù hợp (Matching kỹ năng) |
 | 09 | `09_dashboard-doanh-nghiep.jpg` | Dashboard Doanh nghiệp | `/company/dashboard` | Thống kê (Tổng tin đăng, Hồ sơ nhận được, Chỉ tiêu), Danh sách tin tuyển dụng, Danh sách ứng viên |
 | 10 | `10_form-dang-tin-tuyen-dung.jpg` | Đăng tin tuyển dụng (Phần 2) | `/company/jobs/create` | Yêu cầu ứng viên, Quyền lợi trợ cấp & Đào tạo, Tùy chọn Đánh dấu tin nổi bật, Nút Xuất bản tin |
-| 11 | `11_ho-so-doanh-nghiep.jpg` | Hồ sơ Doanh nghiệp | `/company/profile` | Tên DN, Mã số thuế, Lĩnh vực, Quy mô, Email, Hotline, Địa chỉ, Tỉnh/Thành phố, Website, Logo, Giới thiệu |
-| 12 | `12_form-dang-ky-tuyen-dung-thuc-tap.jpg` | Đăng tin tuyển dụng (Phần 1) | `/company/jobs/create` | Tiêu đề tuyển dụng, Ngành nghề, Hình thức làm việc, Địa điểm, Mức trợ cấp (min-max), Kỹ năng yêu cầu |
+| 11 | `11_ho-so-doanh-nghiep.jpg` | Hồ sơ Doanh nghiệp | `/company/profile` | Tên DN, Mã số thuế, Lĩnh vực, Quy mô, Email, Hotline, Địa chỉ (Tỉnh/Thành phố → Xã/Phường → Địa chỉ cụ thể), Website, Logo, Giới thiệu |
+| 12 | `12_form-dang-ky-tuyen-dung-thuc-tap.jpg` | Đăng tin tuyển dụng (Phần 1) | `/company/jobs/create` | Tiêu đề tuyển dụng, Ngành nghề, Hình thức làm việc, Địa điểm (Tỉnh/Thành phố → Xã/Phường → Địa chỉ cụ thể), Mức trợ cấp (min-max), Kỹ năng yêu cầu |
 
 Behavior Auth đã triển khai bổ sung các public route `/forgot-password`, `/reset-password` và callback `/auth/callback` cho recovery PKCE. Đây là mô tả hành vi vận hành sau cutover; không thay đổi mockup hoặc source-of-truth giao diện.
+
+Địa chỉ ở mockup 11 và 12 được triển khai theo chuỗi lọc ba bước tỉnh/thành phố → xã/phường →
+địa chỉ cụ thể, và bộ lọc địa điểm tại `/jobs` cùng ô tìm kiếm địa điểm trên trang chủ dùng
+cùng bộ dữ liệu đó. Đây là chi tiết hoá chức năng "địa chỉ"/"lọc theo địa điểm" đã có trong
+Contract, không phải thay đổi source-of-truth giao diện.
 
 ---
 

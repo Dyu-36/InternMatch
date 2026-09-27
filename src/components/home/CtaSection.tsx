@@ -25,7 +25,7 @@ export default function CtaSection() {
               <GraduationCap className="h-5 w-5" aria-hidden="true" />
             </div>
             <h3 className="mb-2 text-xl font-bold">{t('Dành cho Sinh viên')}</h3>
-            <p className="mb-6 text-sm leading-relaxed text-emerald-50">
+            <p className="mb-6 text-sm leading-relaxed text-wine-200">
               {t('Tạo hồ sơ để gửi thông tin đến nhà tuyển dụng và theo dõi quá trình ứng tuy tuyển.')}
             </p>
           </div>
@@ -39,7 +39,7 @@ export default function CtaSection() {
 
         <div className="flex min-h-[240px] flex-col justify-between rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
           <div>
-            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50">
+            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-wine-50">
               <Building2 className="h-5 w-5 text-[var(--accent-strong)]" aria-hidden="true" />
             </div>
             <h3 className="mb-2 text-xl font-bold text-gray-900">{t('Dành cho Doanh nghiệp')}</h3>

@@ -7,6 +7,7 @@ import { credentialsSchema, registrationSchema, studentSchema, companySchema, jo
 import { jobPayload } from '@/lib/mappers';
 import { getSiteUrl, loginEmail, registrationUsername } from '@/lib/auth';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { resolveLocation } from '@/lib/vn-divisions';
 
 async function result<T>(operation: () => Promise<T>) {
   try { return { data: await operation(), error: null }; }
@@ -138,10 +139,13 @@ export async function saveCompany(input: unknown, uploads: FormData) {
   return result(async () => {
     const { client, user } = await requireAccount('COMPANY');
     const value = companySchema.parse(input);
+    const location = resolveLocation(value);
+    if (!location) throw new Error('Địa chỉ không hợp lệ.');
     const files = await uploadFiles(client, user.id, uploads, ['logo']);
     const { error } = await client.from('company_profiles').update({ company_name: value.companyName,
       tax_code: value.taxCode, industry: value.industry, company_size: value.companySize, email: value.email,
-      hotline: value.hotline, address: value.address, city: value.city, website: value.website,
+      hotline: value.hotline, province_code: value.provinceCode, ward_code: value.wardCode,
+      address_detail: value.addressDetail.trim(), address: location.address, city: location.city, website: value.website,
       description: value.description, ...files }).eq('user_id', user.id).select('id').single();
     if (error) throw error;
     const profile = await client.from('profiles').update({ name: value.companyName }).eq('id', user.id);

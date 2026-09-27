@@ -1,4 +1,5 @@
 import type { Application, ApplicationStatus, CompanyProfile, Job, JobType, Role, StudentProfile, User } from '@/types';
+import { resolveLocation } from '@/lib/vn-divisions';
 
 type DbRow = Record<string, unknown>;
 
@@ -43,6 +44,8 @@ export function mapCompany(row: DbRow, fallback: CompanyProfile, userId?: string
     industry: text(row, 'industry', fallback.industry), companySize: text(row, 'company_size', fallback.companySize),
     email: text(row, 'email', fallback.email), hotline: text(row, 'hotline', fallback.hotline),
     address: text(row, 'address', fallback.address), city: text(row, 'city', fallback.city),
+    provinceCode: text(row, 'province_code', fallback.provinceCode), wardCode: text(row, 'ward_code', fallback.wardCode),
+    addressDetail: text(row, 'address_detail', fallback.addressDetail),
     website: text(row, 'website', fallback.website), logoUrl: optionalText(row, 'logo_url'),
     description: text(row, 'description', fallback.description),
   };
@@ -53,7 +56,9 @@ export function mapJob(row: DbRow): Job {
     id: text(row, 'id'), companyId: text(row, 'company_id'), companyName: text(row, 'company_name'),
     companyLogo: optionalText(row, 'company_logo'), companyInitial: optionalText(row, 'company_initial'),
     title: text(row, 'title'), industry: text(row, 'industry'), jobType: text(row, 'job_type') as JobType,
-    location: text(row, 'location'), minSalary: number(row, 'min_salary'), maxSalary: number(row, 'max_salary'),
+    location: text(row, 'location'), addressDetail: text(row, 'address_detail'),
+    provinceCode: text(row, 'province_code'), wardCode: text(row, 'ward_code'),
+    minSalary: number(row, 'min_salary'), maxSalary: number(row, 'max_salary'),
     skills: strings(row, 'skills'), description: text(row, 'description'), requirements: text(row, 'requirements'),
     benefits: text(row, 'benefits'), isHot: Boolean(row.is_hot), isFeatured: Boolean(row.is_featured),
     quota: number(row, 'quota', 1), createdAt: text(row, 'created_at'), deadline: optionalText(row, 'deadline'),
@@ -73,12 +78,15 @@ export function mapApplication(row: DbRow): Application {
 }
 
 export function jobPayload(value: {
-  title: string; industry: string; jobType: JobType; location: string; minSalary: number; maxSalary: number;
-  skills: string[]; description: string; requirements: string; benefits: string; quota: number;
-  isFeatured?: boolean; isHot?: boolean;
+  title: string; industry: string; jobType: JobType; provinceCode: string; wardCode: string; addressDetail: string;
+  minSalary: number; maxSalary: number; skills: string[]; description: string; requirements: string;
+  benefits: string; quota: number; isFeatured?: boolean; isHot?: boolean;
 }) {
+  const location = resolveLocation(value);
+  if (!location) throw new Error('Địa điểm làm việc không hợp lệ.');
   return {
-    title: value.title, industry: value.industry, job_type: value.jobType, location: value.location,
+    title: value.title, industry: value.industry, job_type: value.jobType, location: location.location,
+    province_code: value.provinceCode, ward_code: value.wardCode, address_detail: value.addressDetail.trim(),
     min_salary: value.minSalary, max_salary: value.maxSalary, skills: value.skills,
     description: value.description, requirements: value.requirements, benefits: value.benefits,
     quota: value.quota, is_featured: value.isFeatured ?? false, is_hot: value.isHot ?? false,

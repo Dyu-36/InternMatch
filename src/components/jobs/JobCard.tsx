@@ -19,18 +19,18 @@ export default function JobCard({ job, matchScore }: JobCardProps) {
   return (
     <Link
       href={`/jobs/${job.id}`}
-      className="job-card group min-w-0 w-full bg-white rounded-2xl p-6 border border-gray-100 shadow-xs hover:shadow-lg hover:border-blue-200 transition-all duration-200 flex flex-col justify-between"
+      className="job-card group min-w-0 w-full bg-white rounded-2xl p-6 border border-gray-100 shadow-xs hover:shadow-lg hover:border-wine-200 transition-all duration-200 flex flex-col justify-between"
     >
       <div className="min-w-0">
         {/* Header: Company & Hot Tag */}
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="min-w-0 flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-blue-700 font-bold text-lg flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition">
+            <div className="w-11 h-11 rounded-xl bg-wine-50 border border-wine-100 text-wine-700 font-bold text-lg flex items-center justify-center shrink-0 group-hover:bg-wine-600 group-hover:text-white transition">
               {job.companyLogo ? <Image src={job.companyLogo} alt={job.companyName} width={44} height={44} unoptimized className="rounded-xl object-contain" /> : initial}
             </div>
             <div className="min-w-0">
               <p className="truncate text-xs font-semibold text-gray-500 uppercase tracking-wider">{job.companyName}</p>
-              <h3 className="line-clamp-2 text-base font-bold leading-snug text-gray-900 group-hover:text-blue-600 transition mt-0.5">
+              <h3 className="line-clamp-2 text-base font-bold leading-snug text-gray-900 group-hover:text-wine-600 transition mt-0.5">
                 {job.title}
               </h3>
             </div>
@@ -38,8 +38,8 @@ export default function JobCard({ job, matchScore }: JobCardProps) {
 
           <div className="flex flex-col items-end gap-1 shrink-0">
             {job.isHot && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200/60">
-                <Flame className="w-3.5 h-3.5 text-amber-500" />
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-wine-500 text-white border border-wine-600">
+                <Flame className="w-3.5 h-3.5 text-wine-200" />
                 HOT
               </span>
             )}
@@ -47,9 +47,9 @@ export default function JobCard({ job, matchScore }: JobCardProps) {
               <span
                 className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold ${
                   matchScore >= 70
-                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                    ? 'bg-wine-100 text-wine-800 border border-wine-200'
                     : matchScore >= 40
-                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                    ? 'bg-wine-50 text-wine-600 border border-wine-100'
                     : 'bg-gray-100 text-gray-600'
                 }`}
               >
@@ -69,7 +69,7 @@ export default function JobCard({ job, matchScore }: JobCardProps) {
           {job.skills.slice(0, 3).map((skill, idx) => (
             <span
               key={idx}
-              className="px-2.5 py-1 rounded-lg bg-blue-50/60 text-blue-700 text-xs font-medium border border-blue-100"
+              className="px-2.5 py-1 rounded-lg bg-wine-50/60 text-wine-700 text-xs font-medium border border-wine-100"
             >
               {skill}
             </span>
@@ -84,7 +84,7 @@ export default function JobCard({ job, matchScore }: JobCardProps) {
 
       {/* Footer Info: Salary & Location */}
       <div className="min-w-0 pt-3 border-t border-gray-100 flex items-center justify-between gap-2 text-xs">
-        <div className="min-w-0 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-semibold border border-emerald-100">
+        <div className="min-w-0 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-wine-50 text-wine-700 font-semibold border border-wine-100">
           <Banknote className="w-3.5 h-3.5 shrink-0" />
           <span className="truncate">{formatSalary(job.minSalary, job.maxSalary, locale)}</span>
         </div>

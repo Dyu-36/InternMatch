@@ -46,7 +46,7 @@ export default function ForgotPasswordForm() {
       <div className="auth-page">
         <Container>
           <section className="auth-card" aria-labelledby="forgot-password-title">
-            <div className="auth-card__icon auth-card__icon--green"><MailCheck size={28} aria-hidden="true" /></div>
+            <div className="auth-card__icon auth-card__icon--success"><MailCheck size={28} aria-hidden="true" /></div>
             <div className="auth-card__header">
               <h1 id="forgot-password-title" className="auth-card__title">{locale === 'en' ? t('Auth.resetSent') : 'Đã gửi liên kết đặt lại mật khẩu'}</h1>
               <p className="auth-card__description">{locale === 'en' ? t('Auth.resetSentDescription') : 'Vui lòng kiểm tra hộp thư để tiếp tục đặt lại mật khẩu.'}</p>
@@ -64,7 +64,7 @@ export default function ForgotPasswordForm() {
     <div className="auth-page">
       <Container>
         <section className="auth-card" aria-labelledby="forgot-password-title">
-          <div className="auth-card__icon auth-card__icon--blue"><KeyRound size={28} aria-hidden="true" /></div>
+          <div className="auth-card__icon auth-card__icon--deep"><KeyRound size={28} aria-hidden="true" /></div>
           <div className="auth-card__header">
             <h1 id="forgot-password-title" className="auth-card__title">{locale === 'en' ? t('Auth.forgotPasswordTitle') : 'Quên mật khẩu'}</h1>
             <p className="auth-card__description">{locale === 'en' ? t('Auth.forgotPasswordDescription') : 'Nhập email để chúng tôi gửi liên kết đặt lại mật khẩu.'}</p>

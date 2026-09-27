@@ -5,14 +5,28 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Christmas Mulled Wine — bảng màu thương hiệu (đơn sắc mở rộng) */
+  --wine-50: #faf3f4;
+  --wine-100: #f2dee2;
+  --wine-200: #e7c3cb;
+  --wine-300: #eca59d;
+  --wine-400: #e87d87;
+  --wine-500: #b4204a;
+  --wine-600: #9d0d2f;
+  --wine-700: #6e0d27;
+  --wine-800: #3e0c1e;
+  --wine-900: #2a0815;
+
   --surface: #ffffff;
-  --surface-subtle: #f0fdf4;
-  --muted: #64748b;
-  --border: #dbe3ee;
-  --border-strong: #b8c5d6;
-  --accent: #059669;
-  --accent-strong: #047857;
-  --accent-soft: #ecfdf5;
+  --surface-subtle: #fbf3f5;
+  --muted: #6b5c63;
+  --border: #eadfe3;
+  --border-strong: #c7a9b2;
+  --accent: var(--wine-600);
+  --accent-strong: var(--wine-800);
+  --accent-hover: var(--wine-700);
+  --accent-soft: var(--wine-50);
+  --accent-border: var(--wine-200);
   --success: #15803d;
   --success-soft: #ecfdf3;
   --warning: #b45309;
@@ -21,26 +35,26 @@
   --danger-soft: #fef2f2;
   --font-ui: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: var(--font-jakarta), ui-sans-serif, sans-serif;
-  --background: #f7f9fc;
-  --foreground: #0f172a;
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #047857;
+  --background: #faf7f8;
+  --foreground: #1f0d15;
+  --card: #ffffff;
+  --card-foreground: #1f0d15;
+  --popover: #ffffff;
+  --popover-foreground: #1f0d15;
+  --primary: var(--wine-600);
   --primary-foreground: #ffffff;
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --secondary: var(--wine-50);
+  --secondary-foreground: var(--wine-800);
+  --muted-foreground: var(--muted);
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --input: #e7dde1;
+  --ring: var(--wine-600);
+  --chart-1: var(--wine-300);
+  --chart-2: var(--wine-400);
+  --chart-3: var(--wine-500);
+  --chart-4: var(--wine-600);
+  --chart-5: var(--wine-800);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -77,7 +91,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
+  --color-muted: var(--surface-subtle);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
@@ -86,6 +100,22 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-border: var(--accent-border);
+  --color-border-strong: var(--border-strong);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-wine-900: var(--wine-900);
+  --color-wine-800: var(--wine-800);
+  --color-wine-700: var(--wine-700);
+  --color-wine-600: var(--wine-600);
+  --color-wine-500: var(--wine-500);
+  --color-wine-400: var(--wine-400);
+  --color-wine-300: var(--wine-300);
+  --color-wine-200: var(--wine-200);
+  --color-wine-100: var(--wine-100);
+  --color-wine-50: var(--wine-50);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -125,13 +155,13 @@ textarea {
 }
 
 ::selection {
-  background: #a7f3d0;
-  color: #022c22;
+  background: var(--wine-300);
+  color: var(--wine-800);
 }
 
 @layer base {
   :focus-visible:not([data-slot="command-input"]) {
-    outline: 2px solid var(--border-strong);
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
 }
@@ -314,8 +344,8 @@ textarea {
   flex: 0 0 auto;
   place-items: center;
   border-radius: 999px;
-  background: #d1fae5;
-  color: #047857;
+  background: var(--wine-100);
+  color: var(--wine-700);
   font-size: 0.75rem;
   font-weight: 800;
 }
@@ -366,7 +396,7 @@ textarea {
 
 .auth-page {
   min-height: calc(100vh - 144px);
-  background: linear-gradient(180deg, #f0fdf4 0%, var(--background) 100%);
+  background: linear-gradient(180deg, var(--surface-subtle) 0%, var(--background) 100%);
   padding: clamp(2rem, 6vw, 5.5rem) 0;
 }
 
@@ -393,13 +423,18 @@ textarea {
   border-radius: 12px;
 }
 
-.auth-card__icon--blue {
-  background: #059669;
+.auth-card__icon--primary {
+  background: var(--accent);
   color: #fff;
 }
 
-.auth-card__icon--green {
-  background: #15803d;
+.auth-card__icon--deep {
+  background: var(--accent-strong);
+  color: #fff;
+}
+
+.auth-card__icon--success {
+  background: var(--success);
   color: #fff;
 }
 
@@ -464,7 +499,7 @@ textarea {
 .auth-role__option.is-selected {
   border-color: var(--accent);
   background: var(--accent-soft);
-  box-shadow: 0 0 0 3px rgb(5 150 105 / 0.1);
+  box-shadow: 0 0 0 3px rgb(157 13 47 / 0.12);
 }
 
 .auth-role__option span {
@@ -595,7 +630,7 @@ textarea {
 .student-page {
   min-height: calc(100vh - 144px);
   padding: clamp(2rem, 5vw, 4.5rem) 0;
-  background: linear-gradient(180deg, #f0fdf4 0%, var(--background) 34rem);
+  background: linear-gradient(180deg, var(--surface-subtle) 0%, var(--background) 34rem);
 }
 
 .student-form-shell,
@@ -635,8 +670,8 @@ textarea {
   grid-row: span 2;
   place-items: center;
   border-radius: 12px;
-  background: var(--success-soft);
-  color: var(--success);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
 }
 
 .student-page-heading h1,
@@ -861,7 +896,7 @@ textarea {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent), #10b981);
+  background: linear-gradient(90deg, var(--wine-700), var(--wine-500));
   transition: width 250ms ease;
 }
 
@@ -1035,11 +1070,11 @@ textarea {
 }
 
 /* Company workspace */
-.company-page { min-height: calc(100vh - 144px); padding: clamp(2rem, 5vw, 4.5rem) 0; background: linear-gradient(180deg, #f0fdf4 0%, var(--background) 34rem); }
+.company-page { min-height: calc(100vh - 144px); padding: clamp(2rem, 5vw, 4.5rem) 0; background: linear-gradient(180deg, var(--surface-subtle) 0%, var(--background) 34rem); }
 .company-page-heading { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.8rem; align-items: start; margin-bottom: 1.5rem; }
 .company-page-heading--dashboard { grid-template-columns: auto minmax(0, 1fr) auto; }
 .company-heading-icon { display: grid; width: 44px; height: 44px; place-items: center; border-radius: 12px; background: var(--accent-soft); color: var(--accent-strong); }
-.company-heading-icon--purple { background: #f3e8ff; color: #7e22ce; }
+.company-heading-icon--deep { background: var(--wine-100); color: var(--wine-800); }
 .company-kicker { margin: 0 0 0.3rem; color: var(--accent-strong); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 .company-page-heading h1 { margin: 0; color: var(--foreground); font-size: clamp(1.55rem, 3vw, 2.25rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.2; }
 .company-page-heading p:not(.company-kicker) { max-width: 62ch; margin: 0.45rem 0 0; color: var(--muted); line-height: 1.55; }
@@ -1068,17 +1103,17 @@ textarea {
 .company-input-with-icon { position: relative; }
 .company-input-with-icon > svg { position: absolute; top: 50%; left: 0.85rem; z-index: 1; color: var(--muted); transform: translateY(-50%); pointer-events: none; }
 .company-input-with-icon [data-slot="input"] { padding-left: 2.6rem; }
-.company-featured-option { margin: 1.25rem clamp(1.25rem, 4vw, 2.25rem) 0; border: 1px solid #6ee7b7; border-radius: 10px; background: #f0fdf4; padding: 1rem; }
+.company-featured-option { margin: 1.25rem clamp(1.25rem, 4vw, 2.25rem) 0; border: 1px solid var(--accent-border); border-radius: 10px; background: var(--accent-soft); padding: 1rem; }
 .company-back-link, .company-inline-link { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--accent-strong); font-size: 0.8125rem; font-weight: 750; }
 .company-back-link { margin-bottom: 1rem; }
 .company-inline-link:hover, .company-back-link:hover { text-decoration: underline; }
 .company-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.85rem; margin-bottom: 1.5rem; }
 .company-stat { display: flex; align-items: center; gap: 0.75rem; min-width: 0; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); padding: 1rem; }
 .company-stat__icon { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; border-radius: 10px; }
-.company-stat__icon--blue { background: #d1fae5; color: #047857; }
-.company-stat__icon--green { background: #dcfce7; color: #15803d; }
-.company-stat__icon--amber { background: #fef3c7; color: #b45309; }
-.company-stat__icon--purple { background: #f3e8ff; color: #7e22ce; }
+.company-stat__icon--deep { background: var(--wine-100); color: var(--wine-800); }
+.company-stat__icon--dark { background: var(--wine-50); color: var(--wine-700); }
+.company-stat__icon--base { background: var(--wine-200); color: var(--wine-600); }
+.company-stat__icon--bright { background: var(--wine-50); color: var(--wine-500); }
 .company-stat div { display: grid; gap: 0.2rem; min-width: 0; }
 .company-stat strong { color: var(--foreground); font-size: 1.35rem; line-height: 1; }
 .company-stat span:not(.company-stat__icon) { overflow: hidden; color: var(--muted); font-size: 0.75rem; text-overflow: ellipsis; white-space: nowrap; }
@@ -1086,7 +1121,7 @@ textarea {
 .company-panel { display: grid; gap: 1.25rem; min-width: 0; padding: clamp(1rem, 3vw, 1.5rem); }
 .company-job-list, .company-candidate-list { display: grid; gap: 0.75rem; }
 .company-job-card { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; border: 1px solid var(--border); border-radius: 11px; padding: 1rem; }
-.company-job-card:hover, .company-candidate:hover { border-color: #6ee7b7; }
+.company-job-card:hover, .company-candidate:hover { border-color: var(--accent-border); }
 .company-job-card__main { min-width: 0; }
 .company-job-card__title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 .company-job-card h3, .company-candidate h3 { margin: 0; color: var(--foreground); font-size: 0.95rem; font-weight: 780; line-height: 1.35; }
@@ -1097,7 +1132,7 @@ textarea {
 .company-job-card__actions { display: flex; gap: 0.35rem; }
 .company-count-label { color: var(--muted); font-size: 0.8rem; font-weight: 700; }
 .company-candidate { display: flex; gap: 0.75rem; border: 1px solid var(--border); border-radius: 11px; padding: 0.9rem; }
-.company-candidate__avatar { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; border-radius: 999px; background: #d1fae5; color: #047857; font-size: 0.85rem; font-weight: 800; }
+.company-candidate__avatar { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; border-radius: 999px; background: var(--wine-100); color: var(--wine-700); font-size: 0.85rem; font-weight: 800; }
 .company-candidate__body { min-width: 0; flex: 1; }
 .company-candidate__top, .company-candidate__actions { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
 .company-candidate__top p { margin: 0.25rem 0 0; overflow: hidden; color: var(--muted); font-size: 0.75rem; text-overflow: ellipsis; white-space: nowrap; }
