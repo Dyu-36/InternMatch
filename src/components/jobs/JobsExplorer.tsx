@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/shadcn/select";
 import { VnLocationFilter } from "@/components/ui/VnAddressFields";
+import { cn } from "@/lib/utils";
 
 interface JobsExplorerProps {
   initialFilters: {
@@ -114,8 +115,18 @@ function JobsExplorerContent({ initialFilters }: JobsExplorerProps) {
           <form onSubmit={handleSubmit} className="mt-8 grid gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-subtle)] p-3 shadow-sm lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(190px,0.9fr)_auto]">
             <div className="flex min-h-12 items-center gap-2 rounded-xl border border-[var(--border)] bg-white px-3 text-[var(--muted)] focus-within:border-[var(--accent)]">
               <Search size={18} aria-hidden="true" />
-              <span className="sr-only">{t("Tìm theo vị trí hoặc kỹ năng")}</span>
-              <ShadcnInput aria-label={t("Tìm theo vị trí hoặc kỹ năng")} value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder={t("Vị trí, công ty hoặc kỹ năng")} className="h-auto min-w-0 flex-1 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0" />
+              <div className="relative flex min-w-0 flex-1">
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    'pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-sm text-[var(--muted)] transition-opacity',
+                    keyword && 'opacity-0',
+                  )}
+                >
+                  {t("Vị trí, công ty hoặc kỹ năng")}
+                </span>
+                <ShadcnInput aria-label={t("Tìm theo vị trí hoặc kỹ năng")} value={keyword} onChange={(event) => setKeyword(event.target.value)} className="h-auto w-full min-w-0 border-0 bg-transparent px-0 py-0 text-sm shadow-none focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0" />
+              </div>
             </div>
 
             <VnLocationFilter

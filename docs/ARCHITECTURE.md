@@ -214,7 +214,7 @@ Toàn bộ màu thương hiệu nằm trong `src/app/globals.css` dưới dạng
 - Ramp này được expose sang Tailwind qua `@theme inline` nên dùng được `bg-wine-600`, `text-wine-300`, `border-wine-200`…
 - Màu trạng thái `--success`, `--warning`, `--danger` giữ nguyên vì mang ý nghĩa trạng thái, không thuộc bảng màu thương hiệu.
 - Trung tính (`--background`, `--surface-subtle`, `--muted`, `--border`) dùng sắc ấm để hòa với tông rượu vang.
-- Logo `public/brand/internmatch-logo.png` (và `src/app/icon.png`, `Logo.png`) đã chuyển sang tông rượu vang; nếu khách gửi file gốc mới thì thay thế trực tiếp, không cần sửa code.
+- Logo `public/brand/internmatch-logo.png` (và bản icon `src/app/icon.png`) đã chuyển sang tông rượu vang; nếu khách gửi file gốc mới thì thay thế trực tiếp, không cần sửa code.
 
 ## 10. Ranh giới giữa prototype và sản phẩm thật
 

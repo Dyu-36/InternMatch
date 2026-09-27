@@ -180,7 +180,7 @@ try {
   await expect(university).toHaveText(universityName);
   await student.goto(`${base}/jobs?q=${stamp}`);
   await expect(student.getByRole('heading', { name: `${stamp} React Intern` })).toBeVisible();
-  await student.getByPlaceholder('Vị trí, công ty hoặc kỹ năng').fill('no_such_job_qa');
+  await student.getByRole('textbox', { name: 'Tìm theo vị trí hoặc kỹ năng' }).fill('no_such_job_qa');
   await expect(student.getByText('Chưa tìm thấy vị trí phù hợp')).toBeVisible();
   await student.goto(`${base}/jobs/${jobId}`);
   await student.getByLabel('Lời nhắn cho doanh nghiệp').fill('QA application from a student.');
