@@ -1,6 +1,7 @@
 import { chromium, expect as baseExpect } from '@playwright/test';
 import { createClient } from '@supabase/supabase-js';
 import { mkdir } from 'node:fs/promises';
+import { checkProfileInputs } from './qa-profile-inputs.mjs';
 
 const base = process.env.BASE_URL || 'http://localhost:3000';
 const expect = baseExpect.configure({ timeout: 60000 });
@@ -170,6 +171,10 @@ try {
   await student.setViewportSize({ width: 1440, height: 1000 });
   await expect(university).toHaveCSS('background-color', 'rgb(255, 255, 255)');
   const universityName = await university.innerText();
+  await checkProfileInputs(student);
+  await student.locator('#skills').fill('  React , , TypeScript\n\nGiao tiếp, ');
+  await student.locator('#student-gpa').fill('3,5');
+  await student.locator('#goals').fill('Looking for a frontend internship.\nReady to learn.');
   const studentFiles = student.locator('input[type=file]');
   await studentFiles.nth(0).setInputFiles({ name: 'avatar.png', mimeType: 'image/png', buffer: tinyPng });
   await studentFiles.nth(1).setInputFiles({ name: 'qa-resume.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\nQA CV\n%%EOF') });
@@ -178,6 +183,9 @@ try {
   await student.reload();
   await expect(student.getByLabel('Họ và tên')).toHaveValue('QA Student');
   await expect(university).toHaveText(universityName);
+  await expect(student.locator('#skills')).toHaveValue('React, TypeScript, Giao tiếp');
+  await expect(student.locator('#student-gpa')).toHaveValue('3.5');
+  await expect(student.locator('#goals')).toHaveValue('Looking for a frontend internship.\nReady to learn.');
   await student.goto(`${base}/jobs?q=${stamp}`);
   await expect(student.getByRole('heading', { name: `${stamp} React Intern` })).toBeVisible();
   await student.getByRole('textbox', { name: 'Tìm theo vị trí hoặc kỹ năng' }).fill('no_such_job_qa');
