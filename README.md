@@ -6,7 +6,7 @@ InternMatch hỗ trợ sinh viên tìm kiếm cơ hội thực tập, xây dựn
 
 ## Phạm vi sản phẩm
 
-Sản phẩm được xây dựng theo phạm vi trong [Contract](./docs/Contract.md) và giao diện trong [docs/mockups](./docs/mockups).
+Sản phẩm được xây dựng theo tài liệu kiến trúc [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) và đặc tả trong [docs/SPECIFICATIONS.md](./docs/SPECIFICATIONS.md), cùng hệ thống giao diện trong [docs/mockups](./docs/mockups).
 
 ### Sinh viên / Thực tập sinh
 
@@ -158,8 +158,8 @@ pnpm qa:routes
 ## Tài liệu
 
 - [Đặc tả yêu cầu](./docs/SPECIFICATIONS.md)
-- [Hợp đồng và phạm vi sản phẩm](./docs/Contract.md)
 - [Kiến trúc và tech stack](./docs/ARCHITECTURE.md)
+- [Hướng dẫn bàn giao và vận hành](./docs/HANDOVER.md)
 - [Mockups giao diện](./docs/mockups)
 
 ## Ngoài phạm vi
@@ -171,12 +171,8 @@ Các chức năng sau không thuộc phiên bản này:
 - Admin dashboard riêng
 - AI Matching nâng cao
 - Email campaign
-- Tính năng mới ngoài Contract
+- Tính năng mới ngoài phạm vi đặc tả
 
 ## Trạng thái
 
 Đã tích hợp Supabase Auth, PostgreSQL, RLS, Storage và Server Actions. App sử dụng dữ liệu thật, hỗ trợ Tiếng Việt/English. Nhánh chính: `main`.
-
-- [Tiến độ](./docs/PROGRESS.md)
-- [Hướng dẫn bàn giao và vận hành](./docs/HANDOVER.md)
-- [Kết quả QA](./docs/PHASE-7-VISUAL-QA.md)

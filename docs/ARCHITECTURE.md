@@ -1,12 +1,12 @@
 # Kiến trúc InternMatch
 
-> Tài liệu thiết kế cho phạm vi đã chốt. Phạm vi sản phẩm chỉ gồm các chức năng trong `docs/Contract.md` và giao diện trong `docs/mockups/`. Không mở rộng thêm tính năng ngoài tài liệu này.
+> Tài liệu thiết kế cho phạm vi đã chốt. Phạm vi sản phẩm chỉ gồm các chức năng trong `docs/SPECIFICATIONS.md` và giao diện trong `docs/mockups/`. Không mở rộng thêm tính năng ngoài tài liệu này.
 
 ## 1. Nguyên tắc phạm vi
 
 - Mockup là nguồn chuẩn cho giao diện, bố cục, nội dung hiển thị và responsive behavior.
-- `docs/Contract.md` là nguồn chuẩn cho chức năng và điều kiện bàn giao.
-- Không thêm chat trực tiếp, thanh toán online, admin dashboard riêng, AI matching nâng cao, email campaign hoặc tính năng ngoài phạm vi hợp đồng.
+- `docs/SPECIFICATIONS.md` là nguồn chuẩn cho chức năng và điều kiện bàn giao.
+- Không thêm chat trực tiếp, thanh toán online, admin dashboard riêng, AI matching nâng cao, email campaign hoặc tính năng ngoài phạm vi đặc tả.
 - Matching trong phạm vi sản phẩm chỉ là gợi ý việc làm dựa trên kỹ năng; dùng cách tính điểm xác định, không cần mô hình AI.
 - Các route công khai giữ đúng route trong đặc tả hiện tại.
 
